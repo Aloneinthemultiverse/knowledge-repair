@@ -93,9 +93,19 @@ _state = {"store": None, "llm": None}
 
 
 def _store():
-    if _state["store"] is None:
+    """Chunk store, reloaded when another process has rewritten the index.
+
+    The MCP server and this API are separate processes sharing one storage dir,
+    so an ingest in an MCP client is invisible to this process's in-memory copy.
+    Comparing chunks.json's mtime makes the shared graph actually shared in both
+    directions: ingest anywhere, ask anywhere, no restart.
+    """
+    p = os.path.join(config.STORAGE_DIR, "chunks.json")
+    mt = os.path.getmtime(p) if os.path.exists(p) else 0.0
+    if _state["store"] is None or mt > _state.get("mtime", 0.0):
         from .chunk_store import ChunkStore
         _state["store"] = ChunkStore()
+        _state["mtime"] = mt
     return _state["store"]
 
 
