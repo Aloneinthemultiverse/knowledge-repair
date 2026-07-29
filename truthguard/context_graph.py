@@ -149,17 +149,53 @@ class ContextGraph:
                 out["children"].append(u)
         return out
 
-    def save(self):
+    def save(self, conn=None):
+        """Persist as rows, not as a file.
+
+        A whole-file write means one agent's snapshot clobbers another's: both
+        load 3,300 nodes, both add one, and whichever saves last erases the
+        other's addition with no error. Row upserts let both survive.
+
+        Pass `conn` to join a transaction already open — the admission gate does
+        this so its conflict check and its insert cannot interleave with another
+        agent's.
+        """
+        from . import graph_store
         os.makedirs(self.storage_dir, exist_ok=True)
-        with open(_PATH(self.storage_dir), "wb") as f:
-            pickle.dump({"g": self.g, "last": self._last_spine}, f)
+        self._version = graph_store.write_graph(
+            self.storage_dir, self.g, self._last_spine, conn=conn)
 
     def load(self):
+        """Load from SQLite, importing a legacy pickle once if that is all there is."""
+        from . import graph_store
+        if graph_store.exists(self.storage_dir):
+            self.g, self._last_spine, self._version = graph_store.read_graph(
+                self.storage_dir)
+            return
         p = _PATH(self.storage_dir)
         if os.path.exists(p):
             with open(p, "rb") as f:
                 blob = pickle.load(f)
             self.g, self._last_spine = blob["g"], blob["last"]
+            graph_store.migrate_from_pickle(self.storage_dir, self.g, self._last_spine)
+            self._version = graph_store.version(self.storage_dir)
+
+    def refresh(self) -> bool:
+        """Reload if another process has written since we last read.
+
+        Cheap enough to call before a read: one integer comparison, and a rebuild
+        only when the version has actually moved.
+        """
+        from . import graph_store
+        try:
+            v = graph_store.version(self.storage_dir)
+        except Exception:
+            return False
+        if v > getattr(self, "_version", -1):
+            self.g, self._last_spine, self._version = graph_store.read_graph(
+                self.storage_dir)
+            return True
+        return False
 
     def dump(self) -> str:
         lines = [f"3-PLANE CONTEXT GRAPH — {self.g.graph.get('n_turns', 0)} turns"]

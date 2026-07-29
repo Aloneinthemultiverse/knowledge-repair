@@ -62,6 +62,24 @@ def admit(cg, claim: dict, agent_id: str = None, namespace: str = None,
     agent_id = agent_id or os.getenv("TG_AGENT_ID", "default")
     namespace = namespace or os.getenv("TG_NAMESPACE", "default")
 
+    # The conflict check below is read-then-write. Two agents submitting
+    # contradicting claims at the same moment could otherwise both read "no
+    # conflict" and both write, and the contradiction would never be detected.
+    # Holding the write lock for the whole decision makes the second agent block,
+    # re-read, and correctly see the first agent's claim.
+    if save:
+        from . import graph_store
+        with graph_store.writer(cg.storage_dir) as conn:
+            cg.refresh()                       # see anything committed meanwhile
+            r = _admit_locked(cg, claim, agent_id, namespace, episode_id)
+            cg.save(conn=conn)
+            return r
+    return _admit_locked(cg, claim, agent_id, namespace, episode_id)
+
+
+def _admit_locked(cg, claim: dict, agent_id: str, namespace: str,
+                  episode_id: str) -> dict:
+    """The gate decision itself. Caller owns the transaction and the save."""
     subj = str(claim.get("subject", "")).strip().lower()
     rel = str(claim.get("relation", "")).strip().lower()
     val = _canon_value(str(claim.get("object", "")))
@@ -84,8 +102,6 @@ def admit(cg, claim: dict, agent_id: str = None, namespace: str = None,
         node["write_verdict"] = "QUARANTINED"
         cg.g.add_node(nid, **node)
         _link(cg, nid, node, episode_id)
-        if save:
-            cg.save()
         return {"verdict": "QUARANTINED", "node": nid,
                 "reason": f"confidence {conf:.2f} below floor {_floor(cg, namespace):.2f}"}
 
@@ -107,8 +123,6 @@ def admit(cg, claim: dict, agent_id: str = None, namespace: str = None,
         cg.g.add_node(nid, **node)
         _link(cg, nid, node, episode_id)
         conflict = _materialise_conflict(cg, nid, node, other_id, other, namespace)
-        if save:
-            cg.save()
         return {"verdict": "CONFLICTED", "node": nid, "conflict": conflict,
                 "conflicts_with": other_id,
                 "reason": f"'{other.get('object')}' vs '{claim.get('object')}' "
@@ -117,8 +131,6 @@ def admit(cg, claim: dict, agent_id: str = None, namespace: str = None,
     node["write_verdict"] = "ACCEPTED"
     cg.g.add_node(nid, **node)
     _link(cg, nid, node, episode_id)
-    if save:
-        cg.save()
     return {"verdict": "ACCEPTED", "node": nid}
 
 
