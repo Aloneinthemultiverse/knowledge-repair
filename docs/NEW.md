@@ -390,3 +390,142 @@ evaluation set for Stage 1 gets built.
 
 Capture more than seems necessary — args, durations, exit codes, retry counts. Storage is
 cheap; data not captured is gone permanently.
+
+---
+
+# Part III — Graph-native neuro-symbolic learning
+
+## The design principle
+
+Everything in Part II assumed a model *trained on* the graph — a GNN or a policy network,
+living beside the graph as a separate artefact. This part proposes something different
+and better suited to this system:
+
+> **The graph is the model.** Learned parameters are node and edge attributes. There is
+> no separate weights file, no training job, no inference server. Learning is an update
+> to the graph, applied when the system corrects itself.
+
+This matters because it is *adaptable to what already exists here*. No new
+infrastructure, no serving layer, no model versioning. The graph is already persisted,
+already traversed at query time, already carries confidence. Adding learned attributes to
+it is an extension of a structure in production, not a parallel system to keep in sync.
+
+## The learnable parameters
+
+| Parameter | Lives on | Meaning |
+|---|---|---|
+| `agent_reliability` | agent node | how often this agent's conclusions survive |
+| `source_reliability` | chunk / document node | how often conclusions grounded here hold up |
+| `support_weight` | `grounds` / `references` edge | how predictive this source was of a correct conclusion |
+| `threshold_prior` | namespace / community node | the confidence band that has proven correct *in this domain* |
+
+Note the last one. The controller's bands (`>=0.75 answer`, `0.4-0.75 hedge`,
+`<0.4 refuse`) are currently three global constants chosen by hand. As node attributes on
+communities, they become **per-domain and learned** — a clinical namespace can converge on
+a stricter refusal threshold than a documentation namespace, without anyone tuning it.
+
+## Correction as the training signal
+
+The system already corrects itself. Those corrections are the labels.
+
+| Correction event | Already produced by | Credit assignment |
+|---|---|---|
+| Conclusion superseded | `run_supersede` / bi-temporal check | sources and author of the old conclusion lose weight; sources of the new one gain |
+| Contradiction resolved | conflict node adjudicated | the losing claim's author and sources lose weight |
+| Refusal, and evidence genuinely absent | gap analysis | reinforce the threshold that fired |
+| Refusal, but evidence was present | later successful answer on the same question | relax the threshold for that community |
+| Rewrite loop that then succeeded | trace `retrieve -> assess -> rewrite -> answer` | reinforce the rewrite; penalise the original phrasing |
+
+No annotator, no reward model, no human in the loop. This is the property Command Code's
+`taste-1` cannot have: its signal is a human clicking accept.
+
+## The update rule
+
+When conclusion `C` is superseded by `C'`:
+
+```
+1. sources(C)   := walk grounds edges backward from C
+2. for each s in sources(C):
+       source_reliability[s]  -= lr * support_weight[s->C]
+       support_weight[s->C]   -= lr
+3. agent_reliability[author(C)] -= lr * confidence(C)
+       # penalty scales with confidence: being confidently wrong costs more
+       # than being tentatively wrong
+4. symmetric positive update for sources(C') and author(C')
+5. for each d in dependents(C) via derived_from:
+       mark d.needs_review = true
+```
+
+Two properties worth stating explicitly:
+
+- **The penalty scales with the confidence that was asserted.** A conclusion delivered at
+  0.9 confidence and later refuted costs its author far more than one delivered at 0.45.
+  This is what disciplines calibration rather than merely accuracy.
+- **The update is local.** Only nodes on the provenance path of the corrected conclusion
+  change. Learning is `O(neighbourhood)` — the same cost profile as recall, and for the
+  same structural reason. There is no epoch, no full pass, no retraining window.
+
+## Where this is read back
+
+The learned attributes feed three existing decision points, each of which is currently a
+constant:
+
+```
+recall ranking      score = similarity x confidence x agent_reliability
+retrieval weighting rank contribution scaled by source_reliability
+controller bands    threshold_prior[community] instead of the global 0.75 / 0.4
+```
+
+Nothing new is invoked at query time. Three constants become three lookups.
+
+## The symbolic / neural split, made precise
+
+| | What it is | Can it be learned? |
+|---|---|---|
+| **Symbolic** | temporal-overlap rule, contradiction detection, what actions are legal, provenance semantics | **No — hard rules, never learned** |
+| **Neural** | reliability scores, support weights, per-domain thresholds | **Yes — continuous, updated by correction** |
+
+The gate is symbolic and stays symbolic. The learned layer only adjusts *weights within
+the space the gate permits*. A refuted conclusion can never make the system decide that
+contradiction detection should be skipped — that rule is not a parameter.
+
+This is the shielding property from Part II, expressed in the parameterisation rather
+than in an action mask: **unsafe behaviour is not merely discouraged, it is
+unrepresentable.**
+
+## Why "graphical" is the right word
+
+Not because a GNN is used, but because the parameters are attached to graph structure:
+
+- Learning is **local** — bounded by the provenance neighbourhood
+- Learning is **interpretable** — every weight is attached to a named node or edge, so
+  "why is this source down-weighted" has a literal answer with a list of the corrections
+  that caused it
+- Learning is **inspectable** — the model can be read in the 3D view; there is no opaque
+  parameter vector
+
+A conventional trained model would give none of the three.
+
+## Honest limits
+
+- **Cold start.** Every reliability begins at a uniform prior. The system is no better
+  than today until corrections accumulate. It degrades gracefully — uniform weights
+  reduce exactly to the current hand-tuned behaviour.
+- **Sparse corrections.** Supersession is rare in a small corpus. This learns slowly by
+  design, and that is the correct trade for a trust product.
+- **Feedback loops.** A down-weighted source is retrieved less, so it gets fewer chances
+  to be vindicated. Needs an exploration floor — never let a weight reach zero.
+- **This is not a foundation model.** It is a parameterised graph. Do not describe it as
+  training a model; describe it as a graph that adapts. The claim is smaller and true.
+
+## Build order
+
+| # | What | Prerequisite |
+|---|---|---|
+| 1 | Add the four attributes with uniform priors; read them at the three decision points | none — behaviour identical to today |
+| 2 | Implement the update rule on supersession events | Part I supersession working |
+| 3 | Extend to contradiction adjudication and refusal outcomes | conflict nodes |
+| 4 | Per-community `threshold_prior` | enough per-domain volume |
+
+Step 1 is a no-op at runtime and can ship immediately — it makes the system
+*parameterised* before it is *adaptive*, which is the safe order.
