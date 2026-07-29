@@ -28,11 +28,32 @@ def _embedder():
     return _EMBED
 
 
-def recall(question: str, top_k: int = 3, storage_dir: str = None) -> dict:
+
+def _visible(d: dict, namespace: str) -> bool:
+    """Is this node readable from `namespace`?
+
+    Namespaces were enforced on writes but not on reads, so an agent could not
+    write into another tenant's space yet could recall its conversations. Nodes
+    carrying no namespace are shared substrate (documents, code, communities)
+    and stay visible; nodes that declare one are scoped to it.
+    """
+    ns = d.get("namespace")
+    return ns is None or ns == namespace
+
+
+def _ns(explicit: str = None) -> str:
+    import os
+    return explicit or os.getenv("TG_NAMESPACE", "default")
+
+
+def recall(question: str, top_k: int = 3, storage_dir: str = None,
+           namespace: str = None) -> dict:
     """DG recipe: similarity over past turns + communities, then neighborhood."""
     cg = ContextGraph(storage_dir)
     g = cg.g
-    turns = [(n, d) for n, d in g.nodes(data=True) if d.get("plane") == "spine"]
+    namespace = _ns(namespace)
+    turns = [(n, d) for n, d in g.nodes(data=True)
+             if d.get("plane") == "spine" and _visible(d, namespace)]
     comms = [(n, d) for n, d in g.nodes(data=True) if d.get("plane") == "x_community"]
     if not turns:
         return {"matches": [], "communities": [], "note": "spine is empty"}
@@ -105,7 +126,8 @@ def recall(question: str, top_k: int = 3, storage_dir: str = None) -> dict:
             **recall_planes(question, q, g, em)}
 
 
-def recall_planes(question: str, qvec, g, em, top_k: int = 4) -> dict:
+def recall_planes(question: str, qvec, g, em, top_k: int = 4,
+                  namespace: str = None) -> dict:
     """Cross-plane recall: y+ entities/communities, y- code nodes, and the
     actual document passages (chunk store) — one query, all three planes."""
     out = {"entities": [], "code": [], "doc_passages": [], "code_passages": []}
@@ -135,14 +157,16 @@ def recall_planes(question: str, qvec, g, em, top_k: int = 4) -> dict:
         return hits
 
     ents = [(n, d) for n, d in g.nodes(data=True)
-            if d.get("plane") in ("entity", "doc_community", "y_community", "knowledge")]
+            if d.get("plane") in ("entity", "doc_community", "y_community", "knowledge")
+            and _visible(d, _ns(namespace))]
     for (n, d), s in _search(ents):
         out["entities"].append({"node": n, "similarity": round(s, 3),
                                 "label": d.get("label") or d.get("summary", ""),
                                 "source": d.get("source", "")})
 
     code = [(n, d) for n, d in g.nodes(data=True)
-            if d.get("plane") in ("code", "code_symbol", "code_file")]
+            if d.get("plane") in ("code", "code_symbol", "code_file")
+            and _visible(d, _ns(namespace))]
     for (n, d), s in _search(code):
         out["code"].append({"node": n, "similarity": round(s, 3),
                             "label": d.get("label") or str(n),
@@ -230,7 +254,7 @@ def _fit_budget(parts: list, budget_tokens: int) -> str:
     return "\n".join(out)
 
 
-def get_context(question: str, storage_dir: str = None,
+def get_context(question: str, storage_dir: str = None, namespace: str = None,
                 budget_tokens: int = None) -> str:
     """Context ROUTER: one call -> a ready-to-inject context block with the
     best of every plane (doc passages, code bodies, entities, compiled topic
@@ -240,7 +264,7 @@ def get_context(question: str, storage_dir: str = None,
     Bounded by CONTEXT_BUDGET_TOKENS (default 4000): evidence first, noise
     dropped. Unbounded dumps measurably hurt answer accuracy."""
     budget_tokens = budget_tokens or getattr(config, "CONTEXT_BUDGET_TOKENS", 4000)
-    r = recall(question, top_k=3, storage_dir=storage_dir)
+    r = recall(question, top_k=3, storage_dir=storage_dir, namespace=namespace)
     parts = [f"### TruthGuard context for: {question}"]
     if r.get("communities"):
         parts.append("\n## Topics already discussed (compiled truths)")
