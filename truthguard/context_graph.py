@@ -30,15 +30,32 @@ class ContextGraph:
 
     # ── record one turn (called by the controller after every response) ─────
     def record_turn(self, question: str, response: dict, chunks_used: list,
-                    session: str = "live") -> str:
+                    session: str = "live", agent_id: str = None,
+                    namespace: str = None, episode_id: str = None) -> str:
+        """Record one turn on the spine.
+
+        agent_id / namespace exist so a shared graph can say *who* concluded
+        something and *which tenant* it belongs to. Both default from the
+        environment, so a single-agent setup behaves exactly as before while a
+        fleet gets attribution without any caller changing.
+        """
+        import os
+        agent_id = agent_id or os.getenv("TG_AGENT_ID", "default")
+        namespace = namespace or os.getenv("TG_NAMESPACE", "default")
+
         nid = f"t{self.g.graph.get('n_turns', 0) + 1}"
         self.g.graph["n_turns"] = self.g.graph.get("n_turns", 0) + 1
         self.g.add_node(nid, plane="spine", question=question[:200],
                         kind=response["kind"],
                         session=session,
+                        agent_id=agent_id,
+                        namespace=namespace,
                         text=(response.get("text") or "")[:300],
                         confidence=response.get("confidence"),
                         band=response.get("band"))
+        # link the conclusion to the run that produced it (z-plane)
+        if episode_id and self.g.has_node(episode_id):
+            self.g.add_edge(episode_id, nid, relation="produced")
         if self._last_spine:
             self.g.add_edge(self._last_spine, nid, relation="follows")
         self._last_spine = nid
