@@ -174,6 +174,58 @@ Recorded deliberately, so they are not mistaken for solved:
 
 # Part II — The learned layer
 
+## What the thing is
+
+A **graphical meta neuro-symbolic model for agent fleets.** Each word is load-bearing, so
+each is defined:
+
+| Term | What it means here | Where it lives |
+|---|---|---|
+| **Neuro** | reliability weights, support weights, per-domain thresholds — continuous values learned from outcomes | node and edge attributes |
+| **Symbolic** | temporal-overlap rule, contradiction detection, legal-action constraints, provenance semantics | hard rules, never learned |
+| **Meta** | the system reasons about the *quality of conclusions* — its own and other agents' — not only about their content | the gate, plus reliability |
+| **Graphical** | parameters attach to graph structure, so learning is local, inspectable, and bounded by a neighbourhood | the graph itself |
+| **For agent fleets** | the unit of learning is the **agent**, not the user | `agent_id` on every write |
+
+The distinction that matters most is **meta**. An ordinary RAG system reasons about
+whether a claim is supported. This one additionally reasons about *how much a conclusion
+should be trusted given who produced it, how confidently they asserted it, and how their
+prior conclusions have held up*. That second question is what a fleet needs and a single
+assistant does not.
+
+## The taste-1 analogue, stated plainly
+
+Command Code's `taste-1` is a meta neuro-symbolic model with continuous RL, learning **one
+developer's preferences** from their accept / reject / edit signals. It answers: *what
+does this person consider good code?*
+
+This is the fleet analogue. It learns **a fleet's trust topology** from outcome signals
+the system generates itself. It answers: *which agent, on which kind of question, should
+be believed — and how much?*
+
+| | taste-1 | this |
+|---|---|---|
+| Unit of learning | a person | **an agent** |
+| Question answered | what does this person prefer? | **who should be believed, about what?** |
+| Signal | human accept / reject / edit | **supersession, adjudicated contradiction, refusal outcome** |
+| Requires a human | yes, structurally | **no** |
+| Where parameters live | `.commandcode/taste/` packages | **the graph** |
+
+The last two rows are the position. There is no human clicking accept between two agents,
+so a preference-signal design cannot extend to agent-to-agent trust. An outcome-signal
+design can — and outcomes are exactly what an assessment gate already produces.
+
+## How the three parts compose into one system
+
+| Part | Contributes |
+|---|---|
+| **I — verified shared memory** | the substrate: agent identity, conflict nodes, provenance chains. Without `agent_id` there is no unit to learn about. |
+| **II — the learned layer** | the formalism: what the state, action, and reward are; why the symbolic layer shields the learned one |
+| **III — graph-native learning** | the implementation: parameters as graph attributes, updated by correction, read back at three existing decision points |
+
+Part I must be built first. Parts II and III are not separable — III is how II is
+realised in this system rather than as a model beside it.
+
 ## Where the field actually is
 
 A survey of 178 neuro-symbolic papers (2020–Nov 2025, published Jan 2026) breaks
