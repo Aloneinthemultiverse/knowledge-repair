@@ -184,6 +184,17 @@ TOOLS = [
                     "the most common failure signatures.",
         inputSchema={"type": "object", "properties": {"namespace": {"type": "string"}}}),
 
+    types.Tool(name="fleet_activity",
+        description="What the fleet actually DID: tool calls in order, per agent, with "
+                    "timing and outcome. Use to see how agents are working — who called "
+                    "what, in what sequence, what is slow, what keeps failing, and where "
+                    "work passed from one agent to another.",
+        inputSchema={"type": "object", "properties": {
+            "agent_id": {"type": "string", "description": "omit for the whole fleet"},
+            "limit": {"type": "integer"},
+            "view": {"type": "string",
+                     "description": "timeline (default) | usage | handoffs"}}}),
+
     types.Tool(name="diagnose_failure",
         description="Given an error, find past agent runs that failed the same way and "
                     "what was running at the time. Pure retrieval over the episode "
@@ -281,6 +292,43 @@ def _fmt_response(r: dict) -> str:
 
 @app.call_tool()
 async def call_tool(name: str, args: dict):
+    """Every tool call is recorded on the z-plane before it is dispatched.
+
+    A fleet is only debuggable if you can see what each agent actually did, in
+    order, and how long it took — not merely what it concluded. Recording at this
+    boundary means no individual tool has to remember to log, and a tool added
+    later is captured automatically.
+
+    An agent's episode is opened lazily on its first call and stays open for the
+    life of the process, so one agent session is one episode.
+    """
+    import time as _t
+    from . import episodes as _ep
+
+    _agent = os.getenv("TG_AGENT_ID", "default")
+    if not _state.get("episode"):
+        try:
+            _state["episode"] = _ep.start_episode(
+                f"{_agent} session", agent_id=_agent)
+        except Exception:
+            _state["episode"] = None
+
+    _t0 = _t.perf_counter()
+    _ok, _err = "ok", ""
+    try:
+        return await _dispatch_tool(name, args)
+    except Exception as e:
+        _ok, _err = "error", f"{type(e).__name__}: {e}"
+        raise
+    finally:
+        if _state.get("episode"):
+            # args are recorded but truncated; never let observability raise
+            _ep.log_tool_call(_state["episode"], name, args, outcome=_ok,
+                              duration_ms=int((_t.perf_counter() - _t0) * 1000),
+                              error_text=_err)
+
+
+async def _dispatch_tool(name: str, args: dict):
     try:
         if name == "ask":
             from .controller import ask as _ask
@@ -407,6 +455,18 @@ async def call_tool(name: str, args: dict):
                 "needs_review": len(admission.review_queue(ContextGraph(), ns)),
                 "episodes": episodes.stats(),
             }
+            return [types.TextContent(type="text", text=json.dumps(out, indent=2, default=str))]
+
+        if name == "fleet_activity":
+            from . import episodes
+            view = args.get("view", "timeline")
+            if view == "usage":
+                out = {"tool_usage_by_agent": episodes.tool_usage(args.get("agent_id"))}
+            elif view == "handoffs":
+                out = {"handoffs": episodes.handoffs()}
+            else:
+                out = {"timeline": episodes.activity(args.get("agent_id"),
+                                                    int(args.get("limit", 50)))}
             return [types.TextContent(type="text", text=json.dumps(out, indent=2, default=str))]
 
         if name == "diagnose_failure":

@@ -178,6 +178,80 @@ def similar_failures(error_text: str = "", tool_sequence: list = None,
     return scored[:k]
 
 
+def activity(agent_id: str = None, limit: int = 50, since_s: float = None) -> list:
+    """Tool calls in order — what each agent actually did, not what it concluded.
+
+    This is the fleet debugger: the sequence, timing and outcome of every call,
+    so an agent that loops, stalls, or repeatedly fails on one tool is visible
+    rather than inferred from its output.
+    """
+    q = ("SELECT episode_id, agent_id, ts, tool, outcome, duration_ms, error_text, "
+         "args_json FROM tool_calls WHERE 1=1")
+    p = []
+    if agent_id:
+        q += " AND agent_id=?"
+        p.append(agent_id)
+    if since_s:
+        q += " AND ts>=?"
+        p.append(time.time() - since_s)
+    q += " ORDER BY id DESC LIMIT ?"
+    p.append(limit)
+    rows = _db().execute(q, p).fetchall()
+    out = []
+    for eid, agent, ts, tool, outcome, dur, err, argsj in reversed(rows):
+        try:
+            a = json.loads(argsj or "{}")
+        except Exception:
+            a = {}
+        out.append({"episode_id": eid, "agent_id": agent,
+                    "at": time.strftime("%H:%M:%S", time.localtime(ts)),
+                    "tool": tool, "outcome": outcome, "duration_ms": dur,
+                    "error": (err or "")[:120] or None,
+                    "args": {k: str(v)[:60] for k, v in list(a.items())[:4]}})
+    return out
+
+
+def tool_usage(agent_id: str = None) -> dict:
+    """Which tools each agent leans on, and where each one fails.
+
+    Answers "how is this fleet working" at a glance: an agent that only ever
+    calls one tool, or whose failures cluster on a single tool, shows up here
+    without reading a log line by line.
+    """
+    db = _db()
+    where, p = ("WHERE agent_id=?", [agent_id]) if agent_id else ("", [])
+    rows = db.execute(
+        f"SELECT agent_id, tool, COUNT(*) n, "
+        f"SUM(CASE WHEN outcome!='ok' THEN 1 ELSE 0 END) fails, "
+        f"CAST(AVG(duration_ms) AS INT) avg_ms "
+        f"FROM tool_calls {where} GROUP BY agent_id, tool ORDER BY n DESC", p).fetchall()
+    by_agent = {}
+    for agent, tool, n, fails, avg_ms in rows:
+        by_agent.setdefault(agent, []).append(
+            {"tool": tool, "calls": n, "failures": fails, "avg_ms": avg_ms})
+    return by_agent
+
+
+def handoffs() -> list:
+    """Where one agent's work is picked up by another, in time order.
+
+    A fleet's coordination is only visible in the seams: which agent acted
+    after which, and how quickly. Consecutive calls by different agents are the
+    cheapest available signal for that.
+    """
+    rows = _db().execute(
+        "SELECT agent_id, tool, ts FROM tool_calls ORDER BY ts").fetchall()
+    out = []
+    for i in range(1, len(rows)):
+        a_prev, t_prev, ts_prev = rows[i - 1]
+        a_cur, t_cur, ts_cur = rows[i]
+        if a_prev != a_cur:
+            out.append({"from": a_prev, "after_tool": t_prev,
+                        "to": a_cur, "then_tool": t_cur,
+                        "gap_s": round(ts_cur - ts_prev, 2)})
+    return out
+
+
 def stats() -> dict:
     db = _db()
     n_ep = db.execute("SELECT COUNT(*) FROM episodes").fetchone()[0]
