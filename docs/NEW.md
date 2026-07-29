@@ -104,6 +104,65 @@ self-corrects without human tuning.
 `namespace` on every node, scoping both reads and writes. Teams share infrastructure,
 not memory.
 
+### 6. The z-plane — a fourth axis for observation
+
+The three existing planes all answer *what is known*:
+
+```
+y+   documents      what the corpus states
+x    conversation   what was concluded
+y-   code           what the system is made of
+```
+
+None of them answer *what was done*. For a single assistant that gap is tolerable — one
+actor, one session, and the conclusion is the whole story. For a fleet it is disqualifying:
+several agents act concurrently, and a conclusion alone cannot tell you which agent
+produced it, through which actions, at what cost, or whether the run succeeded.
+
+**The z-axis is the observation plane.** It is where a fleet becomes visible.
+
+```
+         y+  knowledge
+             │
+  z ─────────┼───────── x  conversation
+  action     │
+             y-  code
+```
+
+| Lives on z | Meaning |
+|---|---|
+| `EpisodeNode` | one agent run: goal, tool sequence, outcome, duration, retries |
+| `failure_signature` | normalised error class, so failures cluster rather than scatter |
+| agent activity | which agent, which namespace, when |
+
+**Cross-plane edges from z:**
+
+| Edge | Meaning |
+|---|---|
+| `produced` → x | this run yielded that conclusion |
+| `used` → y− | this run touched that code |
+| `consulted` → y+ | this run read that document |
+| `similar_to` → z | this run resembles that past run |
+
+The `produced` edge is the one that completes provenance. Today a conclusion links to the
+*sources* it grounded on. With z it also links to the *actions* that produced it — so
+"why does the system believe this" has two answers: which evidence, and which run.
+
+**Raw traces do not live on the plane.** One agent session emits hundreds of tool calls
+against a graph of ~3,300 nodes; ingesting them raw would swamp every traversal. Raw calls
+go to a flat append-only table, and only the rolled-up episode enters the graph. This is
+the pattern already in use — 603 raw chunks in `chunks.json`, 86 rollup `knowledge` nodes
+in the graph.
+
+**Why this belongs in Part I rather than later:** Parts II and III both depend on it.
+Cross-agent contradiction needs to know which agent asserted what (z supplies the author
+and the run). Reliability learning needs outcome labels (z supplies success and failure).
+Without the observation plane there is nothing to attribute a correction *to*.
+
+It also delivers value before any learning exists: embed episodes, and when something
+breaks, retrieve the nearest failed runs. *"This resembles three past failures, all in the
+Edit-after-Bash chain, all FileNotFoundError."* Diagnosis on day one, no model involved.
+
 ---
 
 ## Data model deltas
