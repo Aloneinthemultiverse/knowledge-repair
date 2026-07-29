@@ -126,6 +126,72 @@ TOOLS = [
     types.Tool(name="graph_stats",
         description="Current 3-plane graph statistics: nodes/edges per plane, turns, communities.",
         inputSchema={"type": "object", "properties": {}}),
+
+    # ── fleet: governed writes into shared memory ────────────────────────────
+    types.Tool(name="submit_claim",
+        description="Submit a conclusion to SHARED memory through the admission gate. "
+                    "Use this instead of asserting a fact directly when other agents "
+                    "read the same graph. Returns ACCEPTED, QUARANTINED (below the "
+                    "confidence floor — stored but not served), or CONFLICTED (an "
+                    "existing claim asserts a different value over an overlapping "
+                    "validity window; BOTH are kept and a conflict is raised for a "
+                    "human). Nothing is ever silently overwritten.",
+        inputSchema={"type": "object", "properties": {
+            "subject": {"type": "string", "description": "what the claim is about"},
+            "relation": {"type": "string", "description": "the property being asserted"},
+            "object": {"type": "string", "description": "the asserted value"},
+            "confidence": {"type": "number", "description": "0-1; be honest, low confidence is quarantined not rejected"},
+            "valid_from": {"type": "string", "description": "ISO date this becomes true; omit if always"},
+            "valid_until": {"type": "string", "description": "ISO date it stops being true; omit if current"},
+            "severity": {"type": "string", "description": "low | normal | high | critical"},
+            "sources": {"type": "array", "items": {"type": "string"},
+                        "description": "chunk or node ids this was grounded on"},
+            "derived_from": {"type": "array", "items": {"type": "string"},
+                        "description": "ids of OTHER CLAIMS this was reasoned from, so a "
+                                       "later retraction can flag this one"},
+            "namespace": {"type": "string"}},
+            "required": ["subject", "relation", "object", "confidence"]}),
+
+    types.Tool(name="open_conflicts",
+        description="Unresolved disagreements between agents in shared memory, most "
+                    "severe first. Check this before acting on a fact that another "
+                    "agent may have contradicted.",
+        inputSchema={"type": "object", "properties": {
+            "namespace": {"type": "string"},
+            "min_severity": {"type": "string", "description": "low | normal | high | critical"}}}),
+
+    types.Tool(name="adjudicate",
+        description="Resolve a conflict by naming the winning claim. The loser is "
+                    "retracted (not deleted — the audit trail survives) and every "
+                    "conclusion derived from it is flagged for review. The conflict "
+                    "stops appearing in the queue.",
+        inputSchema={"type": "object", "properties": {
+            "conflict_id": {"type": "string"},
+            "winning_node": {"type": "string"},
+            "resolved_by": {"type": "string"}},
+            "required": ["conflict_id"]}),
+
+    types.Tool(name="retract_claim",
+        description="Mark a stored claim as wrong and flag everything reasoned from it. "
+                    "Use when a source turns out to be unreliable outside of a conflict.",
+        inputSchema={"type": "object", "properties": {
+            "node": {"type": "string"}, "reason": {"type": "string"}},
+            "required": ["node"]}),
+
+    types.Tool(name="fleet_status",
+        description="Health of the shared memory: agents active, claims by verdict, "
+                    "open conflicts, conclusions awaiting review, episode outcomes and "
+                    "the most common failure signatures.",
+        inputSchema={"type": "object", "properties": {"namespace": {"type": "string"}}}),
+
+    types.Tool(name="diagnose_failure",
+        description="Given an error, find past agent runs that failed the same way and "
+                    "what was running at the time. Pure retrieval over the episode "
+                    "plane — no model call.",
+        inputSchema={"type": "object", "properties": {
+            "error_text": {"type": "string"},
+            "tool_sequence": {"type": "array", "items": {"type": "string"}}},
+            "required": ["error_text"]}),
     types.Tool(name="recall",
         description="Search PAST conversation turns (DG DecisionMemory.query recipe): "
                     "embeds the question, finds similar old turns + their topic "
@@ -282,6 +348,75 @@ async def call_tool(name: str, args: dict):
             _export_live_data()
             return [types.TextContent(type="text", text=
                 f"communities rebuilt — x: {rx}, y-: {ry}. Live view updated.")]
+
+        # ── fleet: governed writes ──────────────────────────────────────────
+        if name == "submit_claim":
+            from . import admission
+            from .context_graph import ContextGraph
+            cg = ContextGraph()
+            r = admission.admit(cg, args, namespace=args.get("namespace"),
+                                episode_id=_state.get("episode"))
+            # record the reasoning chain so a later retraction can walk it
+            if r.get("node") and args.get("derived_from"):
+                admission.link_derivation(cg, r["node"], args["derived_from"])
+            if r["verdict"] == "CONFLICTED":
+                r["note"] = ("Both claims are stored and neither is authoritative. "
+                             "Do not proceed as though your value were accepted; "
+                             "surface the disagreement.")
+            return [types.TextContent(type="text", text=json.dumps(r, indent=2))]
+
+        if name == "open_conflicts":
+            from . import admission
+            from .context_graph import ContextGraph
+            return [types.TextContent(type="text", text=json.dumps(
+                admission.open_conflicts(ContextGraph(), args.get("namespace"),
+                                         args.get("min_severity", "low")),
+                indent=2, default=str))]
+
+        if name == "adjudicate":
+            from . import admission
+            from .context_graph import ContextGraph
+            return [types.TextContent(type="text", text=json.dumps(
+                admission.adjudicate(ContextGraph(), args["conflict_id"],
+                                     args.get("winning_node"),
+                                     args.get("resolved_by", "agent")),
+                indent=2, default=str))]
+
+        if name == "retract_claim":
+            from . import admission
+            from .context_graph import ContextGraph
+            return [types.TextContent(type="text", text=json.dumps(
+                admission.retract(ContextGraph(), args["node"], args.get("reason", "")),
+                indent=2, default=str))]
+
+        if name == "fleet_status":
+            from . import admission, episodes
+            from .context_graph import ContextGraph
+            from collections import Counter
+            ns = args.get("namespace") or os.getenv("TG_NAMESPACE", "default")
+            g = ContextGraph().g
+            claims = [d for _, d in g.nodes(data=True)
+                      if d.get("plane") == "claim" and d.get("namespace") == ns]
+            out = {
+                "namespace": ns,
+                "claims": len(claims),
+                "by_verdict": dict(Counter(c.get("write_verdict") for c in claims)),
+                "by_agent": dict(Counter(c.get("agent_id") for c in claims)),
+                "retracted": sum(1 for c in claims if c.get("retracted")),
+                "open_conflicts": len(admission.open_conflicts(ContextGraph(), ns)),
+                "needs_review": len(admission.review_queue(ContextGraph(), ns)),
+                "episodes": episodes.stats(),
+            }
+            return [types.TextContent(type="text", text=json.dumps(out, indent=2, default=str))]
+
+        if name == "diagnose_failure":
+            from . import episodes
+            hits = episodes.similar_failures(args["error_text"],
+                                             args.get("tool_sequence"))
+            return [types.TextContent(type="text", text=json.dumps(
+                {"matches": hits,
+                 "note": "no model involved — retrieval over the episode plane"},
+                indent=2, default=str))]
 
         if name == "graph_stats":
             from .context_graph import ContextGraph
