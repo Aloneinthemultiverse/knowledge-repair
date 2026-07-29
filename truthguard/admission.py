@@ -77,6 +77,58 @@ def admit(cg, claim: dict, agent_id: str = None, namespace: str = None,
     return _admit_locked(cg, claim, agent_id, namespace, episode_id)
 
 
+# ── policy: what each agent is allowed to assert ─────────────────────────────
+# Attribution alone is not governance. Without this, any agent may assert
+# anything about anything — a symptom checker could assert a dose, and the only
+# evidence would be an agent_id on a claim nobody read. Capability is declared
+# per namespace and enforced at the gate.
+
+def set_policy(cg, agent_id: str, relations: list, namespace: str = None,
+               quota_per_hour: int = 0, save: bool = True) -> dict:
+    """Declare what an agent may assert. relations=['*'] permits everything."""
+    namespace = namespace or os.getenv("TG_NAMESPACE", "default")
+    nid = f"policy:{namespace}:{agent_id}"
+    cg.g.add_node(nid, plane="policy", namespace=namespace, agent_id=agent_id,
+                  relations=[r.strip().lower() for r in relations],
+                  quota_per_hour=int(quota_per_hour), updated_at=time.time())
+    if save:
+        cg.save()
+    return {"agent_id": agent_id, "namespace": namespace,
+            "relations": relations, "quota_per_hour": quota_per_hour}
+
+
+def get_policy(cg, agent_id: str, namespace: str) -> dict:
+    """No policy means unrestricted, so existing single-agent setups are
+    unaffected until a policy is declared."""
+    return cg.g.nodes.get(f"policy:{namespace}:{agent_id}", {})
+
+
+def _policy_allows(cg, agent_id: str, namespace: str, relation: str) -> bool:
+    p = get_policy(cg, agent_id, namespace)
+    rels = p.get("relations")
+    if not rels:
+        return True
+    return "*" in rels or relation.lower() in rels
+
+
+def _quota_exceeded(cg, agent_id: str, namespace: str) -> tuple:
+    """Cap claims per agent per hour so one looping agent cannot drown the graph.
+
+    Counted over claims actually written, not tool calls, because the cost being
+    limited is pollution of shared memory rather than compute.
+    """
+    p = get_policy(cg, agent_id, namespace)
+    limit = int(p.get("quota_per_hour") or 0)
+    if limit <= 0:
+        return False, 0, 0
+    cutoff = time.time() - 3600
+    n = sum(1 for _, d in cg.g.nodes(data=True)
+            if d.get("plane") == "claim" and d.get("agent_id") == agent_id
+            and d.get("namespace") == namespace
+            and float(d.get("asserted_at") or 0) >= cutoff)
+    return n >= limit, n, limit
+
+
 def _admit_locked(cg, claim: dict, agent_id: str, namespace: str,
                   episode_id: str) -> dict:
     """The gate decision itself. Caller owns the transaction and the save."""
@@ -86,6 +138,17 @@ def _admit_locked(cg, claim: dict, agent_id: str, namespace: str,
     conf = float(claim.get("confidence") or 0.0)
     if not subj or not rel:
         return {"verdict": "REJECTED", "reason": "claim needs subject and relation"}
+
+    # policy and quota are checked before anything is written: a claim an agent
+    # was never permitted to make should not occupy shared memory at all.
+    if not _policy_allows(cg, agent_id, namespace, rel):
+        return {"verdict": "DENIED", "reason":
+                f"agent '{agent_id}' is not permitted to assert '{rel}' in '{namespace}'",
+                "allowed": get_policy(cg, agent_id, namespace).get("relations")}
+    over, used, limit = _quota_exceeded(cg, agent_id, namespace)
+    if over:
+        return {"verdict": "THROTTLED", "reason":
+                f"agent '{agent_id}' has written {used}/{limit} claims this hour"}
 
     nid = f"claim:{abs(hash((subj, rel, val, agent_id, time.time())))%10**12}"
     node = {"plane": "claim", "namespace": namespace, "agent_id": agent_id,
