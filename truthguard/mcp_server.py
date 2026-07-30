@@ -382,6 +382,28 @@ async def call_tool(name: str, args: dict):
                               error_text=_err, result=_res)
 
 
+def _scope(args: dict) -> str:
+    """The namespace this process may act in — from its identity, never its input.
+
+    Found by running real agents: CrewAI happily sent
+    `open_conflicts {'namespace': 'auth model'}`, putting its subject into the
+    scope parameter. The server honoured it. Since namespace is the
+    confidentiality boundary between tenants, an agent naming any namespace could
+    read another tenant's conflicts — identity was verified and then allowed to be
+    overridden by an argument, which makes the verification pointless.
+
+    The environment is set by whoever launched the process, alongside the token
+    that authenticates it; the agent cannot alter it. A mismatched request is
+    dropped rather than rejected loudly, because a confused model asking for the
+    wrong scope is not an attack and should not fail its task — it simply does
+    not get to choose.
+
+    Operator tools that genuinely act across namespaces take the value explicitly
+    and do not route through here.
+    """
+    return os.getenv("TG_NAMESPACE", "default")
+
+
 async def _dispatch_tool(name: str, args: dict):
     try:
         if name == "ask":
@@ -456,7 +478,7 @@ async def _dispatch_tool(name: str, args: dict):
             from . import admission
             from .context_graph import ContextGraph
             cg = ContextGraph()
-            r = admission.admit(cg, args, namespace=args.get("namespace"),
+            r = admission.admit(cg, args, namespace=_scope(args),
                                 episode_id=_state.get("episode"))
             # record the reasoning chain so a later retraction can walk it
             if r.get("node") and args.get("derived_from"):
@@ -471,7 +493,7 @@ async def _dispatch_tool(name: str, args: dict):
             from . import admission
             from .context_graph import ContextGraph
             return [types.TextContent(type="text", text=json.dumps(
-                admission.open_conflicts(ContextGraph(), args.get("namespace"),
+                admission.open_conflicts(ContextGraph(), _scope(args),
                                          args.get("min_severity", "low")),
                 indent=2, default=str))]
 
@@ -495,7 +517,7 @@ async def _dispatch_tool(name: str, args: dict):
             from . import admission, episodes
             from .context_graph import ContextGraph
             from collections import Counter
-            ns = args.get("namespace") or os.getenv("TG_NAMESPACE", "default")
+            ns = _scope(args)
             g = ContextGraph().g
             claims = [d for _, d in g.nodes(data=True)
                       if d.get("plane") == "claim" and d.get("namespace") == ns]
@@ -542,7 +564,7 @@ async def _dispatch_tool(name: str, args: dict):
             from .context_graph import ContextGraph
             cg = ContextGraph()
             action = args.get("action", "register")
-            ns = args.get("namespace") or os.getenv("TG_NAMESPACE", "default")
+            ns = _scope(args)
             if action == "roster":
                 out = {"roster": identity.roster(cg),
                        "requires_auth": identity.requires_auth(cg, ns),
