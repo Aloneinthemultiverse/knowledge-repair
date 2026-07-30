@@ -16,6 +16,7 @@ Connect (Claude Code):
   (cwd must be the dg-core folder; or use absolute paths in .claude.json)
 """
 import os
+import re
 import sys
 import json
 import shutil
@@ -161,6 +162,20 @@ TOOLS = [
                                        "conclusion is your own reasoning."},
             "namespace": {"type": "string"}},
             "required": ["subject", "relation", "object", "confidence"]}),
+
+    types.Tool(name="known_facts",
+        description="What the fleet has ALREADY established about a subject: accepted "
+                    "claims, who asserts each (the source document), the confidence, "
+                    "and whether it is disputed. Call this BEFORE submitting a claim — "
+                    "if your value agrees it becomes corroboration, and if it differs "
+                    "the disagreement is raised rather than one side silently winning. "
+                    "Returns claim ids you can pass as derived_from when you reason "
+                    "from them.",
+        inputSchema={"type": "object", "properties": {
+            "subject": {"type": "string",
+                        "description": "what you want to know about; partial match"},
+            "limit": {"type": "integer"}},
+            "required": ["subject"]}),
 
     types.Tool(name="open_conflicts",
         description="Unresolved disagreements between agents in shared memory, most "
@@ -498,6 +513,41 @@ async def _dispatch_tool(name: str, args: dict):
                              "Do not proceed as though your value were accepted; "
                              "surface the disagreement.")
             return [types.TextContent(type="text", text=json.dumps(r, indent=2))]
+
+        if name == "known_facts":
+            # Agents had no way to read what the fleet knows. recall() searches the
+            # chat spine — past ask() turns — and a fleet namespace has none, so it
+            # correctly returned "spine is empty" and the agents were blind. Claims
+            # live on their own plane and needed their own reader; without one, no
+            # agent could ever build on another's conclusion, which is why
+            # derived_from stayed empty and trust propagation had nothing to walk.
+            from . import graph_store
+            from .context_graph import ContextGraph
+            ns = _scope(args)
+            subject = str(args.get("subject", "")).strip().lower()
+            terms = [w for w in re.findall(r"[a-z0-9]{3,}", subject)] or [subject]
+            rows = graph_store.search_claims(config.STORAGE_DIR, ns, terms,
+                                             limit=int(args.get("limit", 10)) * 3)
+            g = ContextGraph().g
+            disputed = {c["node"] for _, d in g.nodes(data=True)
+                        if d.get("plane") == "conflict" and d.get("status") == "OPEN"
+                        for c in (d.get("claims") or [])}
+            out = []
+            for nid, d in rows[:int(args.get("limit", 10))]:
+                out.append({
+                    "claim_id": nid,                  # pass as derived_from
+                    "subject": d.get("subject"), "relation": d.get("relation"),
+                    "value": d.get("object"),
+                    "asserted_by": d.get("claimant") or d.get("agent_id"),
+                    "submitted_by": d.get("agent_id"),
+                    "confidence": d.get("confidence"),
+                    "disputed": nid in disputed,
+                    "valid_from": d.get("valid_from"),
+                    "valid_until": d.get("valid_until")})
+            return [types.TextContent(type="text", text=json.dumps(
+                {"subject": subject, "known": out,
+                 "note": "empty means nothing established yet — you are first"},
+                indent=2, default=str))]
 
         if name == "open_conflicts":
             from . import admission
