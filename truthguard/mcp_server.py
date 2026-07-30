@@ -149,6 +149,16 @@ TOOLS = [
             "derived_from": {"type": "array", "items": {"type": "string"},
                         "description": "ids of OTHER CLAIMS this was reasoned from, so a "
                                        "later retraction can flag this one"},
+            # Without this the gate falls back to the agent id, and a
+            # disagreement between two document revisions is recorded as
+            # "agent-00 vs agent-05" — blaming the couriers for what the sources
+            # said. admission.py has always supported the distinction; the tool
+            # agents actually call simply never exposed it, so nobody could use
+            # it. Found by reading the claimants of a real 20-agent run.
+            "claimant": {"type": "string",
+                        "description": "WHO ASSERTS this — the source document, when you "
+                                       "are relaying what you read. Omit only if the "
+                                       "conclusion is your own reasoning."},
             "namespace": {"type": "string"}},
             "required": ["subject", "relation", "object", "confidence"]}),
 
