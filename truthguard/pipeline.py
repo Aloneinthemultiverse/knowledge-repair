@@ -84,7 +84,11 @@ def _norm(text: str) -> str:
     return re.sub(r"\s+", " ", text.strip().lower())
 
 
-def ingest_corpus(corpus_dir: str = None, storage_dir: str = None):
+def ingest_corpus(corpus_dir: str = None, storage_dir: str = None,
+                  namespace: str = None):
+    """namespace tags every chunk so retrieval can scope a tenant's documents.
+    Defaults to the environment, so single-tenant corpora are unaffected."""
+    namespace = namespace or os.getenv("TG_NAMESPACE", "default")
     corpus_dir = corpus_dir or config.CORPUS_DIR
     storage_dir = storage_dir or config.STORAGE_DIR
     os.makedirs(storage_dir, exist_ok=True)
@@ -157,6 +161,7 @@ def ingest_corpus(corpus_dir: str = None, storage_dir: str = None):
                 report["deduped"] += 1
                 continue
             seen_hashes.add(h)
+            c["namespace"] = namespace
             kept.append(c)
         chunks.extend(kept)
         report["files"].append({

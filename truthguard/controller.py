@@ -140,6 +140,44 @@ def _dual_answer(contradiction: dict, question: str) -> str:
     return "\n".join(lines)
 
 
+
+def _auto_gate(a: dict, question: str) -> dict:
+    """Route the triples assess() already extracted through the admission gate.
+
+    Without this, governance is opt-in: an agent that answers in free text has
+    its answer recorded as a turn but never checked against what other agents
+    have asserted, so two agents can hold contradicting values and nothing
+    flags it. Agents cannot be relied on to call submit_claim, so the gate is
+    applied to their output automatically.
+
+    Never raises and never blocks the answer — this records and detects, it does
+    not veto a response the assessment gate already permitted.
+    """
+    import os
+    if os.getenv("TG_AUTO_GATE", "1") != "1":
+        return {}
+    try:
+        from . import admission
+        from .context_graph import ContextGraph
+        cg = ContextGraph()
+        verdicts, conflicts = [], []
+        for t in (a.get("triples") or [])[:8]:
+            r = admission.admit(cg, {
+                "subject": t.get("subject"), "relation": t.get("relation"),
+                "object": t.get("object"), "confidence": a.get("sufficiency", 0.5),
+                "valid_from": t.get("valid_from"), "valid_until": t.get("valid_until"),
+                "sources": [t.get("chunk_id")] if t.get("chunk_id") else []})
+            verdicts.append(r.get("verdict"))
+            if r.get("verdict") == "CONFLICTED":
+                conflicts.append({"conflict": r.get("conflict"), "reason": r.get("reason")})
+        out = {"gated": len(verdicts)}
+        if conflicts:
+            out["cross_agent_conflicts"] = conflicts
+        return out
+    except Exception:
+        return {}
+
+
 def ask(store, llm, question: str, baseline: bool = False, followup: str = None,
         fast: bool = False) -> dict:
     """fast=True drops the multi-query interpretation call (one LLM round-trip,
@@ -215,6 +253,13 @@ def ask(store, llm, question: str, baseline: bool = False, followup: str = None,
         trace.append({"step": "assess", "verdict": a["verdict"],
                       "sufficiency": a["sufficiency"],
                       "contradictions": len(a["contradictions"])})
+
+        # every conclusion this agent reaches is offered to shared memory, so a
+        # disagreement with another agent surfaces without either cooperating
+        _g = _auto_gate(a, question)
+        if _g.get("cross_agent_conflicts"):
+            trace.append({"step": "cross_agent_conflict",
+                          "n": len(_g["cross_agent_conflicts"])})
 
         real_conflicts = [c for c in a["contradictions"] if c["kind"] == "contradiction"]
         ocr_suspects = [c for c in a["contradictions"] if c["kind"] == "possible_ocr_error"]

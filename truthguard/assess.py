@@ -236,4 +236,7 @@ def assess(store, llm, question: str, chunks: list, check_contradictions: bool =
             "reason": judged.get("reason", ""),
             "contradictions": contradictions,
             "clarify_options": judged.get("clarify_options") or [],
+            # returned so the controller can route them through the admission
+            # gate: they are already the shape admit() takes
+            "triples": triples if check_contradictions else [],
             "llm_calls": (llm.calls - calls_before) if llm else 0}

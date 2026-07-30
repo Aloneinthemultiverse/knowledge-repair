@@ -110,8 +110,19 @@ def _doc_scope_filter(question: str, ranked: list, store) -> list:
     return scoped if scoped else ranked
 
 
-def retrieve(store, question: str, llm=None) -> list:
-    """Full retrieval pass. Returns top chunks with .retrieval_score set."""
+def retrieve(store, question: str, llm=None, namespace: str = None) -> list:
+    """Full retrieval pass. Returns top chunks with .retrieval_score set.
+
+    Scoped to `namespace` so one tenant's documents are not retrievable from
+    another. Chunks ingested before namespaces existed carry none and stay
+    visible, so existing corpora behave as before.
+    """
+    import os
+    namespace = namespace or os.getenv("TG_NAMESPACE", "default")
+
+    def _visible(cid):
+        ns = store.by_id[cid].get("namespace")
+        return ns is None or ns == namespace
     rankings = []
     for q in _interpretations(question, llm):
         v = store.vector_search(q, k=25)
@@ -129,6 +140,8 @@ def retrieve(store, question: str, llm=None) -> list:
 
     weighted = []
     for cid, score in reranked:
+        if not _visible(cid):
+            continue
         chunk = store.by_id[cid]
         weighted.append((score * _provenance_weight(chunk), cid))
     weighted.sort(reverse=True)
