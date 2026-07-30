@@ -76,6 +76,21 @@ def failure_signature(error_text: str) -> str:
     return re.sub(r"[0-9]+|/[^\s]+", "", error_text.strip())[:60].strip()
 
 
+_CURRENT = None
+
+
+def current() -> str:
+    """The episode this process is running under, if any.
+
+    One process is one agent session, so a module-level current episode is
+    accurate and saves threading the id through every caller. The admission gate
+    needs it in order to attach `produced` edges to the run that made the claim —
+    without which a conclusion cannot be traced back to the actions that produced
+    it, which is most of the point of the z-plane.
+    """
+    return _CURRENT
+
+
 def start_episode(goal: str, agent_id: str = None, namespace: str = None) -> str:
     agent_id = agent_id or os.getenv("TG_AGENT_ID", "default")
     namespace = namespace or os.getenv("TG_NAMESPACE", "default")
@@ -85,6 +100,8 @@ def start_episode(goal: str, agent_id: str = None, namespace: str = None) -> str
                "started_at, outcome, n_retries) VALUES (?,?,?,?,?,?,0)",
                (eid, agent_id, namespace, goal[:300], time.time(), "RUNNING"))
     db.commit()
+    global _CURRENT
+    _CURRENT = eid
     return eid
 
 
@@ -125,6 +142,9 @@ def end_episode(episode_id: str, outcome: str = "SUCCESS", cg=None) -> dict:
     if outcome == "SUCCESS" and errors:
         outcome = "PARTIAL"
 
+    global _CURRENT
+    if _CURRENT == episode_id:
+        _CURRENT = None
     db.execute("UPDATE episodes SET ended_at=?, outcome=?, failure_signature=?, "
                "n_retries=? WHERE episode_id=?",
                (time.time(), outcome, sig, retries, episode_id))

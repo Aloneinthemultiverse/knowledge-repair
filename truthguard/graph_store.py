@@ -240,6 +240,33 @@ def facts_about(storage_dir: str, namespace: str, subject: str,
     return [(r[0], json.loads(r[1])) for r in rows]
 
 
+def search_claims(storage_dir: str, namespace: str, terms: list,
+                  limit: int = 25) -> list:
+    """Asserted claims whose subject or value mentions any of `terms`.
+
+    This is what puts conclusions into the READ path. Until now agents retrieved
+    only documents, so no agent could ever build on another agent's conclusion —
+    which meant the failure mode this whole gate exists to catch could not occur,
+    and the derived_from edges that record reasoning had no cause to exist.
+
+    Matching is a LIKE over the indexed columns rather than a vector search: a
+    claim is a short triple, not prose, and its subject is already normalised, so
+    lexical matching is both sufficient and cheap enough to run on every query.
+    """
+    terms = [t.strip().lower() for t in (terms or []) if len(t.strip()) > 2][:12]
+    if not terms:
+        return []
+    where = " OR ".join(["LOWER(subject) LIKE ?"] * len(terms))
+    params = [f"%{t}%" for t in terms]
+    rows = connect(storage_dir).execute(
+        f"SELECT id,data FROM nodes WHERE plane='claim' AND namespace=? "
+        f"AND (write_verdict IS NULL OR write_verdict != 'QUARANTINED') "
+        f"AND (retracted IS NULL OR retracted = 0) AND ({where}) "
+        f"ORDER BY asserted_at DESC LIMIT ?",
+        [namespace, *params, limit]).fetchall()
+    return [(r[0], json.loads(r[1])) for r in rows]
+
+
 def claims_since(storage_dir: str, namespace: str, agent_id: str,
                  cutoff: float) -> int:
     """How many claims this agent has written since `cutoff` — the quota count."""

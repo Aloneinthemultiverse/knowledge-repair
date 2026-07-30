@@ -173,7 +173,10 @@ def _auto_gate(a: dict, question: str) -> dict:
         } for t in (a.get("triples") or [])[:8]]
         if not batch:
             return {}
-        results = admission.admit_many(cg, batch)
+        # attach the claims to the run that produced them, so a conclusion is
+        # traceable back to the actions behind it
+        from . import episodes
+        results = admission.admit_many(cg, batch, episode_id=episodes.current())
         conflicts = [{"conflict": r.get("conflict"), "reason": r.get("reason")}
                      for r in results if r.get("verdict") == "CONFLICTED"]
         out = {"gated": len(results)}

@@ -50,7 +50,13 @@ def _stored_claims(cg, namespace: str, subject: str, relation: str,
     SQL cannot see them yet.
     """
     from . import graph_store
-    out = graph_store.facts_about(cg.storage_dir, namespace, subject, relation)
+    out = []
+    for nid, d in graph_store.facts_about(cg.storage_dir, namespace,
+                                          subject, relation):
+        # prefer the in-memory node: facts_about returns fresh copies parsed from
+        # JSON, and a caller that updates one (a reassertion count, a retraction)
+        # must be updating the graph that gets saved, not a throwaway dict
+        out.append((nid, cg.g.nodes[nid] if cg.g.has_node(nid) else d))
     seen = {n for n, _ in out}
     for nid in pending or []:
         d = cg.g.nodes.get(nid) or {}
@@ -224,8 +230,26 @@ def _admit_locked(cg, claim: dict, agent_id: str, namespace: str,
         return {"verdict": "QUARANTINED", "node": nid,
                 "reason": f"confidence {conf:.2f} below floor {_floor(cg, namespace):.2f}"}
 
-    # 2) contradiction against what is already asserted
-    for other_id, other in _stored_claims(cg, namespace, subj, rel, pending):
+    existing = _stored_claims(cg, namespace, subj, rel, pending)
+
+    # 2) exact re-assertion — same claimant, same value, nothing new said.
+    # Conclusions are now retrievable, so an agent re-reading one and passing it
+    # back through the gate is the normal case rather than an anomaly. Minting a
+    # node each time would grow shared memory without adding information and
+    # would inflate every quota. The reassertion is counted instead.
+    for other_id, other in existing:
+        if (other.get("canonical") == val
+                and (other.get("claimant") or other.get("agent_id")) == claimant):
+            other["reasserted"] = int(other.get("reasserted") or 0) + 1
+            other["last_seen_at"] = time.time()
+            if episode_id:
+                _link(cg, other_id, other, episode_id)   # creates the stub if needed
+                cg.g.add_edge(episode_id, other_id, relation="reasserted")
+            return {"verdict": "ACCEPTED", "node": other_id, "duplicate": True,
+                    "reason": f"already asserted by '{claimant}'"}
+
+    # 3) contradiction against what is already asserted
+    for other_id, other in existing:
         if other.get("canonical") == val:
             # Agreement is evidence only when it is INDEPENDENT — two agents
             # quoting the same document corroborate nothing, so this compares
@@ -254,12 +278,35 @@ def _admit_locked(cg, claim: dict, agent_id: str, namespace: str,
 
 
 def _link(cg, nid: str, node: dict, episode_id: str) -> None:
-    """Wire the claim to the run that produced it and the sources it used."""
-    if episode_id and cg.g.has_node(episode_id):
+    """Wire the claim to the run that produced it and the sources it used.
+
+    The distinction between the two edge types is what makes reasoning legible on
+    the graph. A source that is a document chunk is EVIDENCE, so the edge is
+    `grounds`. A source that is itself a stored claim is a PREMISE — this
+    conclusion was reasoned from another conclusion — so the edge is
+    `derived_from`, which is the relation trust propagation walks when the premise
+    is later retracted.
+
+    Written here rather than by an explicit call because agents cannot be relied
+    on to declare their own derivations, exactly as they cannot be relied on to
+    submit their own claims.
+    """
+    if episode_id:
+        # The episode's rollup node is only written when the run ENDS, but claims
+        # are admitted while it is still going — so waiting for the node meant the
+        # produced edge was never written at all. A stub is created here and
+        # end_episode fills in the rollup over it.
+        if not cg.g.has_node(episode_id):
+            cg.g.add_node(episode_id, plane="action", outcome="RUNNING",
+                          agent_id=node.get("agent_id"),
+                          namespace=node.get("namespace"))
         cg.g.add_edge(episode_id, nid, relation="produced")
     for s in node.get("sources") or []:
-        if cg.g.has_node(s):
-            cg.g.add_edge(nid, s, relation="grounds")
+        if not cg.g.has_node(s):
+            continue                       # a chunk id; chunks live outside the graph
+        rel = ("derived_from"
+               if cg.g.nodes[s].get("plane") == "claim" else "grounds")
+        cg.g.add_edge(nid, s, relation=rel)
 
 
 def _materialise_conflict(cg, a_id, a, b_id, b, namespace) -> str:

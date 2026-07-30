@@ -110,6 +110,70 @@ def _doc_scope_filter(question: str, ranked: list, store) -> list:
     return scoped if scoped else ranked
 
 
+def _conclusions(question: str, namespace: str, storage_dir: str = None,
+                 k: int = None) -> list:
+    """Conclusions other agents have already committed to shared memory, shaped
+    like chunks so assess, answer and citation handling need no special case.
+
+    They are APPENDED rather than ranked in with documents, for two reasons. A
+    cross-encoder score over prose and a stated confidence over a triple are not
+    the same quantity, so mixing them would be a fabricated ordering; and
+    evidence should not be displaced by an assertion about evidence. Conclusions
+    augment the context, they do not compete for its slots.
+
+    Retracted and quarantined claims are excluded at the SQL level — a refuted
+    conclusion must not be able to re-enter as a premise. CONFLICTED ones are
+    deliberately kept, so that assess sees the disagreement rather than one side
+    of it.
+    """
+    import os
+    k = k if k is not None else int(os.getenv("TG_CONCLUSION_K", "3"))
+    if k <= 0:
+        return []
+    try:
+        from . import config, graph_store
+        terms = [t.lower() for t in _question_entities(question)]
+        terms += [w for w in re.findall(r"[a-z]{4,}", question.lower())][:8]
+        rows = graph_store.search_claims(
+            storage_dir or config.STORAGE_DIR, namespace, terms, limit=k * 4)
+    except Exception:
+        return []
+
+    out, seen = [], set()
+    for nid, d in rows:
+        key = (d.get("subject"), d.get("relation"), d.get("canonical"))
+        if key in seen:
+            continue
+        seen.add(key)
+        claimant = d.get("claimant") or d.get("agent_id") or "agent"
+        out.append({
+            "id": nid,                       # a real graph node, so grounding it
+                                             # produces a derived_from edge
+            "text": f"{d.get('subject')} {d.get('relation')} {d.get('object')}",
+            "source_file": claimant,
+            "page": None,
+            "extraction": "conclusion",
+            "content_type": "conclusion",
+            "language": None,
+            "ocr_conf": None,
+            "ocr_engine": None,
+            "namespace": namespace,
+            # carried so the answer can say who concluded this and how sure
+            "is_conclusion": True,
+            "claimant": claimant,
+            "submitted_by": d.get("agent_id"),
+            "claim_confidence": d.get("confidence"),
+            "write_verdict": d.get("write_verdict"),
+            "identity_verified": d.get("identity_verified"),
+            "valid_from": d.get("valid_from"),
+            "valid_until": d.get("valid_until"),
+            "retrieval_score": round(float(d.get("confidence") or 0.0), 4),
+        })
+        if len(out) >= k:
+            break
+    return out
+
+
 def retrieve(store, question: str, llm=None, namespace: str = None) -> list:
     """Full retrieval pass. Returns top chunks with .retrieval_score set.
 
@@ -151,4 +215,6 @@ def retrieve(store, question: str, llm=None, namespace: str = None) -> list:
         c = dict(store.by_id[cid])
         c["retrieval_score"] = round(float(wscore), 4)
         out.append(c)
-    return out
+
+    # what the fleet has already concluded, alongside what the documents say
+    return out + _conclusions(question, namespace)
