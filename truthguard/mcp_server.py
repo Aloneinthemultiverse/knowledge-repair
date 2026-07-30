@@ -214,8 +214,12 @@ TOOLS = [
         inputSchema={"type": "object", "properties": {
             "agent_id": {"type": "string", "description": "omit for the whole fleet"},
             "limit": {"type": "integer"},
+            "episode_id": {"type": "string", "description": "for view=detail"},
+            "tool": {"type": "string", "description": "for view=detail"},
             "view": {"type": "string",
-                     "description": "timeline (default) | usage | handoffs"}}}),
+                     "description": "timeline (default) | usage | handoffs | detail. "
+                                    "detail shows what each call RETURNED — the "
+                                    "context an agent actually saw before concluding."}}}),
 
     types.Tool(name="diagnose_failure",
         description="Given an error, find past agent runs that failed the same way and "
@@ -328,6 +332,31 @@ async def call_tool(name: str, args: dict):
     from . import episodes as _ep
 
     _agent = os.getenv("TG_AGENT_ID", "default")
+
+    # Identity gates the whole surface, not only writes. Verifying at the gate
+    # stopped an agent from asserting under a borrowed name, but it could still
+    # READ everything under one — and in a multi-tenant fleet the read side is the
+    # confidentiality boundary. Checked once per process and cached: it is the same
+    # answer every call, and a failure here must be loud rather than silent.
+    if _state.get("identity") is None:
+        from . import identity as _id
+        from .context_graph import ContextGraph as _CG
+        _ns = os.getenv("TG_NAMESPACE", "default")
+        try:
+            _state["identity"] = _id.check(_CG(), _agent, _ns)
+        except Exception as e:
+            # never fail closed on an infrastructure error — an unreadable graph is
+            # not an authentication failure
+            _state["identity"] = {"ok": True, "reason": f"identity check skipped: {e}"}
+    # register_agent is exempt or the fleet locks itself out: turning require_auth
+    # on for a namespace would block the very tool needed to register anyone in it.
+    # Reaching this tool already requires the server's own token, which is the
+    # operator boundary.
+    if not _state["identity"]["ok"] and name != "register_agent":
+        raise PermissionError(
+            f"{_state['identity']['reason']}. Register with the register_agent tool "
+            f"and set TG_AGENT_ID and TG_AGENT_TOKEN for this agent.")
+
     if not _state.get("episode"):
         try:
             _state["episode"] = _ep.start_episode(
@@ -336,18 +365,21 @@ async def call_tool(name: str, args: dict):
             _state["episode"] = None
 
     _t0 = _t.perf_counter()
-    _ok, _err = "ok", ""
+    _ok, _err, _res = "ok", "", None
     try:
-        return await _dispatch_tool(name, args)
+        _res = await _dispatch_tool(name, args)
+        return _res
     except Exception as e:
         _ok, _err = "error", f"{type(e).__name__}: {e}"
         raise
     finally:
         if _state.get("episode"):
-            # args are recorded but truncated; never let observability raise
+            # args and result are recorded but truncated; the result is what makes
+            # "what did this agent see before it concluded that" answerable.
+            # Never let observability raise.
             _ep.log_tool_call(_state["episode"], name, args, outcome=_ok,
                               duration_ms=int((_t.perf_counter() - _t0) * 1000),
-                              error_text=_err)
+                              error_text=_err, result=_res)
 
 
 async def _dispatch_tool(name: str, args: dict):
@@ -478,6 +510,27 @@ async def _dispatch_tool(name: str, args: dict):
                 "unverified_identity": sum(
                     1 for c in claims if not c.get("identity_verified")),
                 "retracted": sum(1 for c in claims if c.get("retracted")),
+                # Whether reasoning is actually legible on the graph. derived_from
+                # is written only when a conclusion grounds on another conclusion,
+                # and the attribution comes from the triple extractor, so the rate
+                # is empirical rather than guaranteed. If premises stays near zero
+                # the reasoning graph is sparse and trust propagation has nothing
+                # to walk, whatever the code is capable of.
+                "reasoning_edges": {
+                    "premises_derived_from": sum(
+                        1 for _, _, e in g.edges(data=True)
+                        if e.get("relation") == "derived_from"),
+                    "evidence_grounds": sum(
+                        1 for _, _, e in g.edges(data=True)
+                        if e.get("relation") == "grounds"),
+                    "produced": sum(1 for _, _, e in g.edges(data=True)
+                                    if e.get("relation") == "produced"),
+                    "reasserted": sum(1 for _, _, e in g.edges(data=True)
+                                      if e.get("relation") == "reasserted"),
+                },
+                "adjudications": sum(
+                    1 for _, d in g.nodes(data=True)
+                    if d.get("plane") == "conflict" and d.get("status") == "RESOLVED"),
                 "open_conflicts": len(admission.open_conflicts(ContextGraph(), ns)),
                 "needs_review": len(admission.review_queue(ContextGraph(), ns)),
                 "episodes": episodes.stats(),
@@ -522,6 +575,10 @@ async def _dispatch_tool(name: str, args: dict):
                 out = {"tool_usage_by_agent": episodes.tool_usage(args.get("agent_id"))}
             elif view == "handoffs":
                 out = {"handoffs": episodes.handoffs()}
+            elif view == "detail":
+                out = {"calls": episodes.call_detail(args.get("episode_id"),
+                                                     args.get("tool"),
+                                                     int(args.get("limit", 20)))}
             else:
                 out = {"timeline": episodes.activity(args.get("agent_id"),
                                                     int(args.get("limit", 50)))}

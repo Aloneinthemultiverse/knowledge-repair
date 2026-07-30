@@ -175,6 +175,7 @@ def write_graph(storage_dir: str, g: nx.DiGraph, last_spine: str = None,
     Row-level upserts are what make concurrent agents safe: two agents adding
     different nodes both persist, because neither rewrites the other's row.
     """
+    snap = _snapshot(storage_dir)
     cols = ",".join(_INDEXED)
     sets = ",".join(f"{c}=excluded.{c}" for c in _INDEXED)
     ins = (f"INSERT INTO nodes (id,data,updated_at,{cols}) "
@@ -189,13 +190,48 @@ def write_graph(storage_dir: str, g: nx.DiGraph, last_spine: str = None,
 
     def _do(c):
         now = time.time()
-        c.executemany(ins, [_row(n, d, now) for n, d in g.nodes(data=True)])
-        c.executemany(
-            "INSERT INTO edges (src,dst,relation,data,updated_at) VALUES (?,?,?,?,?) "
-            "ON CONFLICT(src,dst,relation) DO UPDATE SET data=excluded.data, "
-            "updated_at=excluded.updated_at",
-            [(str(u), str(v_), str(d.get("relation") or ""),
-              json.dumps(d, default=str), now) for u, v_, d in g.edges(data=True)])
+
+        # Only rows whose serialized form actually changed are upserted. Writing
+        # all 3,300 nodes on every claim was the remaining O(graph) cost, and it
+        # is the one that matters under a real fleet: thirty agents each holding
+        # the write lock long enough to rewrite the whole graph serialise into a
+        # queue, and throughput collapses.
+        #
+        # The comparison is against a snapshot of what THIS process last wrote or
+        # read, not against a set of dirty flags maintained by callers. Flags would
+        # have to be set by every code path that mutates a node — including the
+        # ones that assign into cg.g.nodes[x] directly — and a single missed flag
+        # silently loses a write. Diffing cannot be forgotten.
+        # TG_FULL_FLUSH=1 disables the diff. Kept as an escape hatch and as the
+        # baseline the diff is measured against.
+        _diff = os.getenv("TG_FULL_FLUSH", "0") != "1"
+        n_rows, e_rows = [], []
+        for n, d in g.nodes(data=True):
+            blob = json.dumps(d, default=str)
+            if _diff and snap["nodes"].get(str(n)) == blob:
+                continue
+            n_rows.append((str(n), blob, now,
+                           *(int(bool(d.get(c_))) if c_ == "retracted" else d.get(c_)
+                             for c_ in _INDEXED)))
+        for u, v_, d in g.edges(data=True):
+            key = (str(u), str(v_), str(d.get("relation") or ""))
+            blob = json.dumps(d, default=str)
+            if _diff and snap["edges"].get(key) == blob:
+                continue
+            e_rows.append((*key, blob, now))
+
+        if n_rows:
+            c.executemany(ins, n_rows)
+        if e_rows:
+            c.executemany(
+                "INSERT INTO edges (src,dst,relation,data,updated_at) VALUES (?,?,?,?,?) "
+                "ON CONFLICT(src,dst,relation) DO UPDATE SET data=excluded.data, "
+                "updated_at=excluded.updated_at", e_rows)
+        # committed, so it is now safe to treat these as the known state
+        for r in n_rows:
+            snap["nodes"][r[0]] = r[1]
+        for r in e_rows:
+            snap["edges"][(r[0], r[1], r[2])] = r[3]
         c.execute("INSERT INTO meta (k,v) VALUES ('last_spine',?) "
                   "ON CONFLICT(k) DO UPDATE SET v=excluded.v", (last_spine or "",))
         c.execute("INSERT INTO meta (k,v) VALUES ('n_turns',?) "
@@ -209,14 +245,39 @@ def write_graph(storage_dir: str, g: nx.DiGraph, last_spine: str = None,
         return _do(c)
 
 
+def _snapshot(storage_dir: str) -> dict:
+    """Serialized form of every row this process has written or read.
+
+    Per-process, not shared: it records what this process knows to be in the
+    database, which is exactly the baseline a write diff needs. A stale entry can
+    only cause a row this process was not changing to be skipped, never a change
+    to be lost.
+    """
+    key = f"snap::{storage_dir}"
+    s = getattr(_LOCAL, key, None)
+    if s is None:
+        s = {"nodes": {}, "edges": {}}
+        setattr(_LOCAL, key, s)
+    return s
+
+
 def read_graph(storage_dir: str):
     """Rebuild a DiGraph from rows. Returns (graph, last_spine, version)."""
     conn = connect(storage_dir)
     g = nx.DiGraph()
+    # reading resets the write baseline: everything loaded here is, by definition,
+    # already persisted, so re-writing it would be pure waste
+    snap = _snapshot(storage_dir)
+    snap["nodes"].clear()
+    snap["edges"].clear()
     for nid, data in conn.execute("SELECT id,data FROM nodes"):
-        g.add_node(nid, **json.loads(data))
+        d = json.loads(data)
+        g.add_node(nid, **d)
+        snap["nodes"][nid] = json.dumps(d, default=str)
     for src, dst, rel, data in conn.execute("SELECT src,dst,relation,data FROM edges"):
-        g.add_edge(src, dst, **json.loads(data))
+        d = json.loads(data)
+        g.add_edge(src, dst, **d)
+        snap["edges"][(src, dst, rel)] = json.dumps(d, default=str)
     meta = dict(conn.execute("SELECT k,v FROM meta").fetchall())
     g.graph["n_turns"] = int(meta.get("n_turns", 0) or 0)
     return g, (meta.get("last_spine") or None), int(meta.get("version", 0) or 0)

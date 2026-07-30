@@ -20,6 +20,7 @@ Usage:
     log_tool_call(ep, "retrieve", {"k": 10}, outcome="ok", duration_ms=120)
     end_episode(ep, outcome="SUCCESS")
 """
+import hashlib
 import json
 import os
 import re
@@ -57,6 +58,20 @@ def _db():
             );
             CREATE INDEX IF NOT EXISTS idx_calls_ep ON tool_calls(episode_id);
         """)
+        # A call's outcome said whether it worked, never what it returned — so the
+        # audit trail could show that an agent called recall and succeeded, but not
+        # what it read before concluding something. For a system whose claim is
+        # that conclusions are traceable, that is the gap that matters: without it
+        # you cannot prove what an agent saw.
+        #
+        # A preview plus a hash rather than the full result: results are large and
+        # duplicated across calls, and the hash is what identifies "the same
+        # context was seen twice" without storing it twice.
+        have = {r[1] for r in _DB.execute("PRAGMA table_info(tool_calls)")}
+        for col, typ in (("result_preview", "TEXT"), ("result_hash", "TEXT"),
+                         ("result_bytes", "INTEGER"), ("result_ids", "TEXT")):
+            if col not in have:
+                _DB.execute(f"ALTER TABLE tool_calls ADD COLUMN {col} {typ}")
         _DB.commit()
     return _DB
 
@@ -105,18 +120,60 @@ def start_episode(goal: str, agent_id: str = None, namespace: str = None) -> str
     return eid
 
 
+_ID_RE = re.compile(r"\b((?:claim|conflict|ep|chunk):[A-Za-z0-9]+|[0-9a-f]{12})\b")
+
+PREVIEW_CHARS = int(os.getenv("TG_RESULT_PREVIEW", "600"))
+
+
+def _summarise_result(result) -> tuple:
+    """(preview, hash, bytes, ids) for whatever a tool returned.
+
+    The ids are pulled out separately because they are the part that matters for
+    provenance: knowing an agent's retrieval returned claim:123 and chunk:abc is
+    what lets a later conclusion be checked against what was actually in front of
+    it, and unlike the prose it stays useful after the preview is truncated.
+    """
+    if result is None:
+        return None, None, 0, None
+    try:
+        if isinstance(result, (list, tuple)):
+            text = "\n".join(getattr(x, "text", None) or str(x) for x in result)
+        elif isinstance(result, (dict, int, float, bool)):
+            text = json.dumps(result, default=str)
+        else:
+            text = str(result)
+    except Exception:
+        return None, None, 0, None
+    raw = text.encode("utf-8", "replace")
+    ids = sorted(set(_ID_RE.findall(text)))[:40]
+    return (text[:PREVIEW_CHARS],
+            hashlib.sha1(raw).hexdigest()[:16],
+            len(raw),
+            json.dumps(ids) if ids else None)
+
+
 def log_tool_call(episode_id: str, tool: str, args: dict = None,
                   outcome: str = "ok", duration_ms: int = 0,
-                  error_text: str = "", exit_code: int = 0) -> None:
+                  error_text: str = "", exit_code: int = 0,
+                  result=None) -> None:
     """Never raise — observability must not be able to break the thing it observes."""
     try:
+        preview, rhash, rbytes, rids = _summarise_result(result)
         db = _db()
+        # attribute to the episode's owner, not to this process's env var: a call
+        # logged against another agent's run under the wrong name makes the
+        # timeline and every per-agent rollup wrong
+        row = db.execute("SELECT agent_id FROM episodes WHERE episode_id=?",
+                         (episode_id,)).fetchone()
+        agent = (row[0] if row else None) or os.getenv("TG_AGENT_ID", "default")
         db.execute("INSERT INTO tool_calls (episode_id, agent_id, ts, tool, "
-                   "args_json, outcome, error_text, duration_ms, exit_code) "
-                   "VALUES (?,?,?,?,?,?,?,?,?)",
-                   (episode_id, os.getenv("TG_AGENT_ID", "default"), time.time(),
+                   "args_json, outcome, error_text, duration_ms, exit_code, "
+                   "result_preview, result_hash, result_bytes, result_ids) "
+                   "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                   (episode_id, agent, time.time(),
                     tool, json.dumps(args or {})[:2000], outcome,
-                    (error_text or "")[:500], int(duration_ms), int(exit_code)))
+                    (error_text or "")[:500], int(duration_ms), int(exit_code),
+                    preview, rhash, rbytes, rids))
         db.commit()
     except Exception:
         pass
@@ -206,7 +263,7 @@ def activity(agent_id: str = None, limit: int = 50, since_s: float = None) -> li
     rather than inferred from its output.
     """
     q = ("SELECT episode_id, agent_id, ts, tool, outcome, duration_ms, error_text, "
-         "args_json FROM tool_calls WHERE 1=1")
+         "args_json, result_ids, result_bytes, result_hash FROM tool_calls WHERE 1=1")
     p = []
     if agent_id:
         q += " AND agent_id=?"
@@ -218,16 +275,56 @@ def activity(agent_id: str = None, limit: int = 50, since_s: float = None) -> li
     p.append(limit)
     rows = _db().execute(q, p).fetchall()
     out = []
-    for eid, agent, ts, tool, outcome, dur, err, argsj in reversed(rows):
+    for (eid, agent, ts, tool, outcome, dur, err, argsj,
+         rids, rbytes, rhash) in reversed(rows):
         try:
             a = json.loads(argsj or "{}")
         except Exception:
             a = {}
-        out.append({"episode_id": eid, "agent_id": agent,
+        row = {"episode_id": eid, "agent_id": agent,
+               "at": time.strftime("%H:%M:%S", time.localtime(ts)),
+               "tool": tool, "outcome": outcome, "duration_ms": dur,
+               "error": (err or "")[:120] or None,
+               "args": {k: str(v)[:60] for k, v in list(a.items())[:4]}}
+        if rids:
+            # what the call actually put in front of the agent
+            try:
+                row["saw"] = json.loads(rids)
+            except Exception:
+                pass
+        if rbytes:
+            row["result_bytes"], row["result_hash"] = rbytes, rhash
+        out.append(row)
+    return out
+
+
+def call_detail(episode_id: str = None, tool: str = None, limit: int = 20) -> list:
+    """Full recorded previews for a run or a tool — the "what did it see" view.
+
+    Separate from activity() because previews are bulky: the timeline should stay
+    scannable, and this is what you open once a specific call looks suspect.
+    """
+    q = ("SELECT id, episode_id, agent_id, ts, tool, args_json, outcome, "
+         "result_preview, result_bytes, result_hash, result_ids "
+         "FROM tool_calls WHERE 1=1")
+    p = []
+    if episode_id:
+        q += " AND episode_id=?"
+        p.append(episode_id)
+    if tool:
+        q += " AND tool=?"
+        p.append(tool)
+    q += " ORDER BY id DESC LIMIT ?"
+    p.append(limit)
+    out = []
+    for (cid, eid, agent, ts, t, argsj, outcome, prev, rbytes, rhash, rids
+         ) in reversed(_db().execute(q, p).fetchall()):
+        out.append({"call_id": cid, "episode_id": eid, "agent_id": agent,
                     "at": time.strftime("%H:%M:%S", time.localtime(ts)),
-                    "tool": tool, "outcome": outcome, "duration_ms": dur,
-                    "error": (err or "")[:120] or None,
-                    "args": {k: str(v)[:60] for k, v in list(a.items())[:4]}})
+                    "tool": t, "args": argsj, "outcome": outcome,
+                    "returned_bytes": rbytes, "result_hash": rhash,
+                    "saw": json.loads(rids) if rids else None,
+                    "result_preview": prev})
     return out
 
 
