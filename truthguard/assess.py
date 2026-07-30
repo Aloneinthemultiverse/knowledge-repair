@@ -227,6 +227,15 @@ def assess(store, llm, question: str, chunks: list, check_contradictions: bool =
     if check_contradictions:
         triples = _extract_triples(llm, question, chunks)
         contradictions = _detect_clashes(triples, chunks_by_id, question)
+        # Tag each triple with the document it was read out of. The admission
+        # gate attributes the claim to that document rather than to the agent
+        # that happened to retrieve it, so a disagreement between two revisions
+        # is labelled by the revisions.
+        for _t in triples:
+            _c = chunks_by_id.get(_t.get("chunk_id")) or {}
+            if _c.get("source_file"):
+                _t["source_file"] = _c["source_file"]
+                _t["page"] = _c.get("page")
     else:
         contradictions = []   # clash check ran on attempt 0; rewrites re-check answerability only
     judged = _answerability(llm, question, chunks, contradictions)

@@ -160,19 +160,28 @@ def _auto_gate(a: dict, question: str) -> dict:
         from . import admission
         from .context_graph import ContextGraph
         cg = ContextGraph()
-        verdicts, conflicts = [], []
-        for t in (a.get("triples") or [])[:8]:
-            r = admission.admit(cg, {
-                "subject": t.get("subject"), "relation": t.get("relation"),
-                "object": t.get("object"), "confidence": a.get("sufficiency", 0.5),
-                "valid_from": t.get("valid_from"), "valid_until": t.get("valid_until"),
-                "sources": [t.get("chunk_id")] if t.get("chunk_id") else []})
-            verdicts.append(r.get("verdict"))
-            if r.get("verdict") == "CONFLICTED":
-                conflicts.append({"conflict": r.get("conflict"), "reason": r.get("reason")})
-        out = {"gated": len(verdicts)}
+        # One batch, one transaction, one flush. Submitted per-claim this rewrote
+        # the whole graph up to eight times per question, on the path of every
+        # answer.
+        batch = [{
+            "subject": t.get("subject"), "relation": t.get("relation"),
+            "object": t.get("object"), "confidence": a.get("sufficiency", 0.5),
+            "valid_from": t.get("valid_from"), "valid_until": t.get("valid_until"),
+            # the document asserts the fact; this agent only relayed it
+            "claimant": t.get("source_file"),
+            "sources": [t.get("chunk_id")] if t.get("chunk_id") else [],
+        } for t in (a.get("triples") or [])[:8]]
+        if not batch:
+            return {}
+        results = admission.admit_many(cg, batch)
+        conflicts = [{"conflict": r.get("conflict"), "reason": r.get("reason")}
+                     for r in results if r.get("verdict") == "CONFLICTED"]
+        out = {"gated": len(results)}
         if conflicts:
-            out["cross_agent_conflicts"] = conflicts
+            out["source_conflicts"] = conflicts
+        denied = [r["reason"] for r in results if r.get("verdict") == "DENIED"]
+        if denied:
+            out["denied"] = denied[:1]
         return out
     except Exception:
         return {}
@@ -257,9 +266,9 @@ def ask(store, llm, question: str, baseline: bool = False, followup: str = None,
         # every conclusion this agent reaches is offered to shared memory, so a
         # disagreement with another agent surfaces without either cooperating
         _g = _auto_gate(a, question)
-        if _g.get("cross_agent_conflicts"):
-            trace.append({"step": "cross_agent_conflict",
-                          "n": len(_g["cross_agent_conflicts"])})
+        if _g.get("source_conflicts"):
+            trace.append({"step": "shared_memory_conflict",
+                          "n": len(_g["source_conflicts"])})
 
         real_conflicts = [c for c in a["contradictions"] if c["kind"] == "contradiction"]
         ocr_suspects = [c for c in a["contradictions"] if c["kind"] == "possible_ocr_error"]

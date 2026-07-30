@@ -184,6 +184,28 @@ TOOLS = [
                     "the most common failure signatures.",
         inputSchema={"type": "object", "properties": {"namespace": {"type": "string"}}}),
 
+    types.Tool(name="register_agent",
+        description="Operator tool. Register an agent and return its secret token ONCE, "
+                    "so that its claimed identity can be verified at the write gate "
+                    "instead of trusted. Re-registering rotates the secret, which is "
+                    "how a leaked token is revoked. action=revoke disables an identity; "
+                    "action=roster lists who may act, without secrets.",
+        inputSchema={"type": "object", "properties": {
+            "agent_id": {"type": "string"},
+            "namespace": {"type": "string"},
+            "action": {"type": "string",
+                       "description": "register (default) | revoke | roster"},
+            "require_auth": {"type": "boolean",
+                             "description": "make this namespace reject unregistered agents"}}}),
+
+    types.Tool(name="prune_history",
+        description="Operator tool. Delete raw tool-call rows older than the retention "
+                    "window, keeping episode rollups and the call sequences of failed "
+                    "runs (those are what failure diagnosis reads).",
+        inputSchema={"type": "object", "properties": {
+            "days": {"type": "integer"},
+            "keep_failures": {"type": "boolean"}}}),
+
     types.Tool(name="fleet_activity",
         description="What the fleet actually DID: tool calls in order, per agent, with "
                     "timing and outcome. Use to see how agents are working — who called "
@@ -449,13 +471,49 @@ async def _dispatch_tool(name: str, args: dict):
                 "namespace": ns,
                 "claims": len(claims),
                 "by_verdict": dict(Counter(c.get("write_verdict") for c in claims)),
-                "by_agent": dict(Counter(c.get("agent_id") for c in claims)),
+                "submitted_by_agent": dict(Counter(c.get("agent_id") for c in claims)),
+                # who ASSERTS each fact — usually a source document, not an agent
+                "asserted_by": dict(Counter(
+                    c.get("claimant") or c.get("agent_id") for c in claims).most_common(10)),
+                "unverified_identity": sum(
+                    1 for c in claims if not c.get("identity_verified")),
                 "retracted": sum(1 for c in claims if c.get("retracted")),
                 "open_conflicts": len(admission.open_conflicts(ContextGraph(), ns)),
                 "needs_review": len(admission.review_queue(ContextGraph(), ns)),
                 "episodes": episodes.stats(),
             }
             return [types.TextContent(type="text", text=json.dumps(out, indent=2, default=str))]
+
+        if name == "register_agent":
+            from . import identity
+            from .context_graph import ContextGraph
+            cg = ContextGraph()
+            action = args.get("action", "register")
+            ns = args.get("namespace") or os.getenv("TG_NAMESPACE", "default")
+            if action == "roster":
+                out = {"roster": identity.roster(cg),
+                       "requires_auth": identity.requires_auth(cg, ns),
+                       "namespace": ns}
+            elif action == "revoke":
+                out = identity.revoke_agent(cg, args["agent_id"])
+            else:
+                out = identity.register_agent(cg, args["agent_id"], ns, save=False)
+                if args.get("require_auth"):
+                    # switching the namespace on is a separate, deliberate step:
+                    # register every agent first, or the fleet locks itself out
+                    # merge, never replace: the namespace node may already carry
+                    # an admit_floor that must survive
+                    cg.g.add_node(f"ns:{ns}", plane="namespace")
+                    cg.g.nodes[f"ns:{ns}"]["require_auth"] = True
+                    out["require_auth"] = True
+                cg.save()
+            return [types.TextContent(type="text", text=json.dumps(out, indent=2, default=str))]
+
+        if name == "prune_history":
+            from . import episodes
+            out = episodes.prune(args.get("days"),
+                                 bool(args.get("keep_failures", True)))
+            return [types.TextContent(type="text", text=json.dumps(out, indent=2))]
 
         if name == "fleet_activity":
             from . import episodes

@@ -1,4 +1,4 @@
-# Graph Report — 3314 nodes / 11107 edges
+# Graph Report — 3368 nodes / 11236 edges
 
 ## God nodes — code
 - **main** (53 connections)
@@ -40,9 +40,9 @@ y+ layer = ru** (5 connections)
 - ** utilizes Tesseract and Mistral to read complex, high-densit** (27 connections)
 ## God nodes — knowledge
 - **policy_2024.pdf p.1** (13 connections)
-- **policy_2023.pdf p1** (11 connections)
+- **policy_2023.pdf p1** (12 connections)
+- **TruthGuard_PRD.md p.1** (11 connections)
 - **scanned_memo_118.pdf p1** (10 connections)
-- **TruthGuard_PRD.md p.1** (8 connections)
 - **TruthGuard_PRD.md p.1** (8 connections)
 ## God nodes — x_community
 - **Retrieve and analyze the Decision Graph repository using Git** (91 connections)
@@ -51,16 +51,16 @@ y+ layer = ru** (5 connections)
 - **Planning and updating project documentation and architecture** (21 connections)
 - **The user is sharing and asking for feedback on architecture ** (19 connections)
 ## Surprising connections
+- [spine] what is the travel reimbursement limit? ↔ [entity] Travel Reimbursement Limit (references, sim 0.94)
+- [spine] What is the assessment gate? ↔ [entity] assessment gate (references, sim 0.921)
+- [spine] What is the assessment gate? ↔ [entity] assessment gate (references, sim 0.921)
+- [spine] What is the assessment gate? ↔ [entity] assessment gate (references, sim 0.921)
+- [spine] What is the assessment gate? ↔ [entity] assessment gate (references, sim 0.921)
+- [spine] What is the assessment gate? ↔ [entity] assessment gate (references, sim 0.921)
 - [spine] What is the travel reimbursement limit per trip? ↔ [entity] Travel Reimbursement Limit (references, sim 0.919)
+- [spine] What is the travel reimbursement limit per trip? ↔ [entity] Travel Reimbursement Limit (references, sim 0.919)
+- [spine] test ↔ [entity] testing (references, sim 0.909)
 - [spine] same error ↔ [code] error (references_symbol, sim 0.864)
-- [spine] now explain everything on decision graph ↔ [entity] Decision Graph (references, sim 0.863)
-- [spine] Which vendors are approved for purchases? ↔ [entity] approved vendors (references, sim 0.862)
-- [spine] How much is the remote work stipend and who qualif ↔ [entity] Remote Work Stipend (references, sim 0.815)
-- [spine] Who is the CEO of DataHub Ltd? ↔ [entity] DataHub Ltd (references, sim 0.786)
-- [spine] remeber decision graph?? we haad a viw ?? ↔ [entity] Decision Graph (references, sim 0.783)
-- [spine] What is the meal allowance during business travel? ↔ [entity] meal allowance (references, sim 0.78)
-- [spine] What is the penalty for filing an expense claim la ↔ [entity] late expense claims (references, sim 0.757)
-- [spine] can we dynamically use mistral ocr ... like wherev ↔ [entity] Mistral OCR API (references, sim 0.752)
 ## Ask the graph
 - What is 'main' and what depends on it?
 - What is 'learning.js' and what depends on it?

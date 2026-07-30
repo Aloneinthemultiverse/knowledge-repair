@@ -252,6 +252,34 @@ def handoffs() -> list:
     return out
 
 
+def prune(days: int = None, keep_failures: bool = True) -> dict:
+    """Drop raw tool calls older than the retention window.
+
+    tool_calls is by far the fastest-growing table — hundreds of rows per agent
+    session against a graph that grows by one node — and nothing else deletes
+    from it. Only the RAW calls go; the episode rollups stay, so the z-plane
+    keeps the history of what ran and only loses the per-call detail.
+
+    Failed episodes are exempt by default: their call sequences are exactly what
+    similar_failures() diagnoses from, and they are a small minority.
+    """
+    days = int(days if days is not None else os.getenv("TG_RETAIN_DAYS", "30"))
+    if days <= 0:
+        return {"pruned": 0, "note": "retention disabled"}
+    cutoff = time.time() - days * 86400
+    db = _db()
+    q = "DELETE FROM tool_calls WHERE ts < ?"
+    p = [cutoff]
+    if keep_failures:
+        q += (" AND episode_id NOT IN (SELECT episode_id FROM episodes "
+              "WHERE outcome IN ('FAILURE','PARTIAL'))")
+    n = db.execute(q, p).rowcount
+    db.commit()
+    db.execute("VACUUM")
+    return {"pruned": n, "older_than_days": days,
+            "kept_failures": keep_failures}
+
+
 def stats() -> dict:
     db = _db()
     n_ep = db.execute("SELECT COUNT(*) FROM episodes").fetchone()[0]

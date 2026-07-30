@@ -37,44 +37,91 @@ def _floor(cg, namespace: str) -> float:
     return float(n.get("admit_floor", DEFAULT_FLOOR))
 
 
-def _stored_claims(cg, namespace: str) -> list:
-    """Every claim currently asserted as fact in this namespace."""
-    out = []
-    for n, d in cg.g.nodes(data=True):
-        if d.get("plane") != "claim" or d.get("namespace") != namespace:
+def _stored_claims(cg, namespace: str, subject: str, relation: str,
+                   pending: list = None) -> list:
+    """Asserted claims on exactly this subject+relation. Returns [(id, data)].
+
+    Answered from the indexed columns rather than by walking the graph: this runs
+    on every conclusion the fleet reaches, so an O(graph) scan here would make
+    every answer slower as memory grows.
+
+    `pending` carries claims added in this same transaction but not yet flushed —
+    a batch of triples from one answer must be able to contradict each other, and
+    SQL cannot see them yet.
+    """
+    from . import graph_store
+    out = graph_store.facts_about(cg.storage_dir, namespace, subject, relation)
+    seen = {n for n, _ in out}
+    for nid in pending or []:
+        d = cg.g.nodes.get(nid) or {}
+        if nid in seen or d.get("namespace") != namespace:
+            continue
+        if d.get("subject") != subject or d.get("relation") != relation:
             continue
         if d.get("write_verdict") == "QUARANTINED" or d.get("retracted"):
             continue
-        out.append((n, d))
+        out.append((nid, d))
     return out
 
 
 def admit(cg, claim: dict, agent_id: str = None, namespace: str = None,
-          episode_id: str = None, save: bool = True) -> dict:
+          episode_id: str = None, save: bool = True, token: str = None) -> dict:
     """Submit one claim to shared memory.
 
     claim = {subject, relation, object, confidence,
-             valid_from?, valid_until?, sources?, severity?}
+             valid_from?, valid_until?, sources?, severity?, claimant?}
 
     Returns the verdict plus the node id, and — when CONFLICTED — the id of the
     conflict node holding both sides.
     """
+    r = admit_many(cg, [claim], agent_id, namespace, episode_id, save, token)
+    return r[0]
+
+
+def admit_many(cg, claims: list, agent_id: str = None, namespace: str = None,
+               episode_id: str = None, save: bool = True,
+               token: str = None) -> list:
+    """Admit a batch under ONE transaction and ONE flush.
+
+    Every save currently rewrites all nodes, so gating a whole answer one claim
+    at a time cost eight full graph writes per question. Batching collapses that
+    to one while keeping the same lock semantics — and claims within the batch
+    can still contradict each other, via `pending`.
+    """
     agent_id = agent_id or os.getenv("TG_AGENT_ID", "default")
     namespace = namespace or os.getenv("TG_NAMESPACE", "default")
+
+    # Identity is checked once for the batch, before anything is written: an
+    # agent that cannot prove who it is has no standing to assert anything, and
+    # every control below (policy, quota, attribution) is only as good as this.
+    from . import identity
+    ident = identity.check(cg, agent_id, namespace, token)
+    if not ident["ok"]:
+        return [{"verdict": "DENIED", "reason": ident["reason"],
+                 "agent_id": agent_id}] * max(len(claims), 1)
+    verified = bool(ident.get("verified"))
 
     # The conflict check below is read-then-write. Two agents submitting
     # contradicting claims at the same moment could otherwise both read "no
     # conflict" and both write, and the contradiction would never be detected.
     # Holding the write lock for the whole decision makes the second agent block,
     # re-read, and correctly see the first agent's claim.
-    if save:
-        from . import graph_store
-        with graph_store.writer(cg.storage_dir) as conn:
-            cg.refresh()                       # see anything committed meanwhile
-            r = _admit_locked(cg, claim, agent_id, namespace, episode_id)
-            cg.save(conn=conn)
-            return r
-    return _admit_locked(cg, claim, agent_id, namespace, episode_id)
+    if not save:
+        return [_admit_locked(cg, c, agent_id, namespace, episode_id,
+                              verified, []) for c in claims]
+
+    from . import graph_store
+    with graph_store.writer(cg.storage_dir) as conn:
+        cg.refresh()                           # see anything committed meanwhile
+        pending, out = [], []
+        for c in claims:
+            r = _admit_locked(cg, c, agent_id, namespace, episode_id,
+                              verified, pending)
+            if r.get("node"):
+                pending.append(r["node"])
+            out.append(r)
+        cg.save(conn=conn)
+        return out
 
 
 # ── policy: what each agent is allowed to assert ─────────────────────────────
@@ -121,16 +168,15 @@ def _quota_exceeded(cg, agent_id: str, namespace: str) -> tuple:
     limit = int(p.get("quota_per_hour") or 0)
     if limit <= 0:
         return False, 0, 0
-    cutoff = time.time() - 3600
-    n = sum(1 for _, d in cg.g.nodes(data=True)
-            if d.get("plane") == "claim" and d.get("agent_id") == agent_id
-            and d.get("namespace") == namespace
-            and float(d.get("asserted_at") or 0) >= cutoff)
+    from . import graph_store
+    n = graph_store.claims_since(cg.storage_dir, namespace, agent_id,
+                                 time.time() - 3600)
     return n >= limit, n, limit
 
 
 def _admit_locked(cg, claim: dict, agent_id: str, namespace: str,
-                  episode_id: str) -> dict:
+                  episode_id: str, verified: bool = False,
+                  pending: list = None) -> dict:
     """The gate decision itself. Caller owns the transaction and the save."""
     subj = str(claim.get("subject", "")).strip().lower()
     rel = str(claim.get("relation", "")).strip().lower()
@@ -150,8 +196,18 @@ def _admit_locked(cg, claim: dict, agent_id: str, namespace: str,
         return {"verdict": "THROTTLED", "reason":
                 f"agent '{agent_id}' has written {used}/{limit} claims this hour"}
 
+    # Who ASSERTS the fact, as distinct from who submitted it. When an agent
+    # reports a value it read out of a document, the document is the claimant and
+    # the agent is only the courier — so two agents quoting two different policy
+    # revisions produce a conflict labelled by the revisions, which is the thing a
+    # reviewer can actually adjudicate, rather than one labelled "agent A vs
+    # agent B", which blames the messengers. Defaults to the agent, which is
+    # correct when the conclusion really is the agent's own.
+    claimant = str(claim.get("claimant") or agent_id).strip()
+
     nid = f"claim:{abs(hash((subj, rel, val, agent_id, time.time())))%10**12}"
     node = {"plane": "claim", "namespace": namespace, "agent_id": agent_id,
+            "claimant": claimant, "identity_verified": bool(verified),
             "subject": subj, "relation": rel, "object": claim.get("object"),
             "canonical": val, "confidence": conf,
             "valid_from": claim.get("valid_from"),
@@ -169,12 +225,12 @@ def _admit_locked(cg, claim: dict, agent_id: str, namespace: str,
                 "reason": f"confidence {conf:.2f} below floor {_floor(cg, namespace):.2f}"}
 
     # 2) contradiction against what is already asserted
-    for other_id, other in _stored_claims(cg, namespace):
-        if other.get("subject") != subj or other.get("relation") != rel:
-            continue
+    for other_id, other in _stored_claims(cg, namespace, subj, rel, pending):
         if other.get("canonical") == val:
-            # independent agreement from a different agent is evidence, not noise
-            if other.get("agent_id") != agent_id:
+            # Agreement is evidence only when it is INDEPENDENT — two agents
+            # quoting the same document corroborate nothing, so this compares
+            # claimants rather than submitters.
+            if (other.get("claimant") or other.get("agent_id")) != claimant:
                 cg.g.add_edge(nid, other_id, relation="confirms")
             continue
         if not _temporal_overlap(node, other):
@@ -215,10 +271,12 @@ def _materialise_conflict(cg, a_id, a, b_id, b, namespace) -> str:
                   status="OPEN",
                   severity=max(a.get("severity", "normal"),
                                b.get("severity", "normal"), key=_sev_rank),
-                  claims=[{"node": a_id, "agent_id": a.get("agent_id"),
+                  claims=[{"node": a_id, "claimant": a.get("claimant"),
+                           "submitted_by": a.get("agent_id"),
                            "value": a.get("object"), "confidence": a.get("confidence"),
                            "sources": a.get("sources")},
-                          {"node": b_id, "agent_id": b.get("agent_id"),
+                          {"node": b_id, "claimant": b.get("claimant"),
+                           "submitted_by": b.get("agent_id"),
                            "value": b.get("object"), "confidence": b.get("confidence"),
                            "sources": b.get("sources")}],
                   opened_at=time.time(), resolved_by=None)
