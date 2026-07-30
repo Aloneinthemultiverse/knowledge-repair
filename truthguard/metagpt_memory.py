@@ -165,10 +165,12 @@ class TruthGuardMemory(Memory):
             if v.get("verdict") == "CONFLICTED":
                 conflicts.append(f"{c['subject']} {c['relation']}: {v.get('reason')}")
 
-        if conflicts:
+        if conflicts and not getattr(self, "_tg_observe_only", False):
             # Surface it INTO the conversation. A verdict recorded only in the graph
             # is invisible to the waterfall and cannot change what the next role
             # builds — which is the entire point of catching it at decision time.
+            # Suppressed in the control arm: there the contradiction is counted but
+            # never told to anyone, which is exactly how MetaGPT behaves today.
             warn = ("\n\n[TRUTHGUARD] This contradicts a decision already recorded:\n"
                     + "\n".join(f"  - {c}" for c in conflicts)
                     + "\nResolve it before building on either version.")
@@ -180,7 +182,8 @@ class TruthGuardMemory(Memory):
     # ── read path ────────────────────────────────────────────────────────────
     def get(self, k=0):
         msgs = super().get(k)
-        if not getattr(self, "_tg_enabled", True):
+        if (not getattr(self, "_tg_enabled", True)
+                or getattr(self, "_tg_observe_only", False)):
             return msgs
         try:
             facts = self._tg().recall("project interfaces file list approach", k=8)
@@ -207,12 +210,27 @@ class TruthGuardMemory(Memory):
         return msgs
 
 
-def governed(agent_id: str, namespace: str = None, enabled: bool = True):
-    """Build a memory for one role. `enabled=False` is the control arm — same
-    object, same code path, gate off — so a comparison isolates governance rather
-    than comparing two different programs."""
+def governed(agent_id: str, namespace: str = None, enabled: bool = True,
+             observe_only: bool = False):
+    """Build a memory for one role.
+
+    `observe_only=True` is the honest control arm: claims are still recorded, so
+    the team's contradictions can be COUNTED, but nothing is fed back — no warning
+    in the message, no shared-memory block in get(). The agents behave exactly as
+    unmodified MetaGPT while the disagreements they make are measured.
+
+    A control that recorded nothing would trivially report zero conflicts against
+    the treatment's N, which measures whether the gate was switched on rather than
+    whether governance helps. The comparison that means something is: how many
+    contradictions does this team make when nobody tells it, versus when someone
+    does.
+
+    `enabled=False` disables TruthGuard entirely — useful for a timing baseline,
+    not for the comparison.
+    """
     m = TruthGuardMemory()
     object.__setattr__(m, "_tg_agent", agent_id)
     object.__setattr__(m, "_tg_ns", namespace or os.getenv("TG_NAMESPACE", "default"))
     object.__setattr__(m, "_tg_enabled", enabled)
+    object.__setattr__(m, "_tg_observe_only", observe_only)
     return m
