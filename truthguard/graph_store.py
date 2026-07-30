@@ -283,6 +283,18 @@ def read_graph(storage_dir: str):
     return g, (meta.get("last_spine") or None), int(meta.get("version", 0) or 0)
 
 
+def quarantined_about(storage_dir: str, namespace: str, subject: str,
+                      relation: str) -> list:
+    """Quarantined claims on one subject+relation — the dedup check for the
+    below-floor path, which facts_about deliberately excludes."""
+    rows = connect(storage_dir).execute(
+        "SELECT id,data FROM nodes WHERE plane='claim' AND namespace=? "
+        "AND subject=? AND relation=? AND write_verdict='QUARANTINED' "
+        "AND (retracted IS NULL OR retracted = 0)",
+        (namespace, subject, relation)).fetchall()
+    return [(r[0], json.loads(r[1])) for r in rows]
+
+
 def facts_about(storage_dir: str, namespace: str, subject: str,
                 relation: str) -> list:
     """Asserted claims on one subject+relation. Returns [(node_id, data)].

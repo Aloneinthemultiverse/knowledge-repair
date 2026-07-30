@@ -224,6 +224,22 @@ def _admit_locked(cg, claim: dict, agent_id: str, namespace: str,
 
     # 1) confidence floor — stored, but not visible to other agents
     if conf < _floor(cg, namespace):
+        # Dedup applies here too. The reassertion check below runs only over
+        # SERVED claims, so without this a low-confidence fact re-read on every
+        # turn mints a fresh quarantined node each time — the same unbounded
+        # growth the served path already guards against, on the path least worth
+        # spending storage on.
+        from . import graph_store
+        for other_id, sd in graph_store.quarantined_about(
+                cg.storage_dir, namespace, subj, rel):
+            o = cg.g.nodes[other_id] if cg.g.has_node(other_id) else sd
+            if (o.get("canonical") == val
+                    and (o.get("claimant") or o.get("agent_id")) == claimant):
+                o["reasserted"] = int(o.get("reasserted") or 0) + 1
+                o["last_seen_at"] = time.time()
+                return {"verdict": "QUARANTINED", "node": other_id,
+                        "duplicate": True,
+                        "reason": f"already quarantined from '{claimant}'"}
         node["write_verdict"] = "QUARANTINED"
         cg.g.add_node(nid, **node)
         _link(cg, nid, node, episode_id)

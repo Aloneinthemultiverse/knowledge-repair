@@ -186,8 +186,15 @@ def _auto_gate(a: dict, question: str) -> dict:
         if denied:
             out["denied"] = denied[:1]
         return out
-    except Exception:
-        return {}
+    except Exception as e:
+        # Never veto a response the assessment gate already permitted — but do not
+        # hide the failure either. Swallowing it silently made a live run report
+        # zero claims from nine extracted triples with nothing to explain why,
+        # which is worse than a degraded answer: governance that fails invisibly
+        # reads exactly like governance that found nothing wrong.
+        import logging
+        logging.getLogger(__name__).warning("auto-gate failed: %r", e, exc_info=True)
+        return {"gate_error": f"{type(e).__name__}: {e}"}
 
 
 def ask(store, llm, question: str, baseline: bool = False, followup: str = None,
