@@ -72,14 +72,42 @@ def _interpretations(question: str, llm) -> list:
         return [question]
 
 
+def warmup() -> dict:
+    """Load the cross-encoder before the first query needs it.
+
+    Loading it costs 21s and was being paid inside the first user-facing query,
+    which is most of why a first answer looked catastrophically slow while every
+    later one was fine. Worse for a fleet: it is per process, so thirty agents pay
+    it thirty times. Servers should call this at startup, where the wait is
+    invisible.
+    """
+    import time
+    t0 = time.time()
+    ok = _rerank("warmup", [], None) is not None
+    return {"reranker": config.RERANK_MODEL if _rerank_enabled() else "disabled",
+            "loaded_in_s": round(time.time() - t0, 2), "ok": ok}
+
+
+def _rerank_enabled() -> bool:
+    """TG_RERANK=0 trades a little recall for ~21s of startup and ~0.3s a query.
+    Worth having as a switch: in a latency-bound fleet the reranker is the single
+    most expensive component that is not strictly required for a correct answer."""
+    import os
+    return os.getenv("TG_RERANK", "1") != "0"
+
+
 def _rerank(question: str, candidates: list, store) -> list:
     """Cross-encoder rerank top-fused -> ordered list of (cid, score). Falls back
     to fused order if the model is unavailable."""
+    if not _rerank_enabled():
+        return candidates
     try:
         from sentence_transformers import CrossEncoder
         global _CE
         if "_CE" not in globals():
             _CE = CrossEncoder(config.RERANK_MODEL)
+        if not candidates:
+            return candidates          # warmup path: load the model, rank nothing
         pairs = [(question, store.by_id[cid]["text"][:1000]) for cid, _ in candidates]
         scores = _CE.predict(pairs)
         order = sorted(zip(candidates, scores), key=lambda x: float(x[1]), reverse=True)

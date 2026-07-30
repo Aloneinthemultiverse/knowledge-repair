@@ -78,7 +78,7 @@ def _band(conf: float) -> str:
 
 def _generate_answer(llm, question: str, chunks: list, hedged: bool) -> str:
     ctx = "\n\n".join(
-        f"[{_citation(c)}]\n{c['text'][:900]}" for c in chunks[:6])
+        f"[{_citation(c)}]\n{c['text'][:900]}" for c in _answer_context(chunks))
     code_rule = ("\nIf the answer involves a code block, QUOTE the code verbatim "
                  "in a fenced block — never paraphrase code.")
     hedge_rule = ("\nEvidence is limited: start with 'Based on limited evidence in "
@@ -141,7 +141,19 @@ def _dual_answer(contradiction: dict, question: str) -> str:
 
 
 
-def _auto_gate(a: dict, question: str) -> dict:
+def _answer_context(chunks: list, n_docs: int = 6) -> list:
+    """Documents for the answer, plus every retrieved conclusion.
+
+    Conclusions are appended after the documents by retrieve(), so a plain
+    chunks[:6] slice dropped them entirely: the fleet's own prior findings reached
+    triple extraction but never the answer. They are cheap — one line each — so
+    they ride along rather than competing for the six document slots.
+    """
+    docs = [c for c in chunks if not c.get("is_conclusion")][:n_docs]
+    return docs + [c for c in chunks if c.get("is_conclusion")]
+
+
+def _auto_gate(a: dict, question: str, premises: list = None) -> dict:
     """Route the triples assess() already extracted through the admission gate.
 
     Without this, governance is opt-in: an agent that answers in free text has
@@ -169,7 +181,15 @@ def _auto_gate(a: dict, question: str) -> dict:
             "valid_from": t.get("valid_from"), "valid_until": t.get("valid_until"),
             # the document asserts the fact; this agent only relayed it
             "claimant": t.get("source_file"),
-            "sources": [t.get("chunk_id")] if t.get("chunk_id") else [],
+            # Measured: with conclusions in the extraction context, the extractor
+            # still attributes every triple to a source document, so derived_from
+            # stayed at 0 across 18 claims. Waiting for the model to volunteer the
+            # link does not work, so the premises are taken from what was actually
+            # retrieved. This records "formed with these conclusions in context"
+            # rather than proven reasoning — a weaker claim, but the correct one
+            # for a blast radius: if a premise is later retracted, this conclusion
+            # is exactly what a reviewer needs to re-examine.
+            "sources": ([t.get("chunk_id")] if t.get("chunk_id") else []) + list(premises or []),
         } for t in (a.get("triples") or [])[:8]]
         if not batch:
             return {}
@@ -210,7 +230,7 @@ def ask(store, llm, question: str, baseline: bool = False, followup: str = None,
     if baseline:
         chunks = retrieve(store, question, llm=None)
         trace.append({"step": "retrieve", "n": len(chunks)})
-        ctx = "\n\n".join(f"[{_citation(c)}]\n{c['text'][:900]}" for c in chunks[:6])
+        ctx = "\n\n".join(f"[{_citation(c)}]\n{c['text'][:900]}" for c in _answer_context(chunks))
         text = llm.complete(
             f"Answer the question using the context.\nQUESTION: {question}\n\n"
             f"CONTEXT:\n{ctx}\n\nANSWER:", max_tokens=600).strip()
@@ -263,6 +283,7 @@ def ask(store, llm, question: str, baseline: bool = False, followup: str = None,
     clarified_once = followup is not None
 
     from .llm import BudgetExceeded
+    _prev_suff = -1.0          # sufficiency of the previous attempt, for early exit
     for attempt in range(config.MAX_REWRITES + 1):
       try:
         chunks = retrieve(store, query, llm=(None if fast else (llm if attempt == 0 else None)))
@@ -275,7 +296,8 @@ def ask(store, llm, question: str, baseline: bool = False, followup: str = None,
 
         # every conclusion this agent reaches is offered to shared memory, so a
         # disagreement with another agent surfaces without either cooperating
-        _g = _auto_gate(a, question)
+        _premises = [c["id"] for c in chunks if c.get("is_conclusion")]
+        _g = _auto_gate(a, question, premises=_premises)
         if _g.get("source_conflicts"):
             trace.append({"step": "shared_memory_conflict",
                           "n": len(_g["source_conflicts"])})
@@ -334,6 +356,18 @@ def ask(store, llm, question: str, baseline: bool = False, followup: str = None,
                     _record(question, resp, chunks[:6])
                     return resp
                 a["verdict"] = "INSUFFICIENT"   # generator itself refused
+
+        # A rewrite is only worth its two LLM round-trips if the last one moved
+        # the needle. When sufficiency does not improve, the corpus does not hold
+        # the answer and rephrasing will not conjure it — the loop was spending
+        # two thirds of a 387s question re-confirming the same refusal. Bail to
+        # the refusal now and keep the honest answer, just far sooner.
+        _suff = a.get("sufficiency") or 0.0
+        if attempt > 0 and _suff <= _prev_suff + 0.02:
+            trace.append({"step": "rewrite_abandoned",
+                          "reason": f"sufficiency flat ({_prev_suff:.2f} -> {_suff:.2f})"})
+            break
+        _prev_suff = _suff
 
         # INSUFFICIENT -> rewrite and loop (max MAX_REWRITES)
         if attempt < config.MAX_REWRITES and llm.calls < config.MAX_LLM_CALLS_PER_QUERY - 1:
