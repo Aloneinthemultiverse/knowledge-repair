@@ -27,11 +27,30 @@ _NUM_WORDS = {"one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6,
               "thousand": 1000}
 
 
+# A value that IS a number, optionally with a unit: "500", "$1,200.50", "100 rps",
+# "45%", "2.5 GB", "500 $". Anchored, so a string that merely CONTAINS a digit
+# does not qualify. The trailing $ is allowed because "500 USD" is rewritten to
+# "500 $" before this runs, and without it that stopped matching "$500".
+_NUMERIC_RE = re.compile(r"^\$?\s*[\d][\d,]*(?:\.\d+)?\s*[a-z%/$]{0,12}$")
+
+
 def _canon_value(obj: str) -> str:
-    """Normalize numeric/unit variants: '$500' == '500 USD' == 'five hundred dollars'."""
+    """Normalize numeric/unit variants: '$500' == '500 USD' == 'five hundred dollars'.
+
+    Only for values that ARE numbers. The previous version took the first digit
+    found anywhere and discarded the rest, so 'agent0-1' and 'agent0-2' both
+    canonicalised to '0 agent -' and the gate treated two different claims as the
+    same fact — silent data loss wearing the costume of deduplication. It fooled a
+    concurrency test into reading 3/9 before the cause was found.
+
+    Identifier-shaped values (mrn-00042, v1.2.3, agent0-1, a UUID) are now left
+    alone beyond case and whitespace: two of them differing is a real
+    disagreement, not a formatting variant.
+    """
     s = obj.lower().strip()
+    s = re.sub(r"\s+", " ", s)
     s = s.replace("usd", "$").replace("dollars", "$").replace("dollar", "$")
-    m = re.search(r"[\d][\d,]*(?:\.\d+)?", s)
+    m = re.search(r"[\d][\d,]*(?:\.\d+)?", s) if _NUMERIC_RE.match(s) else None
     if m:
         num = m.group(0).replace(",", "")
         unit = "$" if "$" in s else ("%" if "%" in s else "")

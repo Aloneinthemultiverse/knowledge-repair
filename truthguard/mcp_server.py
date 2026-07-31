@@ -425,6 +425,22 @@ async def call_tool(name: str, args: dict):
         except Exception:
             _state["episode"] = None
 
+    # Close the episode when the process dies. MCP clients kill the server at
+    # context exit, so end_episode never ran and EVERY episode in the graph was
+    # left RUNNING — meaning the z-plane rollup that diagnose_failure reads has
+    # never existed for a real agent session. Registered once, on first call.
+    if not _state.get("atexit_registered"):
+        import atexit
+        def _close():
+            try:
+                if _state.get("episode"):
+                    _ep.end_episode(_state["episode"],
+                                    outcome=_state.get("outcome", "SUCCESS"))
+            except Exception:
+                pass
+        atexit.register(_close)
+        _state["atexit_registered"] = True
+
     _t0 = _t.perf_counter()
     _ok, _err, _res = "ok", "", None
     try:
@@ -432,6 +448,7 @@ async def call_tool(name: str, args: dict):
         return _res
     except Exception as e:
         _ok, _err = "error", f"{type(e).__name__}: {e}"
+        _state["outcome"] = "PARTIAL"
         raise
     finally:
         if _state.get("episode"):
