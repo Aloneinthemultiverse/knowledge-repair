@@ -190,6 +190,9 @@ def _auto_gate(a: dict, question: str, premises: list = None) -> dict:
             # for a blast radius: if a premise is later retracted, this conclusion
             # is exactly what a reviewer needs to re-examine.
             "sources": ([t.get("chunk_id")] if t.get("chunk_id") else []) + list(premises or []),
+            # premises the extractor did NOT attribute this triple to are marked
+            # weak, so the graph does not claim reasoning it cannot evidence
+            "context_only": [p for p in (premises or []) if p != t.get("chunk_id")],
         } for t in (a.get("triples") or [])[:8]]
         if not batch:
             return {}

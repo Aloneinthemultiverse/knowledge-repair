@@ -210,6 +210,8 @@ def _admit_locked(cg, claim: dict, agent_id: str, namespace: str,
     # agent B", which blames the messengers. Defaults to the agent, which is
     # correct when the conclusion really is the agent's own.
     claimant = str(claim.get("claimant") or agent_id).strip()
+    # ids that were merely in context, not attributed by the extractor
+    _ctx_only = set(claim.get("context_only") or ())
 
     nid = f"claim:{abs(hash((subj, rel, val, agent_id, time.time())))%10**12}"
     node = {"plane": "claim", "namespace": namespace, "agent_id": agent_id,
@@ -226,6 +228,7 @@ def _admit_locked(cg, claim: dict, agent_id: str, namespace: str,
             "sensitivity": str(claim.get("sensitivity") or "public").strip().lower(),
             "sources": (claim.get("sources") or [])[:8],
             "asserted_at": time.time()}
+    node["_context_only"] = _ctx_only
 
     # 1) confidence floor — stored, but not visible to other agents
     if conf < _floor(cg, namespace):
@@ -325,9 +328,21 @@ def _link(cg, nid: str, node: dict, episode_id: str) -> None:
     for s in node.get("sources") or []:
         if not cg.g.has_node(s):
             continue                       # a chunk id; chunks live outside the graph
-        rel = ("derived_from"
-               if cg.g.nodes[s].get("plane") == "claim" else "grounds")
-        cg.g.add_edge(nid, s, relation=rel)
+        if cg.g.nodes[s].get("plane") != "claim":
+            cg.g.add_edge(nid, s, relation="grounds")     # evidence: a document
+            continue
+        # Two strengths of premise, kept apart because they support different
+        # claims about the reasoning:
+        #   derived_from  the extractor attributed this triple TO that claim
+        #   informed_by   that claim was merely in scope when this was formed
+        # Collapsing them overstates what is known. Retraction still walks both —
+        # a conclusion formed alongside a now-refuted premise is worth re-reading
+        # either way — but a reviewer can tell which is which.
+        weak = s in (node.get("_context_only") or ())
+        cg.g.add_edge(nid, s, relation="informed_by" if weak else "derived_from")
+    node.pop("_context_only", None)          # transient; never persisted
+    if cg.g.has_node(nid):
+        cg.g.nodes[nid].pop("_context_only", None)
 
 
 def _materialise_conflict(cg, a_id, a, b_id, b, namespace) -> str:
@@ -454,12 +469,16 @@ def propagate_retraction(cg, node: str, save: bool = True) -> list:
         for dep in cg.g.predecessors(cur):
             if dep in seen:
                 continue
-            if cg.g.edges[dep, cur].get("relation") != "derived_from":
+            _rel = cg.g.edges[dep, cur].get("relation")
+            if _rel not in ("derived_from", "informed_by"):
                 continue
             seen.add(dep)
             d = cg.g.nodes[dep]
             d["needs_review"] = True
-            d["review_reason"] = f"derived from retracted {cur}"
+            d["review_reason"] = (
+                f"{'derived from' if _rel == 'derived_from' else 'formed alongside'} "
+                f"retracted {cur}")
+            d["review_strength"] = ("strong" if _rel == "derived_from" else "weak")
             d["flagged_at"] = time.time()
             flagged.append(dep)
             queue.append((dep, depth + 1))
