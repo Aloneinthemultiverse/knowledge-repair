@@ -529,12 +529,23 @@ async def _dispatch_tool(name: str, args: dict):
             rows = graph_store.search_claims(config.STORAGE_DIR, ns, terms,
                                              limit=int(args.get("limit", 10)) * 3)
             g = ContextGraph().g
+            # Clearance filter. Adapted from the toolkit's no-write-down rule, but
+            # the label is COMPUTED from the derivation graph rather than supplied
+            # by the caller — a claim resting on a confidential premise cannot be
+            # read as public by declaring itself public.
+            from . import labels as _lb
+            _cg = ContextGraph()
+            _clear = _lb.agent_clearance(_cg, os.getenv("TG_AGENT_ID", "default"), ns)
             disputed = {c["node"] for _, d in g.nodes(data=True)
                         if d.get("plane") == "conflict" and d.get("status") == "OPEN"
                         for c in (d.get("claims") or [])}
             out = []
             for nid, d in rows[:int(args.get("limit", 10))]:
+                _eff = _lb.effective_sensitivity(_cg, nid)
+                if not _lb.may_read(_clear, _eff):
+                    continue          # above this agent's clearance
                 out.append({
+                    "sensitivity": _eff,
                     "claim_id": nid,                  # pass as derived_from
                     "subject": d.get("subject"), "relation": d.get("relation"),
                     "value": d.get("object"),

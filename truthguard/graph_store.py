@@ -44,7 +44,8 @@ _LOCAL = threading.local()
 # The JSON blob stays authoritative; these columns are a derived index, rewritten
 # from it on every upsert, so they cannot drift.
 _INDEXED = ("plane", "namespace", "subject", "relation", "agent_id",
-            "claimant", "write_verdict", "retracted", "asserted_at")
+            "claimant", "write_verdict", "retracted", "asserted_at",
+            "sensitivity")
 
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS nodes (

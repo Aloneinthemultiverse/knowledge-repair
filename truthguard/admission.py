@@ -219,6 +219,11 @@ def _admit_locked(cg, claim: dict, agent_id: str, namespace: str,
             "valid_from": claim.get("valid_from"),
             "valid_until": claim.get("valid_until"),
             "severity": claim.get("severity", "normal"),
+            # Declared sensitivity. The EFFECTIVE label is computed from the
+            # derivation graph at read time (labels.effective_sensitivity), so a
+            # claim cannot be laundered by declaring it public while resting on a
+            # confidential premise.
+            "sensitivity": str(claim.get("sensitivity") or "public").strip().lower(),
             "sources": (claim.get("sources") or [])[:8],
             "asserted_at": time.time()}
 
