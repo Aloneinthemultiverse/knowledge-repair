@@ -190,3 +190,141 @@ def wrap_tool(fn, surface: GovernanceSurface, name: str = None):
         return out
     guarded.__name__ = tool_name
     return guarded
+
+
+# ── LangChain / LangGraph / AutoGen ──────────────────────────────────────────
+# Each is a thin translation into on_conclusion / on_context. The bodies are
+# short on purpose: an adapter that grows logic is one that will disagree with
+# the other adapters about what governance means.
+
+class LangChainGovernance:
+    """LangChain callback handler. Tool outputs become claims.
+
+    Binds `BaseCallbackHandler` rather than wrapping each tool, so one handler
+    passed to a chain governs every tool in it — the same reason the CrewAI
+    adapter registers global hooks.
+    """
+
+    def __init__(self, surface: GovernanceSurface):
+        self.s = surface
+
+    def handler(self):
+        """Return a callback handler to pass as `callbacks=[...]`."""
+        from langchain_core.callbacks import BaseCallbackHandler
+        s = self.s
+
+        class _H(BaseCallbackHandler):
+            def on_tool_end(self, output, **kw):
+                name = (kw.get("name") or
+                        (kw.get("serialized") or {}).get("name") or "tool")
+                s.on_conclusion(subject=name, relation="returned",
+                                object=str(output)[:400], claimant=name)
+
+            def on_tool_error(self, error, **kw):
+                # Failures are not claims — recording them as facts would let a
+                # broken tool contradict a working one. The z-plane already has
+                # the error via the episode log.
+                pass
+
+        return _H()
+
+
+def langchain_governance(agent_id: str = None, namespace: str = None,
+                         token: str = None, observe_only: bool = False):
+    return LangChainGovernance(
+        GovernanceSurface(agent_id, namespace, token, observe_only))
+
+
+def govern_retriever(retriever, surface: GovernanceSurface, collection: str = None):
+    """Drop-in retriever wrapper, in the shape of agent-rag-governance's
+    `governor.wrap(retriever)`.
+
+    Theirs enforces ACCESS at retrieval — which collections may be queried, rate
+    limits, PII scanning. This enforces CONSISTENCY: retrieved documents are
+    checked against what the fleet already established, and a contradiction is
+    attached to the document that carries it, so the agent reading it sees the
+    dispute rather than one arbitrary side.
+
+    The two are complementary and compose: wrap with theirs for access, with this
+    for agreement.
+    """
+    name = collection or getattr(retriever, "name", "retriever")
+
+    class _Governed:
+        def __getattr__(self, k):            # stay a drop-in for everything else
+            return getattr(retriever, k)
+
+        def invoke(self, query, *a, **kw):
+            docs = retriever.invoke(query, *a, **kw)
+            return self._check(docs, query)
+
+        def get_relevant_documents(self, query, *a, **kw):
+            docs = retriever.get_relevant_documents(query, *a, **kw)
+            return self._check(docs, query)
+
+        def _check(self, docs, query):
+            for d in docs or []:
+                text = getattr(d, "page_content", None) or str(d)
+                src = ((getattr(d, "metadata", None) or {}).get("source")
+                       or name)
+                v = surface.on_conclusion(subject=name, relation="retrieved",
+                                          object=str(text)[:400], claimant=src)
+                if v.get("verdict") == "CONFLICTED" and not surface.observe_only:
+                    try:
+                        d.metadata["truthguard_conflict"] = v.get("reason")
+                        d.page_content = (text +
+                            f"\n\n[TRUTHGUARD] Disputed: {v.get('reason')}")
+                    except Exception:
+                        pass
+            return docs
+
+    return _Governed()
+
+
+class AutoGenGovernance:
+    """AutoGen: gate what an agent SAYS in a group chat.
+
+    Group chat is the handoff — one agent's message becomes another's premise
+    with nothing in between, which is the contradiction path the gate exists for.
+    """
+
+    def __init__(self, surface: GovernanceSurface):
+        self.s = surface
+
+    def wrap_reply(self, agent):
+        """Wrap an agent's reply function so its messages pass the gate."""
+        original = agent.generate_reply
+        s = self.s
+
+        def guarded(*a, **kw):
+            out = original(*a, **kw)
+            text = out if isinstance(out, str) else (out or {}).get("content", "")
+            if text:
+                v = s.on_conclusion(subject=getattr(agent, "name", "agent"),
+                                    relation="stated", object=str(text)[:400],
+                                    claimant=getattr(agent, "name", "agent"))
+                if v.get("verdict") == "CONFLICTED" and not s.observe_only:
+                    warn = f"\n\n[TRUTHGUARD] Contradicts the team: {v.get('reason')}"
+                    if isinstance(out, str):
+                        return out + warn
+                    if isinstance(out, dict):
+                        out["content"] = str(out.get("content", "")) + warn
+            return out
+
+        agent.generate_reply = guarded
+        return agent
+
+
+def autogen_governance(agent_id: str = None, namespace: str = None,
+                       token: str = None, observe_only: bool = False):
+    return AutoGenGovernance(
+        GovernanceSurface(agent_id, namespace, token, observe_only))
+
+
+def langgraph_governance(agent_id: str = None, namespace: str = None,
+                         token: str = None, observe_only: bool = False):
+    """LangGraph runs on LangChain's callback system, so the same handler
+    governs it — passed via `config={"callbacks": [handler]}`. Shipped as its own
+    name because a caller looking for LangGraph should not have to know that."""
+    return LangChainGovernance(
+        GovernanceSurface(agent_id, namespace, token, observe_only))
