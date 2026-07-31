@@ -177,6 +177,42 @@ TOOLS = [
             "limit": {"type": "integer"}},
             "required": ["subject"]}),
 
+    types.Tool(name="propose_mutation",
+        description="Declare an intended CHANGE to a live system (schema, sql, deploy) "
+                    "and get a verdict. Executes nothing. Use this INSTEAD of running "
+                    "the command yourself: a change made outside this gate is invisible "
+                    "to everyone else and cannot be rolled back. Returns blocked=true "
+                    "when another agent has proposed a conflicting change — in that case "
+                    "a human adjudicates before anything runs.",
+        inputSchema={"type": "object", "properties": {
+            "kind": {"type": "string", "description": "schema | sql | deploy"},
+            "target": {"type": "string", "description": "e.g. patient_db.patients"},
+            "statement": {"type": "string", "description": "the exact command to run"},
+            "inverse": {"type": "string",
+                        "description": "the command that UNDOES this. Required for "
+                                       "rollback; a change you cannot undo should not "
+                                       "be easy to make."},
+            "reason": {"type": "string"}},
+            "required": ["kind", "target", "statement"]}),
+
+    types.Tool(name="apply_mutation",
+        description="Execute a previously proposed mutation. Refuses if its verdict no "
+                    "longer holds — a conflict raised while you were thinking blocks it. "
+                    "Records the exact statement, exit code and output.",
+        inputSchema={"type": "object", "properties": {
+            "mutation_id": {"type": "string"}}, "required": ["mutation_id"]}),
+
+    types.Tool(name="rollback_mutation",
+        description="Undo an applied mutation by running the inverse recorded with it, "
+                    "and retract the claim that justified it so dependents are flagged.",
+        inputSchema={"type": "object", "properties": {
+            "mutation_id": {"type": "string"}}, "required": ["mutation_id"]}),
+
+    types.Tool(name="mutation_log",
+        description="Every proposed and applied change: who, what statement, verdict, "
+                    "exit code. The record of what agents DID, not just what they concluded.",
+        inputSchema={"type": "object", "properties": {"limit": {"type": "integer"}}}),
+
     types.Tool(name="open_conflicts",
         description="Unresolved disagreements between agents in shared memory, most "
                     "severe first. Check this before acting on a fact that another "
@@ -559,6 +595,27 @@ async def _dispatch_tool(name: str, args: dict):
                 {"subject": subject, "known": out,
                  "note": "empty means nothing established yet — you are first"},
                 indent=2, default=str))]
+
+        if name in ("propose_mutation", "apply_mutation", "rollback_mutation", "mutation_log"):
+            from . import mutations
+            from .context_graph import ContextGraph
+            cg = ContextGraph()
+            ns = _scope(args)
+            if name == "propose_mutation":
+                out = mutations.propose(
+                    cg, args["kind"], args["target"], args["statement"],
+                    args.get("inverse", ""), args.get("reason", ""),
+                    agent_id=os.getenv("TG_AGENT_ID", "default"), namespace=ns,
+                    token=os.getenv("TG_AGENT_TOKEN", ""),
+                    episode_id=_state.get("episode"))
+            elif name == "apply_mutation":
+                out = mutations.apply(cg, args["mutation_id"],
+                                      agent_id=os.getenv("TG_AGENT_ID", "default"))
+            elif name == "rollback_mutation":
+                out = mutations.rollback(cg, args["mutation_id"])
+            else:
+                out = {"mutations": mutations.log(cg, ns, int(args.get("limit", 20)))}
+            return [types.TextContent(type="text", text=json.dumps(out, indent=2, default=str))]
 
         if name == "open_conflicts":
             from . import admission
