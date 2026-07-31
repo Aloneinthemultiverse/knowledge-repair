@@ -330,8 +330,14 @@ def search_claims(storage_dir: str, namespace: str, terms: list,
     terms = [t.strip().lower() for t in (terms or []) if len(t.strip()) > 2][:12]
     if not terms:
         return []
-    where = " OR ".join(["LOWER(subject) LIKE ?"] * len(terms))
-    params = [f"%{t}%" for t in terms]
+    # Match the VALUE as well as the subject. Claims are not always keyed by
+    # topic — an adapter that records "read_config returned rate limit = 100 rps"
+    # keys on the tool, so a search for "rate limit" would miss it entirely and
+    # the read path would silently return nothing while the write path worked.
+    where = " OR ".join(["(LOWER(subject) LIKE ? OR LOWER(data) LIKE ?)"] * len(terms))
+    params = []
+    for t in terms:
+        params += [f"%{t}%", f"%{t}%"]
     rows = connect(storage_dir).execute(
         f"SELECT id,data FROM nodes WHERE plane='claim' AND namespace=? "
         f"AND (write_verdict IS NULL OR write_verdict != 'QUARANTINED') "
