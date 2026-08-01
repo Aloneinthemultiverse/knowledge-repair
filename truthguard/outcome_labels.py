@@ -153,6 +153,27 @@ def resolve_by_outcome(cg, conflict_id: str, mutation_for, probe,
                 "trials": results}
 
     win_idx = passes.index(True)
+
+    # Leave the system in the WINNING state. Each trial rolls back so the two
+    # sides start equal, but that means the last rollback leaves whichever side
+    # ran last undone — and if that was the winner, the system is left broken by
+    # the very process that determined how to fix it. This happened: a probe run
+    # left the live database on the losing column and the service began returning
+    # 500s until it was restored by hand.
+    from . import mutations as _mu
+    spec = mutation_for(sides[win_idx])
+    restored = None
+    if spec:
+        _m = _mu.propose(cg, spec["kind"], spec["target"], spec["statement"],
+                         inverse=spec.get("inverse", ""),
+                         reason="restore winning state after outcome trial",
+                         agent_id="outcome-harness")
+        restored = _mu.apply(cg, _m["mutation_id"], agent_id="outcome-harness")
+        time.sleep(settle)
+        ok, detail = probe()
+        restored = {"status": restored.get("status"), "probe_ok": bool(ok),
+                    "detail": detail}
+
     r = admission.adjudicate(cg, conflict_id,
                              winning_node=sides[win_idx]["node"],
                              # marked so a training run can separate outcome
@@ -163,6 +184,7 @@ def resolve_by_outcome(cg, conflict_id: str, mutation_for, probe,
             "winner_claimant": sides[win_idx].get("claimant"),
             "loser": sides[1 - win_idx].get("value"),
             "retracted": r["retracted"], "flagged": r["needs_review"],
+            "restored_to_winner": restored,
             "trials": results}
 
 
