@@ -230,6 +230,24 @@ def _admit_locked(cg, claim: dict, agent_id: str, namespace: str,
             "asserted_at": time.time()}
     node["_context_only"] = _ctx_only
 
+    # The floor must be applied to CALIBRATED confidence, not to what the agent
+    # said. Measured on 80 outcome-labelled conflicts, stated confidence inverts
+    # at the top — claims asserted above 0.95 were right 25-37% of the time while
+    # those in the 0.6-0.8 band were right 70%. Quarantining on the raw number
+    # therefore filtered out the more reliable claims and served the less
+    # reliable ones. Calibration is identity when nothing is fitted, so an
+    # install without it behaves exactly as before.
+    # OPT-IN per namespace. A calibration fitted on one model's behaviour must
+    # not be applied to claims from a different model, or from a document that
+    # never had a confidence of its own — that would distort them with a
+    # correction learned from behaviour they do not have. Enable deliberately:
+    #   cg.g.nodes["ns:<name>"]["calibrate"] = True
+    if (cg.g.nodes.get(f"ns:{namespace}") or {}).get("calibrate"):
+        from .calibrate import calibrated_confidence
+        node["stated_confidence"] = conf
+        conf = calibrated_confidence(conf)
+        node["confidence"] = conf
+
     # 1) confidence floor — stored, but not visible to other agents
     if conf < _floor(cg, namespace):
         # Dedup applies here too. The reassertion check below runs only over
