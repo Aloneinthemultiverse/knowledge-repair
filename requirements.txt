@@ -36,3 +36,10 @@ rank-bm25>=0.2.2
 # legacy dg-core package deps
 python-louvain>=0.16
 scikit-learn>=1.3.0
+
+# knowledge repair tool (kb/, repair/)
+pandas>=2.0
+rapidfuzz>=3.0
+jellyfish>=1.0
+recordlinkage>=0.16
+pytest>=8.0
