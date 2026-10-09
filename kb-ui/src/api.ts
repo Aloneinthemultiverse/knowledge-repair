@@ -1,0 +1,65 @@
+export type Quality = {
+  completeness: number; validity: number; uniqueness: number; consistency: number; integrity: number; DQ: number
+  violations: Record<string, number>
+}
+export type Summary = {
+  id: string; label: string
+  quality: { before: Quality; after: Quality }
+  records: Record<'people' | 'places' | 'events' | 'relationships', [number, number]>
+  issues: { table: string; kind: string; count: number }[]
+  actions: { applied: number; needs_review: number; flagged_only: number; total: number }
+  examples: string[]
+}
+export type Action = {
+  action_id: string; table: string; kind: string; records: string; col: string | null
+  before: unknown; after: unknown; confidence: number; status: 'applied' | 'needs_review' | 'flagged_only'
+  rule: string; explanation: string
+}
+export type Side = {
+  answer: string | null; record_id: string | null; record: string | null; name: string | null
+  conflicting: string[]; not_found: boolean; alternatives: { id: string; name: string }[]
+  retrieval: Retrieval
+}
+export type Retrieval = {
+  engine: string; vectors: number; index_kb: number; float32_kb: number; query_ms: number
+  hits: { id: string; name: string; rank: number; vector_score: number | null }[]
+}
+export type AskResult = { question: string; asked_for: string; before: Side; after: Side }
+export type Trace = {
+  table: string; entity_id: string; columns: string[]
+  repaired: Record<string, string | null>
+  originals: Record<string, string | null>[]
+  lineage: { column: string; value: string | null; from_records: string; status: string }[]
+  relationships: { rel: string; src: string; src_name: string; dst: string; dst_name: string; year: string | null }[]
+  actions: Action[]
+  place_names: Record<string, string>
+}
+
+async function call<T>(path: string, init?: RequestInit): Promise<T> {
+  let res: Response
+  try {
+    res = await fetch(path, init)
+  } catch {
+    throw new Error('Cannot reach the repair service. Start it with: python -m kb.api')
+  }
+  const body = await res.json().catch(() => ({}))
+  if (!res.ok) throw new Error(body.detail || `Request failed (${res.status})`)
+  return body as T
+}
+
+export const api = {
+  sample: () => call<Summary>('/api/runs/sample', { method: 'POST' }),
+  upload: (form: FormData) => call<Summary>('/api/runs', { method: 'POST', body: form }),
+  actions: (id: string, p: Record<string, string | number>) =>
+    call<{ total: number; kinds: string[]; rows: Action[] }>(
+      `/api/runs/${id}/actions?` + new URLSearchParams(Object.entries(p).map(([k, v]) => [k, String(v)]))),
+  trace: (id: string, eid: string) => call<Trace>(`/api/runs/${id}/trace/${encodeURIComponent(eid)}`),
+  askReady: (id: string) => call<{ ready: boolean }>(`/api/runs/${id}/ask/ready`),
+  ask: (id: string, question: string) => call<AskResult>(`/api/runs/${id}/ask`, {
+    method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ question }),
+  }),
+  downloadUrl: (id: string, name: string) => `/api/runs/${id}/download/${name}`,
+}
+
+export const fmt = (v: unknown): string =>
+  v === null || v === undefined || v === '' ? '—' : typeof v === 'object' ? JSON.stringify(v) : String(v)

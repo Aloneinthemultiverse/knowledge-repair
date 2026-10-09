@@ -29,7 +29,7 @@ Full details and sources: [benchmark report](out_repair/benchmark_report.html).
 pip install -r requirements.txt
 python -m kb bench --seeds 7            # real KB -> inject errors -> repair -> score (writes out_kb_bench/)
 python -m kb run out_kb_bench/seed7 --out out_kb   # or point it at your own 4 CSVs
-python -m kb.serve                      # upload page at http://127.0.0.1:8765
+python -m kb.api                        # web app at http://127.0.0.1:8766 (build once: cd kb-ui && npm install && npm run build)
 python -m pytest tests/test_kb.py       # 9 tests
 ```
 
@@ -40,7 +40,8 @@ Input format: [kb/README.md](kb/README.md). Demo script and pitch: [DEMO.md](DEM
 
 | path | contents |
 |---|---|
-| `kb/` | the knowledge repair tool (load, corrupt, repair, quality, report, CLI, upload page, Q&A demo) |
+| `kb/` | the knowledge repair tool (load, corrupt, repair, quality, report, CLI, JSON API, Q&A demo) |
+| `kb-ui/` | web app: repair a KB, ask the AI before vs after repair (turbovec RAG), browse every change, trace any entity |
 | `repair/` | single-table benchmarks (Raha/Baran datasets, FEBRL) and the first people-only engine |
 | `bench/` | benchmark data (see `bench/README.md`) |
 | `tests/` | automated tests |

@@ -1,0 +1,50 @@
+/* TruthGuard site look: navy-black ground, translucent white panels, teal = repaired,
+   amber = review, red = flagged, purple / coral as secondary accents. Single dark theme by design. */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --canvas: 6 8 14;
+  --surface: 14 19 30;
+  --sunk: 21 28 44;
+  --ink: 230 237 247;
+  --mute: 139 150 172;
+  --rule: 32 42 64;
+  --accent: 57 210 192;
+  --ok: 57 210 192;
+  --warn: 227 179 65;
+  --bad: 255 107 107;
+  color-scheme: dark;
+}
+
+html, body, #root { min-height: 100%; }
+body {
+  margin: 0;
+  background: radial-gradient(1200px 600px at 72% -10%, #12203a 0%, #070b16 55%) fixed, #06080e;
+  color: rgb(var(--ink));
+  font-family: Inter, -apple-system, system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3 { text-wrap: balance; }
+.font-display { font-weight: 400 !important; letter-spacing: -0.01em; }
+.tabular { font-variant-numeric: tabular-nums; }
+*::-webkit-scrollbar { width: 8px; height: 8px }
+*::-webkit-scrollbar-thumb { background: #28395c; border-radius: 4px }
+:focus-visible { outline: 2px solid rgb(var(--accent)); outline-offset: 2px; }
+
+.shimmer {
+  background: linear-gradient(110deg, rgba(255,255,255,.35) 20%, #fff 42%, rgba(255,255,255,.35) 62%);
+  background-size: 220% 100%;
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  animation: shimmer 4.5s linear infinite;
+}
+@keyframes shimmer { 0% { background-position: 180% center } 100% { background-position: -80% center } }
+.glass { background: rgb(var(--surface) / 0.72); backdrop-filter: blur(10px); }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+  .shimmer { -webkit-text-fill-color: currentcolor; background: none; }
+}

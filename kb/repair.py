@@ -195,10 +195,16 @@ class KBRepairer:
             return bool(ca and cb and not (ca & cb))
         cl, ev = self.dedupe(L, "places", "place_id", keys, sim, 0.80, guard)
 
+        word_freq = Counter(w for n in L["name"] if n for w in n.lower().replace(",", " ").split())
+
         def best_name(vals, g):
             names = [v for _, v in vals]
-            clean = [n for n in names if n != n.upper() and "," not in n and not n.lower().endswith(" city")] or names
-            return Counter(clean).most_common(1)[0][0] if clean else None
+            clean = [n for n in names if n != n.upper() and "," not in n] or names
+            if not clean:
+                return None
+            cnt = Counter(clean)
+            # tie-break: the spelling whose words are common across all places ("City" beats "CCity")
+            return max(cnt, key=lambda n: (cnt[n], min(word_freq[w] for w in n.lower().split())))
         self.L = self.merge(L, "places", "place_id", cl, ev, ["name", "country"], {"name": best_name})
 
     # ------------------------------------------------------------ 3. events
