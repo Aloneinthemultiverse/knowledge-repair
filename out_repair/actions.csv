@@ -1,0 +1,198 @@
+action_id,issue_id,kind,records,col,before,after,confidence,status,method,explanation
+A00000,I00000,NORMALIZE,R00007,email,,,1.0,applied,placeholder->null,"None is a placeholder, stored as null"
+A00001,I00001,NORMALIZE,R00010,email,,,1.0,applied,placeholder->null,"None is a placeholder, stored as null"
+A00002,I00002,NORMALIZE,R00021,email,,,1.0,applied,placeholder->null,"None is a placeholder, stored as null"
+A00003,I00003,NORMALIZE,R00026,email,,,1.0,applied,placeholder->null,"None is a placeholder, stored as null"
+A00004,I00004,NORMALIZE,R00044,email,,,1.0,applied,placeholder->null,"None is a placeholder, stored as null"
+A00005,I00005,NORMALIZE,R00068,email,,,1.0,applied,placeholder->null,"'' is a placeholder, stored as null"
+A00006,I00006,NORMALIZE,R00076,city,,,1.0,applied,placeholder->null,"None is a placeholder, stored as null"
+A00007,I00007,NORMALIZE,R00084,email,,,1.0,applied,placeholder->null,"None is a placeholder, stored as null"
+A00008,I00008,NORMALIZE,R00085,email,,,1.0,applied,placeholder->null,"None is a placeholder, stored as null"
+A00009,I00009,NORMALIZE,R00087,email,,,1.0,applied,placeholder->null,"None is a placeholder, stored as null"
+A00010,I00010,NORMALIZE,R00098,email,,,1.0,applied,placeholder->null,"None is a placeholder, stored as null"
+A00011,I00011,NORMALIZE,R00099,email,,,1.0,applied,placeholder->null,"None is a placeholder, stored as null"
+A00012,I00012,NORMALIZE,R00142,email,,,1.0,applied,placeholder->null,"None is a placeholder, stored as null"
+A00013,I00013,NORMALIZE,R00189,email,,,1.0,applied,placeholder->null,"None is a placeholder, stored as null"
+A00014,I00014,NORMALIZE,R00195,email,,,1.0,applied,placeholder->null,"None is a placeholder, stored as null"
+A00015,I00015,NORMALIZE,R00197,email,,,1.0,applied,placeholder->null,"None is a placeholder, stored as null"
+A00016,I00016,NORMALIZE,R00198,city,,,1.0,applied,placeholder->null,"None is a placeholder, stored as null"
+A00017,I00017,NORMALIZE,R00205,email,,,1.0,applied,placeholder->null,"None is a placeholder, stored as null"
+A00018,I00018,NORMALIZE,R00209,birth_year,N/A,,1.0,applied,placeholder->null,"'N/A' is a placeholder, stored as null"
+A00019,I00019,NORMALIZE,R00214,email,,,1.0,applied,placeholder->null,"None is a placeholder, stored as null"
+A00020,I00020,NORMALIZE,R00219,email,,,1.0,applied,placeholder->null,"None is a placeholder, stored as null"
+A00021,I00021,NORMALIZE,R00224,city,,,1.0,applied,placeholder->null,"'' is a placeholder, stored as null"
+A00022,I00022,NORMALIZE,R00227,email,,,1.0,applied,placeholder->null,"None is a placeholder, stored as null"
+A00023,I00023,NORMALIZE,R00228,city,N/A,,1.0,applied,placeholder->null,"'N/A' is a placeholder, stored as null"
+A00024,I00024,NORMALIZE,R00229,email,,,1.0,applied,placeholder->null,"None is a placeholder, stored as null"
+A00025,I00025,NORMALIZE,R00235,email,,,1.0,applied,placeholder->null,"None is a placeholder, stored as null"
+A00026,I00026,NORMALIZE,R00249,email,,,1.0,applied,placeholder->null,"None is a placeholder, stored as null"
+A00027,I00027,NORMALIZE,R00255,email,,,1.0,applied,placeholder->null,"'' is a placeholder, stored as null"
+A00028,I00028,NORMALIZE,R00263,email,,,1.0,applied,placeholder->null,"None is a placeholder, stored as null"
+A00029,I00029,NORMALIZE,R00267,country,,,1.0,applied,placeholder->null,"None is a placeholder, stored as null"
+A00030,I00030,NORMALIZE,R00269,country,N/A,,1.0,applied,placeholder->null,"'N/A' is a placeholder, stored as null"
+A00031,I00031,NORMALIZE,R00272,email,,,1.0,applied,placeholder->null,"None is a placeholder, stored as null"
+A00032,I00032,NORMALIZE,R00274,email,,,1.0,applied,placeholder->null,"None is a placeholder, stored as null"
+A00033,I00033,NORMALIZE,R00278,country,N/A,,1.0,applied,placeholder->null,"'N/A' is a placeholder, stored as null"
+A00034,I00034,NORMALIZE,R00284,city,N/A,,1.0,applied,placeholder->null,"'N/A' is a placeholder, stored as null"
+A00035,I00035,NORMALIZE,R00287,email,,,1.0,applied,placeholder->null,"None is a placeholder, stored as null"
+A00036,I00036,NORMALIZE,R00298,email,,,1.0,applied,placeholder->null,"None is a placeholder, stored as null"
+A00037,I00037,NORMALIZE,R00301,email,,,1.0,applied,placeholder->null,"None is a placeholder, stored as null"
+A00038,I00038,NORMALIZE,R00310,email,,,1.0,applied,placeholder->null,"None is a placeholder, stored as null"
+A00039,I00039,NORMALIZE,R00314,email,,,1.0,applied,placeholder->null,"None is a placeholder, stored as null"
+A00040,I00040,NORMALIZE,R00316,email,,,1.0,applied,placeholder->null,"None is a placeholder, stored as null"
+A00041,I00041,NORMALIZE,R00324,email,,,1.0,applied,placeholder->null,"None is a placeholder, stored as null"
+A00042,I00042,NORMALIZE,R00325,birth_year,unknown,,1.0,applied,placeholder->null,"'unknown' is a placeholder, stored as null"
+A00043,I00043,NORMALIZE,R00325,email,,,1.0,applied,placeholder->null,"None is a placeholder, stored as null"
+A00044,I00044,NORMALIZE,R00331,birth_year,,,1.0,applied,placeholder->null,"'' is a placeholder, stored as null"
+A00045,I00045,NORMALIZE,R00345,city,N/A,,1.0,applied,placeholder->null,"'N/A' is a placeholder, stored as null"
+A00046,I00046,NORMALIZE,R00354,country,N/A,,1.0,applied,placeholder->null,"'N/A' is a placeholder, stored as null"
+A00047,I00047,CORRECT,R00024,name,Priya Marainez,Priya Martinez,0.835,needs_review,noisy-channel name,rare spelling in 'Priya Marainez' replaced by frequent 'martinez' (21x)
+A00048,I00048,CORRECT,R00028,name,Richard Garia,Richard Garcia,0.792,needs_review,noisy-channel name,rare spelling in 'Richard Garia' replaced by frequent 'garcia' (19x)
+A00049,I00049,CORRECT,R00037,name,Rbert Williams,Robert Williams,0.758,needs_review,noisy-channel name,rare spelling in 'Rbert Williams' replaced by frequent 'robert' (10x)
+A00050,I00050,CORRECT,R00050,name,Roberrt Jones,Robert Jones,0.779,needs_review,noisy-channel name,rare spelling in 'Roberrt Jones' replaced by frequent 'robert' (10x)
+A00051,I00051,CORRECT,R00052,name,Srah Johnson,Sarah Johnson,0.743,needs_review,noisy-channel name,rare spelling in 'Srah Johnson' replaced by frequent 'sarah' (13x)
+A00052,I00052,CORRECT,R00054,name,Richhard Moore,Richard Moore,0.831,needs_review,noisy-channel name,rare spelling in 'Richhard Moore' replaced by frequent 'richard' (19x)
+A00053,I00053,CORRECT,R00060,name,Pryia Taylor,Priya Taylor,0.756,needs_review,noisy-channel name,rare spelling in 'Pryia Taylor' replaced by frequent 'priya' (17x)
+A00054,I00054,CORRECT,R00084,name,Lnda Rodriguez,Linda Rodriguez,0.72,needs_review,noisy-channel name,rare spelling in 'Lnda Rodriguez' replaced by frequent 'linda' (9x)
+A00055,I00055,CORRECT,R00096,name,Elizabeht Martinez,Elizabeth Martinez,0.808,needs_review,noisy-channel name,rare spelling in 'Elizabeht Martinez' replaced by frequent 'elizabeth' (10x)
+A00056,I00056,CORRECT,R00112,name,Aethony Anderson,Anthony Anderson,0.8,needs_review,noisy-channel name,rare spelling in 'Aethony Anderson' replaced by frequent 'anthony' (14x)
+A00057,I00057,CORRECT,R00129,name,Thmoas Miller,Thomas Miller,0.811,needs_review,noisy-channel name,rare spelling in 'Thmoas Miller' replaced by frequent 'thomas' (37x)
+A00058,I00058,CORRECT,R00214,name,Sraah Davis,Sarah Davis,0.743,needs_review,noisy-channel name,rare spelling in 'Sraah Davis' replaced by frequent 'sarah' (13x)
+A00059,I00059,CORRECT,R00219,name,Richord Taylor,Richard Taylor,0.814,needs_review,noisy-channel name,rare spelling in 'Richord Taylor' replaced by frequent 'richard' (19x)
+A00060,I00060,CORRECT,R00235,name,Rchard Rodriguez,Richard Rodriguez,0.814,needs_review,noisy-channel name,rare spelling in 'Rchard Rodriguez' replaced by frequent 'richard' (19x)
+A00061,I00061,CORRECT,R00249,name,Micheal Martinez,Michael Martinez,0.8,needs_review,noisy-channel name,rare spelling in 'Micheal Martinez' replaced by frequent 'michael' (14x)
+A00062,I00062,CORRECT,R00262,name,Jennnifer Wilson,Jennifer Wilson,0.83,needs_review,noisy-channel name,rare spelling in 'Jennnifer Wilson' replaced by frequent 'jennifer' (14x)
+A00063,I00063,CORRECT,R00263,name,"Miller, Joesph","Miller, Joseph",0.797,needs_review,noisy-channel name,"rare spelling in 'Miller, Joesph' replaced by frequent 'joseph' (22x)"
+A00064,I00064,CORRECT,R00269,name,Elizabeeth Taylor,Elizabeth Taylor,0.818,needs_review,noisy-channel name,rare spelling in 'Elizabeeth Taylor' replaced by frequent 'elizabeth' (10x)
+A00065,I00065,CORRECT,R00275,name,John Smtih,John Smith,0.771,needs_review,noisy-channel name,rare spelling in 'John Smtih' replaced by frequent 'smith' (27x)
+A00066,I00066,CORRECT,R00287,name,Priyya Martinez,Priya Martinez,0.787,needs_review,noisy-channel name,rare spelling in 'Priyya Martinez' replaced by frequent 'priya' (17x)
+A00067,I00067,CORRECT,R00289,name,Davod Williams,David Williams,0.753,needs_review,noisy-channel name,rare spelling in 'Davod Williams' replaced by frequent 'david' (16x)
+A00068,I00068,CORRECT,R00294,name,Davd Kumar,David Kumar,0.753,needs_review,noisy-channel name,rare spelling in 'Davd Kumar' replaced by frequent 'david' (16x)
+A00069,I00069,CORRECT,R00298,name,Dniel Thomas,Daniel Thomas,0.758,needs_review,noisy-channel name,rare spelling in 'Dniel Thomas' replaced by frequent 'daniel' (10x)
+A00070,I00070,CORRECT,R00318,name,Jessia Johnson,Jessica Johnson,0.804,needs_review,noisy-channel name,rare spelling in 'Jessia Johnson' replaced by frequent 'jessica' (15x)
+A00071,I00071,CORRECT,R00000,city,Cicago,Chicago,0.89,needs_review,fuzzy-vocab,"'Cicago' seen 1x, 92% similar to 'Chicago' seen 27x"
+A00072,I00072,CORRECT,R00049,city,Tooronto,Toronto,0.909,applied,fuzzy-vocab,"'Tooronto' seen 1x, 93% similar to 'Toronto' seen 37x"
+A00073,I00073,CORRECT,R00092,city,Mumbi,Mumbai,0.887,needs_review,fuzzy-vocab,"'Mumbi' seen 1x, 91% similar to 'Mumbai' seen 40x"
+A00074,I00074,CORRECT,R00094,city,Lyyon,Lyon,0.866,needs_review,fuzzy-vocab,"'Lyyon' seen 1x, 89% similar to 'Lyon' seen 38x"
+A00075,I00075,CORRECT,R00104,city,Cheanai,Chennai,0.84,needs_review,fuzzy-vocab,"'Cheanai' seen 1x, 86% similar to 'Chennai' seen 48x"
+A00076,I00076,CORRECT,R00138,city,Chcago,Chicago,0.89,needs_review,fuzzy-vocab,"'Chcago' seen 1x, 92% similar to 'Chicago' seen 27x"
+A00077,I00077,CORRECT,R00181,city,Chenani,Chennai,0.84,needs_review,fuzzy-vocab,"'Chenani' seen 1x, 86% similar to 'Chennai' seen 48x"
+A00078,I00078,CORRECT,R00240,city,Tronto,Toronto,0.899,needs_review,fuzzy-vocab,"'Tronto' seen 1x, 92% similar to 'Toronto' seen 37x"
+A00079,I00079,FILL,R00354,country,,Germany,1.0,applied,FD city->country,100% of city=Berlin rows have country=Germany
+A00080,I00080,CORRECT,R00071,country,India,USA,0.966,applied,FD city->country,97% of city=Boston rows say USA; this row says India
+A00081,I00081,FILL,R00278,country,,USA,0.966,applied,FD city->country,97% of city=Boston rows have country=USA
+A00082,I00082,CORRECT,R00105,country,Spain,India,0.98,applied,FD city->country,98% of city=Chennai rows say India; this row says Spain
+A00083,I00083,FILL,R00267,country,,France,1.0,applied,FD city->country,100% of city=Lyon rows have country=France
+A00084,I00084,CORRECT,R00259,country,USA,Spain,0.967,applied,FD city->country,97% of city=Madrid rows say Spain; this row says USA
+A00085,I00085,FILL,R00269,country,,Spain,0.967,applied,FD city->country,97% of city=Madrid rows have country=Spain
+A00086,I00086,CORRECT,R00022,country,Germany,India,0.927,applied,FD city->country,93% of city=Mumbai rows say India; this row says Germany
+A00087,I00087,CORRECT,R00295,country,USA,India,0.927,applied,FD city->country,93% of city=Mumbai rows say India; this row says USA
+A00088,I00088,CORRECT,R00310,country,Germany,India,0.927,applied,FD city->country,93% of city=Mumbai rows say India; this row says Germany
+A00089,I00089,CORRECT,R00253,country,USA,Canada,0.974,applied,FD city->country,97% of city=Toronto rows say Canada; this row says USA
+A00090,I00090,CORRECT,R00002,birth_year,1977,1976,0.899,needs_review,learned email<->year,email richard.taylor76@mail.com encodes 1976; 95% of rows follow this pattern
+A00091,I00091,FILL,R00007,email,,william.thomas47@mail.com,0.899,needs_review,learned email template,95% of complete rows have email = first.lastYY@mail.com
+A00092,I00092,FILL,R00010,email,,joseph.wilson52@mail.com,0.899,needs_review,learned email template,95% of complete rows have email = first.lastYY@mail.com
+A00093,I00093,FILL,R00021,email,,anthony.smith55@mail.com,0.899,needs_review,learned email template,95% of complete rows have email = first.lastYY@mail.com
+A00094,I00094,CORRECT,R00045,birth_year,1952,1950,0.899,needs_review,learned email<->year,email david.williams50@mail.com encodes 1950; 95% of rows follow this pattern
+A00095,I00095,CORRECT,R00057,birth_year,1942,1943,0.899,needs_review,learned email<->year,email michael.moore43@mail.com encodes 1943; 95% of rows follow this pattern
+A00096,I00096,FILL,R00068,email,,john.taylor58@mail.com,0.899,needs_review,learned email template,95% of complete rows have email = first.lastYY@mail.com
+A00097,I00097,CORRECT,R00077,birth_year,1959,1954,0.899,needs_review,learned email<->year,email richard.moore54@mail.com encodes 1954; 95% of rows follow this pattern
+A00098,I00098,FILL,R00084,email,,linda.rodriguez74@mail.com,0.899,needs_review,learned email template,95% of complete rows have email = first.lastYY@mail.com
+A00099,I00099,FILL,R00098,email,,joseph.thomas40@mail.com,0.899,needs_review,learned email template,95% of complete rows have email = first.lastYY@mail.com
+A00100,I00100,CORRECT,R00116,birth_year,1966,1961,0.899,needs_review,learned email<->year,email joseph.miller61@mail.com encodes 1961; 95% of rows follow this pattern
+A00101,I00101,FILL,R00142,email,,joon.smith51@mail.com,0.899,needs_review,learned email template,95% of complete rows have email = first.lastYY@mail.com
+A00102,I00102,CORRECT,R00143,birth_year,1950,1948,0.899,needs_review,learned email<->year,email arjun.davis48@mail.com encodes 1948; 95% of rows follow this pattern
+A00103,I00103,CORRECT,R00172,birth_year,1971,1969,0.899,needs_review,learned email<->year,email joseph.garcia69@mail.com encodes 1969; 95% of rows follow this pattern
+A00104,I00104,CORRECT,R00192,birth_year,1970,1973,0.899,needs_review,learned email<->year,email joseph.johnson73@mail.com encodes 1973; 95% of rows follow this pattern
+A00105,I00105,FILL,R00197,email,,mary.smith67@mail.com,0.899,needs_review,learned email template,95% of complete rows have email = first.lastYY@mail.com
+A00106,I00106,FILL,R00205,email,,matthew.martinez55@mail.com,0.899,needs_review,learned email template,95% of complete rows have email = first.lastYY@mail.com
+A00107,I00107,CORRECT,R00206,birth_year,1996,1997,0.899,needs_review,learned email<->year,email jennifer.garcia97@mail.com encodes 1997; 95% of rows follow this pattern
+A00108,I00108,FILL,R00209,birth_year,,1968,0.946,applied,learned email<->year,95% of complete rows have email digits = birth year; email sarah.kumar68@mail.com
+A00109,I00109,FILL,R00214,email,,sarah.davis84@mail.com,0.899,needs_review,learned email template,95% of complete rows have email = first.lastYY@mail.com
+A00110,I00110,FILL,R00219,email,,richard.taylor48@mail.com,0.899,needs_review,learned email template,95% of complete rows have email = first.lastYY@mail.com
+A00111,I00111,FILL,R00227,email,,jennifer.anderson76@mail.com,0.899,needs_review,learned email template,95% of complete rows have email = first.lastYY@mail.com
+A00112,I00112,FILL,R00229,email,,jessica.johnson85@mail.com,0.899,needs_review,learned email template,95% of complete rows have email = first.lastYY@mail.com
+A00113,I00113,CORRECT,R00233,birth_year,1985,1984,0.899,needs_review,learned email<->year,email joseph.miller84@mail.com encodes 1984; 95% of rows follow this pattern
+A00114,I00114,CORRECT,R00234,birth_year,1973,1976,0.899,needs_review,learned email<->year,email william.garcia76@mail.com encodes 1976; 95% of rows follow this pattern
+A00115,I00115,FILL,R00235,email,,richard.rodriguez68@mail.com,0.899,needs_review,learned email template,95% of complete rows have email = first.lastYY@mail.com
+A00116,I00116,CORRECT,R00236,birth_year,1940,1941,0.899,needs_review,learned email<->year,email jessica.miller41@mail.com encodes 1941; 95% of rows follow this pattern
+A00117,I00117,FILL,R00249,email,,michael.martinez92@mail.com,0.899,needs_review,learned email template,95% of complete rows have email = first.lastYY@mail.com
+A00118,I00118,CORRECT,R00254,birth_year,2003,1998,0.899,needs_review,learned email<->year,email susan.anderson98@mail.com encodes 1998; 95% of rows follow this pattern
+A00119,I00119,FILL,R00255,email,,jennifer.johnson51@mail.com,0.899,needs_review,learned email template,95% of complete rows have email = first.lastYY@mail.com
+A00120,I00120,FILL,R00263,email,,joseph.miller61@mail.com,0.899,needs_review,learned email template,95% of complete rows have email = first.lastYY@mail.com
+A00121,I00121,CORRECT,R00269,birth_year,1988,1983,0.899,needs_review,learned email<->year,email elizabeth.taylor83@mail.com encodes 1983; 95% of rows follow this pattern
+A00122,I00122,FILL,R00274,email,,jennifer.thomas46@mail.com,0.899,needs_review,learned email template,95% of complete rows have email = first.lastYY@mail.com
+A00123,I00123,CORRECT,R00280,birth_year,1981,1982,0.899,needs_review,learned email<->year,email linda.miller82@mail.com encodes 1982; 95% of rows follow this pattern
+A00124,I00124,FILL,R00287,email,,priya.martinez56@mail.com,0.899,needs_review,learned email template,95% of complete rows have email = first.lastYY@mail.com
+A00125,I00125,FILL,R00298,email,,daniel.thomas60@mail.com,0.899,needs_review,learned email template,95% of complete rows have email = first.lastYY@mail.com
+A00126,I00126,FILL,R00301,email,,liaa.moore89@mail.com,0.899,needs_review,learned email template,95% of complete rows have email = first.lastYY@mail.com
+A00127,I00127,CORRECT,R00306,birth_year,1972,1970,0.899,needs_review,learned email<->year,email thomas.garcia70@mail.com encodes 1970; 95% of rows follow this pattern
+A00128,I00128,FILL,R00314,email,,richard.davis74@mail.com,0.899,needs_review,learned email template,95% of complete rows have email = first.lastYY@mail.com
+A00129,I00129,FILL,R00324,email,,michael.johnson80@mail.com,0.899,needs_review,learned email template,95% of complete rows have email = first.lastYY@mail.com
+A00130,I00130,FILL,R00331,birth_year,,1961,0.946,applied,learned email<->year,95% of complete rows have email digits = birth year; email robert.jones61@mail.com
+A00131,I00131,CORRECT,R00354,birth_year,1985,1988,0.899,needs_review,learned email<->year,email jessica.williams88@mail.com encodes 1988; 95% of rows follow this pattern
+A00132,I00132,MERGE,"R00004,R00021",,,E00004,0.95,applied,blocking+fuzzy score,R00004~R00021: 0.80 (name 1.00; year diff 0; same city)
+A00133,I00133,MERGE,"R00006,R00235",,,E00006,0.95,applied,blocking+fuzzy score,R00006~R00235: 0.80 (name 1.00; year diff 0; same city)
+A00134,I00134,MERGE,"R00007,R00222",,,E00007,0.95,applied,blocking+fuzzy score,R00007~R00222: 0.80 (name 1.00; year diff 0; same city)
+A00135,I00135,MERGE,"R00009,R00010",,,E00009,0.95,applied,blocking+fuzzy score,R00009~R00010: 0.80 (name 1.00; year diff 0; same city)
+A00136,I00136,MERGE,"R00011,R00071",,,E00010,0.95,applied,blocking+fuzzy score,R00011~R00071: 1.10 (name 1.00; same email; year diff 0; same city)
+A00137,I00137,MERGE,"R00013,R00205",,,E00012,0.95,applied,blocking+fuzzy score,R00013~R00205: 0.80 (name 1.00; year diff 0; same city)
+A00138,I00138,MERGE,"R00016,R00099",,,E00015,0.95,applied,blocking+fuzzy score,R00016~R00099: 0.75 (name 0.90; year diff 0; same city)
+A00139,I00139,MERGE,"R00017,R00084",,,E00016,0.95,applied,blocking+fuzzy score,R00017~R00084: 0.80 (name 1.00; year diff 0; same city)
+A00140,I00140,MERGE,"R00018,R00108",,,E00017,0.95,applied,blocking+fuzzy score,R00018~R00108: 1.10 (name 1.00; same email; year diff 0; same city)
+A00141,I00141,MERGE,"R00019,R00142",,,E00018,0.95,applied,blocking+fuzzy score,R00019~R00142: 0.75 (name 0.90; year diff 0; same city)
+A00142,I00142,RESOLVE,"R00019,R00142",email,"{'john.smith51@mail.com': 1, 'joon.smith51@mail.com': 1}",,0.5,flagged_only,majority vote,"tie between duplicates: kept first value, needs human"
+A00143,I00143,MERGE,"R00020,R00112",,,E00019,0.95,applied,blocking+fuzzy score,R00020~R00112: 1.10 (name 1.00; same email; year diff 0; same city)
+A00144,I00144,MERGE,"R00024,R00287",,,E00022,0.95,applied,blocking+fuzzy score,R00024~R00287: 0.80 (name 1.00; year diff 0; same city)
+A00145,I00145,MERGE,"R00026,R00090",,,E00024,0.95,applied,blocking+fuzzy score,R00026~R00090: 0.75 (name 0.90; year diff 0; same city)
+A00146,I00146,MERGE,"R00029,R00310",,,E00027,0.95,applied,blocking+fuzzy score,R00029~R00310: 0.75 (name 0.90; year diff 0; same city)
+A00147,I00147,MERGE,"R00031,R00161",,,E00029,0.95,applied,blocking+fuzzy score,R00031~R00161: 1.10 (name 1.00; same email; year diff 0; same city)
+A00148,I00148,MERGE,"R00035,R00227",,,E00033,0.95,applied,blocking+fuzzy score,R00035~R00227: 0.65 (name 1.00; year diff 1; same city)
+A00149,I00149,RESOLVE,"R00035,R00227",birth_year,"{'1977': 1, '1976': 1}",,0.5,flagged_only,majority vote,"tie between duplicates: kept first value, needs human"
+A00150,I00150,RESOLVE,"R00035,R00227",email,"{'jennifer.anderson77@mail.com': 1, 'jennifer.anderson76@mail.com': 1}",,0.5,flagged_only,majority vote,"tie between duplicates: kept first value, needs human"
+A00151,I00151,MERGE,"R00037,R00351",,,E00035,0.95,applied,blocking+fuzzy score,R00037~R00351: 1.10 (name 1.00; same email; year diff 0; same city)
+A00152,I00152,MERGE,"R00042,R00052",,,E00040,0.95,applied,blocking+fuzzy score,R00042~R00052: 1.10 (name 1.00; same email; year diff 0; same city)
+A00153,I00153,MERGE,"R00044,R00283",,,E00042,0.95,applied,blocking+fuzzy score,R00044~R00283: 0.75 (name 0.90; year diff 0; same city)
+A00154,I00154,MERGE,"R00045,R00289",,,E00043,0.95,applied,blocking+fuzzy score,R00045~R00289: 1.10 (name 1.00; same email; year diff 0; same city)
+A00155,I00155,MERGE,"R00050,R00331",,,E00048,0.95,applied,blocking+fuzzy score,R00050~R00331: 1.10 (name 1.00; same email; year diff 0; same city)
+A00156,I00156,MERGE,"R00054,R00077",,,E00051,0.95,applied,blocking+fuzzy score,R00054~R00077: 1.10 (name 1.00; same email; year diff 0; same city)
+A00157,I00157,MERGE,"R00055,R00083",,,E00052,0.95,applied,blocking+fuzzy score,R00055~R00083: 1.05 (name 0.90; same email; year diff 0; same city)
+A00158,I00158,MERGE,"R00058,R00085",,,E00055,0.95,applied,blocking+fuzzy score,R00058~R00085: 0.75 (name 0.90; year diff 0; same city)
+A00159,I00159,MERGE,"R00060,R00131",,,E00057,0.95,applied,blocking+fuzzy score,R00060~R00131: 1.10 (name 1.00; same email; year diff 0; same city)
+A00160,I00160,MERGE,"R00064,R00229",,,E00061,0.95,applied,blocking+fuzzy score,R00064~R00229: 0.80 (name 1.00; year diff 0; same city)
+A00161,I00161,MERGE,"R00066,R00298",,,E00063,0.95,applied,blocking+fuzzy score,R00066~R00298: 0.80 (name 1.00; year diff 0; same city)
+A00162,I00162,MERGE,"R00069,R00144",,,E00066,0.95,applied,blocking+fuzzy score,R00069~R00144: 1.10 (name 1.00; same email; year diff 0; same city)
+A00163,I00163,MERGE,"R00070,R00197",,,E00067,0.95,applied,blocking+fuzzy score,R00070~R00197: 0.80 (name 1.00; year diff 0; same city)
+A00164,I00164,MERGE,"R00081,R00098",,,E00076,0.95,applied,blocking+fuzzy score,R00081~R00098: 0.80 (name 1.00; year diff 0; same city)
+A00165,I00165,MERGE,"R00082,R00171",,,E00077,0.95,applied,blocking+fuzzy score,R00082~R00171: 1.10 (name 1.00; same email; year diff 0; same city)
+A00166,I00166,MERGE,"R00087,R00101",,,E00079,0.95,applied,blocking+fuzzy score,R00087~R00101: 0.75 (name 0.90; year diff 0; same city)
+A00167,I00167,MERGE,"R00103,R00231",,,E00091,0.95,applied,blocking+fuzzy score,R00103~R00231: 1.05 (name 0.90; same email; year diff 0; same city)
+A00168,I00168,MERGE,"R00104,R00109",,,E00092,0.95,applied,blocking+fuzzy score,R00104~R00109: 1.10 (name 1.00; same email; year diff 0; same city)
+A00169,I00169,MERGE,"R00116,R00263",,,E00101,0.95,applied,blocking+fuzzy score,R00116~R00263: 0.80 (name 1.00; year diff 0; same city)
+A00170,I00170,MERGE,"R00118,R00353",,,E00103,0.95,applied,blocking+fuzzy score,R00118~R00353: 1.05 (name 0.90; same email; year diff 0; same city)
+A00171,I00171,MERGE,"R00129,R00322",,,E00114,0.95,applied,blocking+fuzzy score,R00129~R00322: 1.10 (name 1.00; same email; year diff 0; same city)
+A00172,I00172,MERGE,"R00170,R00317",,,E00151,0.95,applied,blocking+fuzzy score,R00170~R00317: 0.90 (name 0.90; same email; year diff 3; same city)
+A00173,I00173,RESOLVE,"R00170,R00317",birth_year,"{'1991': 1, '1994': 1}",,0.5,flagged_only,majority vote,"tie between duplicates: kept first value, needs human"
+A00174,I00174,MERGE,"R00188,R00207",,,E00168,0.95,applied,blocking+fuzzy score,R00188~R00207: 1.10 (name 1.00; same email; year diff 0; same city)
+A00175,I00175,MERGE,"R00191,R00335",,,E00171,0.95,applied,blocking+fuzzy score,R00191~R00335: 1.10 (name 1.00; same email; year diff 0; same city)
+A00176,I00176,MERGE,"R00195,R00275",,,E00175,0.95,applied,blocking+fuzzy score,R00195~R00275: 0.75 (name 0.90; year diff 0; same city)
+A00177,I00177,MERGE,"R00201,R00301",,,E00180,0.95,applied,blocking+fuzzy score,R00201~R00301: 0.75 (name 0.90; year diff 0; same city)
+A00178,I00178,RESOLVE,"R00201,R00301",email,"{'lisa.moore89@mail.com': 1, 'liaa.moore89@mail.com': 1}",,0.5,flagged_only,majority vote,"tie between duplicates: kept first value, needs human"
+A00179,I00179,MERGE,"R00204,R00214",,,E00183,0.95,applied,blocking+fuzzy score,R00204~R00214: 0.80 (name 1.00; year diff 0; same city)
+A00180,I00180,MERGE,"R00219,R00267",,,E00195,0.95,applied,blocking+fuzzy score,R00219~R00267: 0.80 (name 1.00; year diff 0; same city)
+A00181,I00181,MERGE,"R00221,R00352",,,E00197,0.95,applied,blocking+fuzzy score,R00221~R00352: 1.10 (name 1.00; same email; year diff 0; same city)
+A00182,I00182,MERGE,"R00237,R00318",,,E00208,0.95,applied,blocking+fuzzy score,R00237~R00318: 1.10 (name 1.00; same email; year diff 0; same city)
+A00183,I00183,MERGE,"R00240,R00314",,,E00211,0.95,applied,blocking+fuzzy score,R00240~R00314: 0.80 (name 1.00; year diff 0; same city)
+A00184,I00184,MERGE,"R00241,R00316",,,E00212,0.95,applied,blocking+fuzzy score,R00241~R00316: 0.75 (name 0.90; year diff 0; same city)
+A00185,I00185,MERGE,"R00248,R00286",,,E00219,0.95,applied,blocking+fuzzy score,R00248~R00286: 1.10 (name 1.00; same email; year diff 0; same city)
+A00186,I00186,MERGE,"R00249,R00264",,,E00220,0.95,applied,blocking+fuzzy score,R00249~R00264: 0.80 (name 1.00; year diff 0; same city)
+A00187,I00187,MERGE,"R00268,R00270",,,E00236,0.95,applied,blocking+fuzzy score,R00268~R00270: 1.05 (name 0.90; same email; year diff 0; same city)
+A00188,I00188,MERGE,"R00269,R00350",,,E00237,0.95,applied,blocking+fuzzy score,R00269~R00350: 1.10 (name 1.00; same email; year diff 0; same city)
+A00189,I00189,MERGE,"R00272,R00313",,,E00239,0.95,applied,blocking+fuzzy score,R00272~R00313: 0.75 (name 0.90; year diff 0; same city)
+A00190,I00190,MERGE,"R00274,R00339",,,E00241,0.95,applied,blocking+fuzzy score,R00274~R00339: 0.80 (name 1.00; year diff 0; same city)
+A00191,I00191,FLAG,"R00093,R98578",,R98578,,0.0,flagged_only,ref check,target record does not exist; cannot infer who was meant
+A00192,I00192,FLAG,"R00118,R95691",,R95691,,0.0,flagged_only,ref check,target record does not exist; cannot infer who was meant
+A00193,I00193,FLAG,"R00273,R98291",,R98291,,0.0,flagged_only,ref check,target record does not exist; cannot infer who was meant
+A00194,I00194,FLAG,"R00280,R98972",,R98972,,0.0,flagged_only,ref check,target record does not exist; cannot infer who was meant
+A00195,I00195,FLAG,"R00032,R98954",,R98954,,0.0,flagged_only,ref check,target record does not exist; cannot infer who was meant
+A00196,I00196,FLAG,"R00273,R92490",,R92490,,0.0,flagged_only,ref check,target record does not exist; cannot infer who was meant

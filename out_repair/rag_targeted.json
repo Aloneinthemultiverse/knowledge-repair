@@ -1,0 +1,27 @@
+{
+  "questions": 107,
+  "BEFORE_dirty_kb": {
+    "TYPO": "2/10 = 20%",
+    "CONTRADICTION": "2/19 = 11%",
+    "FD_VIOLATION": "1/8 = 12%",
+    "MISSING": "1/16 = 6%",
+    "DUPLICATE": "51/54 = 94%",
+    "ALL": "57/107 = 53.3%",
+    "answers_with_contradicting_evidence": "67/107",
+    "query_ms_p50": 10.7,
+    "chunks": 356,
+    "build_s": 76.5
+  },
+  "AFTER_repaired_kb": {
+    "TYPO": "9/10 = 90%",
+    "CONTRADICTION": "19/19 = 100%",
+    "FD_VIOLATION": "7/8 = 88%",
+    "MISSING": "9/16 = 56%",
+    "DUPLICATE": "52/54 = 96%",
+    "ALL": "96/107 = 89.7%",
+    "answers_with_contradicting_evidence": "69/107",
+    "query_ms_p50": 10.7,
+    "chunks": 302,
+    "build_s": 11.6
+  }
+}

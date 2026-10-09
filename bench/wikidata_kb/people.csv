@@ -1,0 +1,681 @@
+p,pLabel,birth,death,genderLabel,bp,dp
+http://www.wikidata.org/entity/Q122272,Richard Ernst,1933-08-14T00:00:00Z,2021-06-04T00:00:00Z,male,http://www.wikidata.org/entity/Q9125,http://www.wikidata.org/entity/Q9125
+http://www.wikidata.org/entity/Q102278,Christian B. Anfinsen,1916-03-26T00:00:00Z,1995-05-14T00:00:00Z,male,http://www.wikidata.org/entity/Q1186680,http://www.wikidata.org/entity/Q755604
+http://www.wikidata.org/entity/Q106746,Richard Smalley,1943-06-06T00:00:00Z,2005-10-28T00:00:00Z,male,http://www.wikidata.org/entity/Q163132,http://www.wikidata.org/entity/Q16555
+http://www.wikidata.org/entity/Q157212,Odd Hassel,1897-05-17T00:00:00Z,1981-05-11T00:00:00Z,male,http://www.wikidata.org/entity/Q21711493,http://www.wikidata.org/entity/Q585
+http://www.wikidata.org/entity/Q76766,Gerd Binnig,1947-07-20T00:00:00Z,,male,http://www.wikidata.org/entity/Q1794,
+http://www.wikidata.org/entity/Q106699,Martin Chalfie,1947-01-15T00:00:00Z,,male,http://www.wikidata.org/entity/Q1297,
+http://www.wikidata.org/entity/Q102406,Herbert C. Brown,1912-05-22T00:00:00Z,2004-12-19T00:00:00Z,male,http://www.wikidata.org/entity/Q84,http://www.wikidata.org/entity/Q166481
+http://www.wikidata.org/entity/Q151564,Frederick Sanger,1918-08-13T00:00:00Z,2013-11-19T00:00:00Z,male,http://www.wikidata.org/entity/Q2605064,http://www.wikidata.org/entity/Q350
+http://www.wikidata.org/entity/Q135154,John Cornforth,1917-09-07T00:00:00Z,2013-12-08T00:00:00Z,male,http://www.wikidata.org/entity/Q3130,http://www.wikidata.org/entity/Q131491
+http://www.wikidata.org/entity/Q83552,Alexander Prokhorov,1916-07-11T00:00:00Z,2002-01-08T00:00:00Z,male,http://www.wikidata.org/entity/Q755507,http://www.wikidata.org/entity/Q649
+http://www.wikidata.org/entity/Q157224,Kary Mullis,1944-12-28T00:00:00Z,2019-08-07T00:00:00Z,male,http://www.wikidata.org/entity/Q2028342,http://www.wikidata.org/entity/Q268873
+http://www.wikidata.org/entity/Q110947,William Standish Knowles,1917-06-01T00:00:00Z,2012-06-13T00:00:00Z,male,http://www.wikidata.org/entity/Q127506,http://www.wikidata.org/entity/Q959443
+http://www.wikidata.org/entity/Q8753,Enrico Fermi,1901-09-29T00:00:00Z,1954-11-28T00:00:00Z,male,http://www.wikidata.org/entity/Q220,http://www.wikidata.org/entity/Q1297
+http://www.wikidata.org/entity/Q110952,Stanford Moore,1913-09-04T00:00:00Z,1982-08-23T00:00:00Z,male,http://www.wikidata.org/entity/Q1297,http://www.wikidata.org/entity/Q60
+http://www.wikidata.org/entity/Q123014,Alfred Werner,1866-12-12T00:00:00Z,1919-11-15T00:00:00Z,male,http://www.wikidata.org/entity/Q79815,http://www.wikidata.org/entity/Q72
+http://www.wikidata.org/entity/Q73058,Willard Boyle,1924-08-19T00:00:00Z,2011-05-07T00:00:00Z,male,http://www.wikidata.org/entity/Q470594,http://www.wikidata.org/entity/Q7962713
+http://www.wikidata.org/entity/Q157210,Ryōji Noyori,1938-09-03T00:00:00Z,,male,http://www.wikidata.org/entity/Q725514,
+http://www.wikidata.org/entity/Q157242,Alexander Todd,1907-10-02T00:00:00Z,1997-01-10T00:00:00Z,male,http://www.wikidata.org/entity/Q4093,http://www.wikidata.org/entity/Q350
+http://www.wikidata.org/entity/Q135180,Thomas Cech,1947-12-08T00:00:00Z,,male,http://www.wikidata.org/entity/Q1297,
+http://www.wikidata.org/entity/Q110957,Kurt Wüthrich,1938-10-04T00:00:00Z,,male,http://www.wikidata.org/entity/Q64113,
+http://www.wikidata.org/entity/Q9021,Max Planck,1858-04-23T00:00:00Z,1947-10-04T00:00:00Z,male,http://www.wikidata.org/entity/Q1707,http://www.wikidata.org/entity/Q3033
+http://www.wikidata.org/entity/Q76970,Pavel Cherenkov,1904-07-28T00:00:00Z,1990-01-06T00:00:00Z,male,http://www.wikidata.org/entity/Q18406045,http://www.wikidata.org/entity/Q649
+http://www.wikidata.org/entity/Q76797,Johannes Hans Daniel Jensen,1907-06-25T00:00:00Z,1973-02-11T00:00:00Z,male,http://www.wikidata.org/entity/Q1055,http://www.wikidata.org/entity/Q2966
+http://www.wikidata.org/entity/Q12658,Wilhelm Ostwald,1853-09-02T00:00:00Z,1932-04-04T00:00:00Z,male,http://www.wikidata.org/entity/Q1773,http://www.wikidata.org/entity/Q560850
+http://www.wikidata.org/entity/Q102379,Paul Berg,1926-06-30T00:00:00Z,2023-02-15T00:00:00Z,male,http://www.wikidata.org/entity/Q18419,http://www.wikidata.org/entity/Q173813
+http://www.wikidata.org/entity/Q110073,William Giauque,1895-05-12T00:00:00Z,1982-03-28T00:00:00Z,male,http://www.wikidata.org/entity/Q274120,http://www.wikidata.org/entity/Q484678
+http://www.wikidata.org/entity/Q1547368,Alexey Ekimov,1945-02-28T00:00:00Z,,male,http://www.wikidata.org/entity/Q656,
+http://www.wikidata.org/entity/Q122996,Leopold Ružička,1887-09-13T00:00:00Z,1976-09-26T00:00:00Z,male,http://www.wikidata.org/entity/Q5867,http://www.wikidata.org/entity/Q69956
+http://www.wikidata.org/entity/Q135151,Donald J. Cram,1919-04-22T00:00:00Z,2001-06-17T00:00:00Z,male,http://www.wikidata.org/entity/Q594920,http://www.wikidata.org/entity/Q399976
+http://www.wikidata.org/entity/Q102266,Sidney Altman,1939-05-07T00:00:00Z,2022-04-05T00:00:00Z,male,http://www.wikidata.org/entity/Q340,http://www.wikidata.org/entity/Q1087516
+http://www.wikidata.org/entity/Q106751,Alan J. Heeger,1936-01-22T00:00:00Z,,male,http://www.wikidata.org/entity/Q489255,
+http://www.wikidata.org/entity/Q102250,Peter Agre,1949-01-30T00:00:00Z,,male,http://www.wikidata.org/entity/Q996544,
+http://www.wikidata.org/entity/Q104582,Victor Grignard,1871-05-06T00:00:00Z,1935-12-13T00:00:00Z,male,http://www.wikidata.org/entity/Q3667188,http://www.wikidata.org/entity/Q3360
+http://www.wikidata.org/entity/Q110935,William Lipscomb,1919-12-09T00:00:00Z,2011-04-14T00:00:00Z,male,http://www.wikidata.org/entity/Q37320,http://www.wikidata.org/entity/Q49111
+http://www.wikidata.org/entity/Q106738,John Fenn,1917-06-15T00:00:00Z,2010-12-10T00:00:00Z,male,http://www.wikidata.org/entity/Q60,http://www.wikidata.org/entity/Q43421
+http://www.wikidata.org/entity/Q110930,Robert Curl,1933-08-23T00:00:00Z,2022-07-03T00:00:00Z,male,http://www.wikidata.org/entity/Q981528,http://www.wikidata.org/entity/Q16555
+http://www.wikidata.org/entity/Q105949,Akira Suzuki,1930-09-12T00:00:00Z,,male,http://www.wikidata.org/entity/Q13521877,
+http://www.wikidata.org/entity/Q83557,Nikolay Basov,1922-12-14T00:00:00Z,2001-07-01T00:00:00Z,male,http://www.wikidata.org/entity/Q196907,http://www.wikidata.org/entity/Q649
+http://www.wikidata.org/entity/Q135171,Elias James Corey,1928-07-12T00:00:00Z,,male,http://www.wikidata.org/entity/Q54179,
+http://www.wikidata.org/entity/Q157212,Odd Hassel,1897-05-17T00:00:00Z,1981-05-11T00:00:00Z,male,http://www.wikidata.org/entity/Q5245991,http://www.wikidata.org/entity/Q5245991
+http://www.wikidata.org/entity/Q86970,Ferenc Krausz,1962-05-17T00:00:00Z,,male,http://www.wikidata.org/entity/Q680963,
+http://www.wikidata.org/entity/Q110963,Koichi Tanaka,1959-08-03T00:00:00Z,,male,http://www.wikidata.org/entity/Q204266,
+http://www.wikidata.org/entity/Q102395,Paul D. Boyer,1918-07-31T00:00:00Z,2018-06-02T00:00:00Z,male,http://www.wikidata.org/entity/Q23443,http://www.wikidata.org/entity/Q65
+http://www.wikidata.org/entity/Q110925,Karl Barry Sharpless,1941-04-28T00:00:00Z,,male,http://www.wikidata.org/entity/Q1345,
+http://www.wikidata.org/entity/Q107405,Lars Onsager,1903-11-27T00:00:00Z,1976-10-05T00:00:00Z,male,http://www.wikidata.org/entity/Q21711493,http://www.wikidata.org/entity/Q427559
+http://www.wikidata.org/entity/Q76687,Georg Bednorz,1950-05-16T00:00:00Z,,male,http://www.wikidata.org/entity/Q182208,
+http://www.wikidata.org/entity/Q78610,Anton Zeilinger,1945-05-20T00:00:00Z,,male,http://www.wikidata.org/entity/Q267791,
+http://www.wikidata.org/entity/Q150989,Frédéric Joliot-Curie,1900-03-19T00:00:00Z,1958-08-14T00:00:00Z,male,http://www.wikidata.org/entity/Q194420,http://www.wikidata.org/entity/Q3145207
+http://www.wikidata.org/entity/Q103835,Peter Debye,1884-03-24T00:00:00Z,1966-11-02T00:00:00Z,male,http://www.wikidata.org/entity/Q1309,http://www.wikidata.org/entity/Q217346
+http://www.wikidata.org/entity/Q92894,Geoffrey Hinton,1947-12-06T00:00:00Z,,male,http://www.wikidata.org/entity/Q736742,
+http://www.wikidata.org/entity/Q730065,Shuji Nakamura,1954-05-22T00:00:00Z,,male,http://www.wikidata.org/entity/Q1206399,
+http://www.wikidata.org/entity/Q82563,Leon Cooper,1930-02-28T00:00:00Z,2024-10-23T00:00:00Z,male,http://www.wikidata.org/entity/Q60,http://www.wikidata.org/entity/Q18383
+http://www.wikidata.org/entity/Q157212,Odd Hassel,1897-05-17T00:00:00Z,1981-05-11T00:00:00Z,male,http://www.wikidata.org/entity/Q21711493,http://www.wikidata.org/entity/Q5245991
+http://www.wikidata.org/entity/Q80905,Donald Arthur Glaser,1926-09-21T00:00:00Z,2013-02-28T00:00:00Z,male,http://www.wikidata.org/entity/Q37320,http://www.wikidata.org/entity/Q484678
+http://www.wikidata.org/entity/Q555849,John Clarke,1942-02-10T00:00:00Z,,male,http://www.wikidata.org/entity/Q350,
+http://www.wikidata.org/entity/Q110916,Hideki Shirakawa,1936-08-20T00:00:00Z,2026-08-24T00:00:00Z,male,http://www.wikidata.org/entity/Q7473516,http://www.wikidata.org/entity/Q38283
+http://www.wikidata.org/entity/Q106733,Jerome Karle,1918-06-18T00:00:00Z,2013-06-06T00:00:00Z,male,http://www.wikidata.org/entity/Q60,http://www.wikidata.org/entity/Q1375477
+http://www.wikidata.org/entity/Q9130,Erwin Schrödinger,1887-08-12T00:00:00Z,1961-01-04T00:00:00Z,male,http://www.wikidata.org/entity/Q1741,http://www.wikidata.org/entity/Q1741
+http://www.wikidata.org/entity/Q102822,Jacobus Henricus van 't Hoff,1852-08-30T00:00:00Z,1911-03-01T00:00:00Z,male,http://www.wikidata.org/entity/Q34370,http://www.wikidata.org/entity/Q700211
+http://www.wikidata.org/entity/Q110942,Alan MacDiarmid,1927-04-14T00:00:00Z,2007-02-07T00:00:00Z,male,http://www.wikidata.org/entity/Q1223916,http://www.wikidata.org/entity/Q1132763
+http://www.wikidata.org/entity/Q102419,Derek Barton,1918-09-08T00:00:00Z,1998-03-16T00:00:00Z,male,http://www.wikidata.org/entity/Q676689,http://www.wikidata.org/entity/Q695511
+http://www.wikidata.org/entity/Q76462,Wolfgang Ketterle,1957-10-21T00:00:00Z,,male,http://www.wikidata.org/entity/Q2966,
+http://www.wikidata.org/entity/Q76474,Walther Bothe,1891-01-08T00:00:00Z,1957-02-08T00:00:00Z,male,http://www.wikidata.org/entity/Q14808,http://www.wikidata.org/entity/Q2966
+http://www.wikidata.org/entity/Q104575,Paul Sabatier,1854-11-05T00:00:00Z,1941-08-14T00:00:00Z,male,http://www.wikidata.org/entity/Q6582,http://www.wikidata.org/entity/Q7880
+http://www.wikidata.org/entity/Q106471,Richard F. Heck,1931-08-15T00:00:00Z,2015-10-09T00:00:00Z,male,http://www.wikidata.org/entity/Q49158,http://www.wikidata.org/entity/Q1461
+http://www.wikidata.org/entity/Q15118973,Aziz Sancar,1946-09-08T00:00:00Z,,male,http://www.wikidata.org/entity/Q1004614,
+http://www.wikidata.org/entity/Q102804,Henri Moissan,1852-09-28T00:00:00Z,1907-02-20T00:00:00Z,male,http://www.wikidata.org/entity/Q90,http://www.wikidata.org/entity/Q90
+http://www.wikidata.org/entity/Q106762,George Porter,1920-12-06T00:00:00Z,2002-08-31T00:00:00Z,male,http://www.wikidata.org/entity/Q2121249,http://www.wikidata.org/entity/Q29303
+http://www.wikidata.org/entity/Q135139,Paul J. Crutzen,1933-12-03T00:00:00Z,2021-01-28T00:00:00Z,male,http://www.wikidata.org/entity/Q727,http://www.wikidata.org/entity/Q1720
+http://www.wikidata.org/entity/Q156492,William Howard Stein,1911-06-25T00:00:00Z,1980-02-02T00:00:00Z,male,http://www.wikidata.org/entity/Q60,http://www.wikidata.org/entity/Q60
+http://www.wikidata.org/entity/Q949,John Bardeen,1908-05-23T00:00:00Z,1991-01-30T00:00:00Z,male,http://www.wikidata.org/entity/Q43788,http://www.wikidata.org/entity/Q100
+http://www.wikidata.org/entity/Q107690,Jean-Marie Lehn,1939-09-30T00:00:00Z,,male,http://www.wikidata.org/entity/Q22990,
+http://www.wikidata.org/entity/Q107422,Herbert A. Hauptman,1917-02-14T00:00:00Z,2011-10-23T00:00:00Z,male,http://www.wikidata.org/entity/Q60,http://www.wikidata.org/entity/Q40435
+http://www.wikidata.org/entity/Q728331,Jim Peebles,1935-04-25T00:00:00Z,,male,http://www.wikidata.org/entity/Q2135,
+http://www.wikidata.org/entity/Q1387059,William E. Moerner,1953-06-24T00:00:00Z,,male,http://www.wikidata.org/entity/Q747444,
+http://www.wikidata.org/entity/Q80884,James Chadwick,1891-10-20T00:00:00Z,1974-07-24T00:00:00Z,male,http://www.wikidata.org/entity/Q2247131,http://www.wikidata.org/entity/Q350
+http://www.wikidata.org/entity/Q105927,Ei-ichi Negishi,1935-07-14T00:00:00Z,2021-06-06T00:00:00Z,male,http://www.wikidata.org/entity/Q92237,http://www.wikidata.org/entity/Q6346
+http://www.wikidata.org/entity/Q157239,Artturi Ilmari Virtanen,1895-01-15T00:00:00Z,1973-11-11T00:00:00Z,male,http://www.wikidata.org/entity/Q1757,http://www.wikidata.org/entity/Q1757
+http://www.wikidata.org/entity/Q102830,Frederick Soddy,1877-09-02T00:00:00Z,1956-09-22T00:00:00Z,male,http://www.wikidata.org/entity/Q208262,http://www.wikidata.org/entity/Q131491
+http://www.wikidata.org/entity/Q78520,Victor Francis Hess,1883-06-24T00:00:00Z,1964-12-17T00:00:00Z,male,http://www.wikidata.org/entity/Q1684577,http://www.wikidata.org/entity/Q835831
+http://www.wikidata.org/entity/Q79000,Pieter Zeeman,1865-05-25T00:00:00Z,1943-10-09T00:00:00Z,male,http://www.wikidata.org/entity/Q1902634,http://www.wikidata.org/entity/Q727
+http://www.wikidata.org/entity/Q1351105,Eric Betzig,1960-01-13T00:00:00Z,,male,http://www.wikidata.org/entity/Q485172,
+http://www.wikidata.org/entity/Q83297,John William Strutt,1842-11-12T00:00:00Z,1919-06-30T00:00:00Z,male,http://www.wikidata.org/entity/Q26404733,http://www.wikidata.org/entity/Q16248343
+http://www.wikidata.org/entity/Q1545000,Greg Winter,1951-04-14T00:00:00Z,,male,http://www.wikidata.org/entity/Q83065,
+http://www.wikidata.org/entity/Q83331,Louis de Broglie,1892-08-15T00:00:00Z,1987-03-19T00:00:00Z,male,http://www.wikidata.org/entity/Q183557,http://www.wikidata.org/entity/Q762133
+http://www.wikidata.org/entity/Q106756,James Batcheller Sumner,1887-11-19T00:00:00Z,1955-08-12T00:00:00Z,male,http://www.wikidata.org/entity/Q2429670,http://www.wikidata.org/entity/Q40435
+http://www.wikidata.org/entity/Q105937,Wendell Meredith Stanley,1904-08-16T00:00:00Z,1971-06-15T00:00:00Z,male,http://www.wikidata.org/entity/Q2805012,http://www.wikidata.org/entity/Q15695
+http://www.wikidata.org/entity/Q102291,Francis William Aston,1877-09-01T00:00:00Z,1945-11-20T00:00:00Z,male,http://www.wikidata.org/entity/Q3699290,http://www.wikidata.org/entity/Q350
+http://www.wikidata.org/entity/Q105572,Benjamin List,1968-01-11T00:00:00Z,,male,http://www.wikidata.org/entity/Q1794,
+http://www.wikidata.org/entity/Q76373,George E. Smith,1930-05-10T00:00:00Z,2025-05-28T00:00:00Z,male,http://www.wikidata.org/entity/Q462177,http://www.wikidata.org/entity/Q1088201
+http://www.wikidata.org/entity/Q157212,Odd Hassel,1897-05-17T00:00:00Z,1981-05-11T00:00:00Z,male,http://www.wikidata.org/entity/Q5245991,http://www.wikidata.org/entity/Q585
+http://www.wikidata.org/entity/Q79000,Pieter Zeeman,1865-05-25T00:00:00Z,1943-10-09T00:00:00Z,male,http://www.wikidata.org/entity/Q17344907,http://www.wikidata.org/entity/Q727
+http://www.wikidata.org/entity/Q109559,Thomas A. Steitz,1940-08-23T00:00:00Z,2018-10-09T00:00:00Z,male,http://www.wikidata.org/entity/Q37836,http://www.wikidata.org/entity/Q898484
+http://www.wikidata.org/entity/Q106399,John Howard Northrop,1891-07-05T00:00:00Z,1987-05-27T00:00:00Z,male,http://www.wikidata.org/entity/Q128114,http://www.wikidata.org/entity/Q996556
+http://www.wikidata.org/entity/Q937,Q937,1879-03-14T00:00:00Z,1955-04-18T00:00:00Z,male,http://www.wikidata.org/entity/Q3012,http://www.wikidata.org/entity/Q138518
+http://www.wikidata.org/entity/Q111190,F. Sherwood Rowland,1927-06-28T00:00:00Z,2012-03-10T00:00:00Z,male,http://www.wikidata.org/entity/Q986183,http://www.wikidata.org/entity/Q268873
+http://www.wikidata.org/entity/Q106624,Ahmed Zewail,1946-02-26T00:00:00Z,2016-08-02T00:00:00Z,male,http://www.wikidata.org/entity/Q328153,http://www.wikidata.org/entity/Q485176
+http://www.wikidata.org/entity/Q190501,Henrik Dam,1895-02-21T00:00:00Z,1976-04-17T00:00:00Z,male,http://www.wikidata.org/entity/Q1748,http://www.wikidata.org/entity/Q1748
+http://www.wikidata.org/entity/Q108880,Robert F. Furchgott,1916-06-04T00:00:00Z,2009-05-19T00:00:00Z,male,http://www.wikidata.org/entity/Q47716,http://www.wikidata.org/entity/Q5083
+http://www.wikidata.org/entity/Q1174906,David Julius,1955-11-04T00:00:00Z,,male,http://www.wikidata.org/entity/Q915813,
+http://www.wikidata.org/entity/Q76623,Robert Huber,1937-02-20T00:00:00Z,,male,http://www.wikidata.org/entity/Q1726,
+http://www.wikidata.org/entity/Q170342,Svante Pääbo,1955-04-20T00:00:00Z,,male,http://www.wikidata.org/entity/Q10612973,
+http://www.wikidata.org/entity/Q78480,Max Perutz,1914-05-19T00:00:00Z,2002-02-06T00:00:00Z,male,http://www.wikidata.org/entity/Q1741,http://www.wikidata.org/entity/Q350
+http://www.wikidata.org/entity/Q110060,Marshall Warren Nirenberg,1927-04-10T00:00:00Z,2010-01-15T00:00:00Z,male,http://www.wikidata.org/entity/Q18419,http://www.wikidata.org/entity/Q11299
+http://www.wikidata.org/entity/Q180350,Frederick Banting,1891-11-14T00:00:00Z,1941-02-21T00:00:00Z,male,http://www.wikidata.org/entity/Q1490411,http://www.wikidata.org/entity/Q6941166
+http://www.wikidata.org/entity/Q155525,César Milstein,1927-10-08T00:00:00Z,2002-03-24T00:00:00Z,male,http://www.wikidata.org/entity/Q54108,http://www.wikidata.org/entity/Q350
+http://www.wikidata.org/entity/Q76624,Karl Ziegler,1898-11-26T00:00:00Z,1973-08-12T00:00:00Z,male,http://www.wikidata.org/entity/Q622846,http://www.wikidata.org/entity/Q2899
+http://www.wikidata.org/entity/Q105605,Jules A. Hoffmann,1941-08-02T00:00:00Z,,male,http://www.wikidata.org/entity/Q204317,
+http://www.wikidata.org/entity/Q104607,Andrew Huxley,1917-11-22T00:00:00Z,2012-05-30T00:00:00Z,male,http://www.wikidata.org/entity/Q25610,http://www.wikidata.org/entity/Q350
+http://www.wikidata.org/entity/Q150526,Santiago Ramón y Cajal,1852-05-01T00:00:00Z,1934-10-17T00:00:00Z,male,http://www.wikidata.org/entity/Q984872,http://www.wikidata.org/entity/Q2807
+http://www.wikidata.org/entity/Q76614,Friedrich Bergius,1884-10-11T00:00:00Z,1949-03-30T00:00:00Z,male,http://www.wikidata.org/entity/Q9393436,http://www.wikidata.org/entity/Q1486
+http://www.wikidata.org/entity/Q115470,Walter Rudolf Hess,1881-03-17T00:00:00Z,1973-08-12T00:00:00Z,male,http://www.wikidata.org/entity/Q68120,http://www.wikidata.org/entity/Q69961
+http://www.wikidata.org/entity/Q104600,Jack Szostak,1952-11-09T00:00:00Z,,male,http://www.wikidata.org/entity/Q84,
+http://www.wikidata.org/entity/Q185777,Alexis Carrel,1873-06-28T00:00:00Z,1944-11-05T00:00:00Z,male,http://www.wikidata.org/entity/Q387460,http://www.wikidata.org/entity/Q90
+http://www.wikidata.org/entity/Q1701279,John O'Keefe,1939-11-18T00:00:00Z,,male,http://www.wikidata.org/entity/Q60,
+http://www.wikidata.org/entity/Q115478,Emil Theodor Kocher,1841-08-25T00:00:00Z,1917-07-27T00:00:00Z,male,http://www.wikidata.org/entity/Q70,http://www.wikidata.org/entity/Q70
+http://www.wikidata.org/entity/Q189006,Charles Louis Alphonse Laveran,1845-06-18T00:00:00Z,1922-05-18T00:00:00Z,male,http://www.wikidata.org/entity/Q90,http://www.wikidata.org/entity/Q90
+http://www.wikidata.org/entity/Q156480,Hugo Theorell,1903-07-06T00:00:00Z,1982-08-15T00:00:00Z,male,http://www.wikidata.org/entity/Q10562793,http://www.wikidata.org/entity/Q1754
+http://www.wikidata.org/entity/Q91410,Q91410,1962-12-23T00:00:00Z,,male,http://www.wikidata.org/entity/Q173591,
+http://www.wikidata.org/entity/Q116064,Rolf M. Zinkernagel,1944-01-06T00:00:00Z,,male,http://www.wikidata.org/entity/Q5262,
+http://www.wikidata.org/entity/Q107402,Rosalyn Sussman Yalow,1921-07-19T00:00:00Z,2011-05-30T00:00:00Z,female,http://www.wikidata.org/entity/Q60,http://www.wikidata.org/entity/Q18426
+http://www.wikidata.org/entity/Q108602,Susumu Tonegawa,1939-09-05T00:00:00Z,2026-07-11T00:00:00Z,male,http://www.wikidata.org/entity/Q11751,http://www.wikidata.org/entity/Q169943
+http://www.wikidata.org/entity/Q23073819,Richard Robson,1937-06-04T00:00:00Z,,male,http://www.wikidata.org/entity/Q3298774,
+http://www.wikidata.org/entity/Q906529,John B. Goodenough,1922-07-25T00:00:00Z,2023-06-25T00:00:00Z,male,http://www.wikidata.org/entity/Q3150,http://www.wikidata.org/entity/Q16559
+http://www.wikidata.org/entity/Q1603351,William G. Kaelin,1957-11-23T00:00:00Z,,male,http://www.wikidata.org/entity/Q60,
+http://www.wikidata.org/entity/Q77072,Richard Willstätter,1872-08-13T00:00:00Z,1942-08-03T00:00:00Z,male,http://www.wikidata.org/entity/Q1040,http://www.wikidata.org/entity/Q69961
+http://www.wikidata.org/entity/Q76604,Hans Fischer,1881-07-27T00:00:00Z,1945-03-31T00:00:00Z,male,http://www.wikidata.org/entity/Q132499,http://www.wikidata.org/entity/Q1726
+http://www.wikidata.org/entity/Q153890,Nikolaas Tinbergen,1907-04-15T00:00:00Z,1988-12-21T00:00:00Z,male,http://www.wikidata.org/entity/Q36600,http://www.wikidata.org/entity/Q34217
+http://www.wikidata.org/entity/Q123280,Francis Crick,1916-06-08T00:00:00Z,2004-07-28T00:00:00Z,male,http://www.wikidata.org/entity/Q192240,http://www.wikidata.org/entity/Q840668
+http://www.wikidata.org/entity/Q177681,Thomas Hunt Morgan,1866-09-25T00:00:00Z,1945-12-04T00:00:00Z,male,http://www.wikidata.org/entity/Q49241,http://www.wikidata.org/entity/Q485176
+http://www.wikidata.org/entity/Q155529,Eric Kandel,1929-11-07T00:00:00Z,,male,http://www.wikidata.org/entity/Q1741,
+http://www.wikidata.org/entity/Q115475,Paul Hermann Müller,1899-01-12T00:00:00Z,1965-10-12T00:00:00Z,male,http://www.wikidata.org/entity/Q68129,http://www.wikidata.org/entity/Q78
+http://www.wikidata.org/entity/Q107462,Har Gobind Khorana,1922-01-09T00:00:00Z,2011-11-09T00:00:00Z,male,http://www.wikidata.org/entity/Q3523886,http://www.wikidata.org/entity/Q523240
+http://www.wikidata.org/entity/Q76951,George de Hevesy,1885-08-01T00:00:00Z,1966-07-05T00:00:00Z,male,http://www.wikidata.org/entity/Q1781,http://www.wikidata.org/entity/Q2833
+http://www.wikidata.org/entity/Q152187,August Krogh,1874-11-15T00:00:00Z,1949-09-13T00:00:00Z,male,http://www.wikidata.org/entity/Q3619316,http://www.wikidata.org/entity/Q1748
+http://www.wikidata.org/entity/Q76606,Carl Bosch,1874-08-27T00:00:00Z,1940-04-26T00:00:00Z,male,http://www.wikidata.org/entity/Q365,http://www.wikidata.org/entity/Q2966
+http://www.wikidata.org/entity/Q115495,Werner Arber,1929-06-03T00:00:00Z,,male,http://www.wikidata.org/entity/Q64267,
+http://www.wikidata.org/entity/Q950726,William Ramsay,1852-10-02T00:00:00Z,1916-07-23T00:00:00Z,male,http://www.wikidata.org/entity/Q4093,http://www.wikidata.org/entity/Q64116
+http://www.wikidata.org/entity/Q185007,Rita Levi-Montalcini,1909-04-22T00:00:00Z,2012-12-30T00:00:00Z,female,http://www.wikidata.org/entity/Q495,http://www.wikidata.org/entity/Q220
+http://www.wikidata.org/entity/Q105494,Ralph Steinman,1943-01-14T00:00:00Z,2011-09-30T00:00:00Z,male,http://www.wikidata.org/entity/Q340,http://www.wikidata.org/entity/Q11299
+http://www.wikidata.org/entity/Q110974,James Black,1924-06-14T00:00:00Z,2010-03-21T00:00:00Z,male,http://www.wikidata.org/entity/Q3091189,http://www.wikidata.org/entity/Q84
+http://www.wikidata.org/entity/Q76624,Karl Ziegler,1898-11-26T00:00:00Z,1973-08-11T00:00:00Z,male,http://www.wikidata.org/entity/Q622846,http://www.wikidata.org/entity/Q2899
+http://www.wikidata.org/entity/Q103598,Luc Montagnier,1932-08-18T00:00:00Z,2022-02-08T00:00:00Z,male,http://www.wikidata.org/entity/Q1080911,http://www.wikidata.org/entity/Q48958
+http://www.wikidata.org/entity/Q76610,Heinrich Otto Wieland,1877-06-04T00:00:00Z,1957-08-05T00:00:00Z,male,http://www.wikidata.org/entity/Q3046,http://www.wikidata.org/entity/Q61936
+http://www.wikidata.org/entity/Q102034,Ronald Ross,1857-05-13T00:00:00Z,1932-09-16T00:00:00Z,male,http://www.wikidata.org/entity/Q588817,http://www.wikidata.org/entity/Q84
+http://www.wikidata.org/entity/Q78482,Fritz Pregl,1869-09-03T00:00:00Z,1930-12-13T00:00:00Z,male,http://www.wikidata.org/entity/Q437,http://www.wikidata.org/entity/Q13298
+http://www.wikidata.org/entity/Q110101,Edward Calvin Kendall,1886-03-08T00:00:00Z,1972-05-04T00:00:00Z,male,http://www.wikidata.org/entity/Q7568037,http://www.wikidata.org/entity/Q138518
+http://www.wikidata.org/entity/Q80956,Svante August Arrhenius,1859-02-19T00:00:00Z,1927-10-02T00:00:00Z,male,http://www.wikidata.org/entity/Q1543476,http://www.wikidata.org/entity/Q1754
+http://www.wikidata.org/entity/Q184659,Maurice Wilkins,1916-12-15T00:00:00Z,2004-10-05T00:00:00Z,male,http://www.wikidata.org/entity/Q7227799,http://www.wikidata.org/entity/Q880861
+http://www.wikidata.org/entity/Q743252,Omar M. Yaghi,1965-02-09T00:00:00Z,,male,http://www.wikidata.org/entity/Q3805,
+http://www.wikidata.org/entity/Q11401680,Susumu Kitagawa,1951-07-04T00:00:00Z,,male,http://www.wikidata.org/entity/Q34600,
+http://www.wikidata.org/entity/Q104913,Robert Edwards,1925-09-27T00:00:00Z,2013-04-10T00:00:00Z,male,http://www.wikidata.org/entity/Q810847,http://www.wikidata.org/entity/Q350
+http://www.wikidata.org/entity/Q83501,Vladimir Prelog,1906-07-23T00:00:00Z,1998-01-07T00:00:00Z,male,http://www.wikidata.org/entity/Q11194,http://www.wikidata.org/entity/Q72
+http://www.wikidata.org/entity/Q77142,Adolf Windaus,1876-12-25T00:00:00Z,1959-06-09T00:00:00Z,male,http://www.wikidata.org/entity/Q64,http://www.wikidata.org/entity/Q3033
+http://www.wikidata.org/entity/Q155375,Archibald Hill,1886-09-26T00:00:00Z,1977-06-03T00:00:00Z,male,http://www.wikidata.org/entity/Q23154,http://www.wikidata.org/entity/Q350
+http://www.wikidata.org/entity/Q150630,Camillo Golgi,1843-07-07T00:00:00Z,1926-01-21T00:00:00Z,male,http://www.wikidata.org/entity/Q104096,http://www.wikidata.org/entity/Q6259
+http://www.wikidata.org/entity/Q108891,Robert W. Holley,1922-01-28T00:00:00Z,1993-02-11T00:00:00Z,male,http://www.wikidata.org/entity/Q462184,http://www.wikidata.org/entity/Q747509
+http://www.wikidata.org/entity/Q9123,Ernest Rutherford,1871-08-30T00:00:00Z,1937-10-19T00:00:00Z,male,http://www.wikidata.org/entity/Q65430768,http://www.wikidata.org/entity/Q350
+http://www.wikidata.org/entity/Q107609,Christiaan Eijkman,1858-08-11T00:00:00Z,1930-11-05T00:00:00Z,male,http://www.wikidata.org/entity/Q16220881,http://www.wikidata.org/entity/Q803
+http://www.wikidata.org/entity/Q77086,Hartmut Michel,1948-07-18T00:00:00Z,,male,http://www.wikidata.org/entity/Q622,
+http://www.wikidata.org/entity/Q108896,Hamilton Smith,1931-08-23T00:00:00Z,2025-10-25T00:00:00Z,male,http://www.wikidata.org/entity/Q60,http://www.wikidata.org/entity/Q730938
+http://www.wikidata.org/entity/Q103844,Françoise Barré-Sinoussi,1947-07-30T00:00:00Z,,female,http://www.wikidata.org/entity/Q204622,
+http://www.wikidata.org/entity/Q137106,Howard Florey,1898-09-24T00:00:00Z,1968-02-21T00:00:00Z,male,http://www.wikidata.org/entity/Q5112,http://www.wikidata.org/entity/Q34217
+http://www.wikidata.org/entity/Q109553,Renato Dulbecco,1914-02-22T00:00:00Z,2012-02-19T00:00:00Z,male,http://www.wikidata.org/entity/Q3883,http://www.wikidata.org/entity/Q840668
+http://www.wikidata.org/entity/Q108576,Daniel Carleton Gajdusek,1923-09-09T00:00:00Z,2008-12-12T00:00:00Z,male,http://www.wikidata.org/entity/Q128114,http://www.wikidata.org/entity/Q26087
+http://www.wikidata.org/entity/Q180468,Albert Szent-Györgyi,1893-09-16T00:00:00Z,1986-10-22T00:00:00Z,male,http://www.wikidata.org/entity/Q1781,http://www.wikidata.org/entity/Q747172
+http://www.wikidata.org/entity/Q76612,Johann Deisenhofer,1943-09-30T00:00:00Z,,male,http://www.wikidata.org/entity/Q230613,
+http://www.wikidata.org/entity/Q115448,Daniel Bovet,1907-03-23T00:00:00Z,1992-04-08T00:00:00Z,male,http://www.wikidata.org/entity/Q69345,http://www.wikidata.org/entity/Q220
+http://www.wikidata.org/entity/Q76616,Otto Diels,1876-01-23T00:00:00Z,1954-03-07T00:00:00Z,male,http://www.wikidata.org/entity/Q1055,http://www.wikidata.org/entity/Q1707
+http://www.wikidata.org/entity/Q78483,Richard Kuhn,1900-12-03T00:00:00Z,1967-07-31T00:00:00Z,male,http://www.wikidata.org/entity/Q1741,http://www.wikidata.org/entity/Q2966
+http://www.wikidata.org/entity/Q78481,Richard Adolf Zsigmondy,1865-04-01T00:00:00Z,1929-09-23T00:00:00Z,male,http://www.wikidata.org/entity/Q1741,http://www.wikidata.org/entity/Q3033
+http://www.wikidata.org/entity/Q106547,Paul Lauterbur,1929-05-06T00:00:00Z,2007-03-27T00:00:00Z,male,http://www.wikidata.org/entity/Q998626,http://www.wikidata.org/entity/Q462184
+http://www.wikidata.org/entity/Q78510,Walter Kohn,1923-03-09T00:00:00Z,2016-04-19T00:00:00Z,male,http://www.wikidata.org/entity/Q1741,http://www.wikidata.org/entity/Q159288
+http://www.wikidata.org/entity/Q155380,Stanley B. Prusiner,1942-05-28T00:00:00Z,,male,http://www.wikidata.org/entity/Q39709,
+http://www.wikidata.org/entity/Q1545025,Gregg L. Semenza,1956-07-12T00:00:00Z,,male,http://www.wikidata.org/entity/Q1058775,
+http://www.wikidata.org/entity/Q24284511,Kensō Soai,1950-05-03T00:00:00Z,,male,http://www.wikidata.org/entity/Q1204737,
+http://www.wikidata.org/entity/Q182964,Niels Ryberg Finsen,1860-12-15T00:00:00Z,1904-09-24T00:00:00Z,male,http://www.wikidata.org/entity/Q10704,http://www.wikidata.org/entity/Q1748
+http://www.wikidata.org/entity/Q80907,Brian Kobilka,1955-05-30T00:00:00Z,,male,http://www.wikidata.org/entity/Q1903165,
+http://www.wikidata.org/entity/Q105830,Baruch Samuel Blumberg,1925-07-28T00:00:00Z,2011-04-05T00:00:00Z,male,http://www.wikidata.org/entity/Q18419,http://www.wikidata.org/entity/Q486860
+http://www.wikidata.org/entity/Q903471,Martin Karplus,1930-03-15T00:00:00Z,2024-12-28T00:00:00Z,male,http://www.wikidata.org/entity/Q1741,http://www.wikidata.org/entity/Q49111
+http://www.wikidata.org/entity/Q110106,Julius Axelrod,1912-05-30T00:00:00Z,2004-12-29T00:00:00Z,male,http://www.wikidata.org/entity/Q60,http://www.wikidata.org/entity/Q584451
+http://www.wikidata.org/entity/Q115490,Tadeusz Reichstein,1897-07-20T00:00:00Z,1996-08-01T00:00:00Z,male,http://www.wikidata.org/entity/Q106681,http://www.wikidata.org/entity/Q78
+http://www.wikidata.org/entity/Q77171,Georg Wittig,1897-06-16T00:00:00Z,1987-08-26T00:00:00Z,male,http://www.wikidata.org/entity/Q64,http://www.wikidata.org/entity/Q2966
+http://www.wikidata.org/entity/Q189488,Willem Einthoven,1860-05-21T00:00:00Z,1927-09-29T00:00:00Z,male,http://www.wikidata.org/entity/Q11025,http://www.wikidata.org/entity/Q43631
+http://www.wikidata.org/entity/Q141147,Andrew Schally,1926-11-30T00:00:00Z,2024-10-17T00:00:00Z,male,http://www.wikidata.org/entity/Q216,http://www.wikidata.org/entity/Q201516
+http://www.wikidata.org/entity/Q155371,Charles Brenton Huggins,1901-09-22T00:00:00Z,1997-01-12T00:00:00Z,male,http://www.wikidata.org/entity/Q2141,http://www.wikidata.org/entity/Q1297
+http://www.wikidata.org/entity/Q109731,Edwin G. Krebs,1918-06-06T00:00:00Z,2009-12-21T00:00:00Z,male,http://www.wikidata.org/entity/Q998842,http://www.wikidata.org/entity/Q5083
+http://www.wikidata.org/entity/Q156482,Corneille Heymans,1892-03-28T00:00:00Z,1968-07-18T00:00:00Z,male,http://www.wikidata.org/entity/Q1296,http://www.wikidata.org/entity/Q12988
+http://www.wikidata.org/entity/Q76613,Hans von Euler-Chelpin,1873-02-15T00:00:00Z,1964-11-06T00:00:00Z,male,http://www.wikidata.org/entity/Q2749,http://www.wikidata.org/entity/Q1754
+http://www.wikidata.org/entity/Q1297741,Michael Rosbash,1944-03-07T00:00:00Z,,male,http://www.wikidata.org/entity/Q41819,
+http://www.wikidata.org/entity/Q172254,Élie Metchnikoff,1845-05-15T00:00:00Z,1916-07-15T00:00:00Z,male,http://www.wikidata.org/entity/Q92645,http://www.wikidata.org/entity/Q90
+http://www.wikidata.org/entity/Q354979,Q354979,1930-12-15T00:00:00Z,,male,http://www.wikidata.org/entity/Q172455,
+http://www.wikidata.org/entity/Q80910,Robert Lefkowitz,1943-04-15T00:00:00Z,,male,http://www.wikidata.org/entity/Q18426,
+http://www.wikidata.org/entity/Q152760,Jean Dausset,1916-10-19T00:00:00Z,2009-06-06T00:00:00Z,male,http://www.wikidata.org/entity/Q7880,http://www.wikidata.org/entity/Q8826
+http://www.wikidata.org/entity/Q109726,Edmond H. Fischer,1920-04-06T00:00:00Z,2021-08-27T00:00:00Z,male,http://www.wikidata.org/entity/Q2571993,http://www.wikidata.org/entity/Q5083
+http://www.wikidata.org/entity/Q1686435,Jeffrey C. Hall,1945-05-03T00:00:00Z,,male,http://www.wikidata.org/entity/Q18419,
+http://www.wikidata.org/entity/Q104592,Bruce Beutler,1957-12-29T00:00:00Z,,male,http://www.wikidata.org/entity/Q1297,
+http://www.wikidata.org/entity/Q192688,Ivar Giæver,1929-04-05T00:00:00Z,2025-06-20T00:00:00Z,male,http://www.wikidata.org/entity/Q26793,http://www.wikidata.org/entity/Q331380
+http://www.wikidata.org/entity/Q708472,Arthur Ashkin,1922-09-02T00:00:00Z,2020-09-21T00:00:00Z,male,http://www.wikidata.org/entity/Q18419,http://www.wikidata.org/entity/Q1087523
+http://www.wikidata.org/entity/Q391237,John Hopfield,1933-07-15T00:00:00Z,,male,http://www.wikidata.org/entity/Q1297,
+http://www.wikidata.org/entity/Q71022,Ernst Ruska,1906-12-25T00:00:00Z,1988-05-27T00:00:00Z,male,http://www.wikidata.org/entity/Q2966,http://www.wikidata.org/entity/Q56036
+http://www.wikidata.org/entity/Q190745,James Rainwater,1917-12-09T00:00:00Z,1986-05-31T00:00:00Z,male,http://www.wikidata.org/entity/Q1515281,http://www.wikidata.org/entity/Q60
+http://www.wikidata.org/entity/Q57068,Wilhelm Wien,1864-01-13T00:00:00Z,1928-08-30T00:00:00Z,male,http://www.wikidata.org/entity/Q2593038,http://www.wikidata.org/entity/Q1726
+http://www.wikidata.org/entity/Q629583,Sheldon Cooper,1980-02-26T00:00:00Z,,male,http://www.wikidata.org/entity/Q135744,
+http://www.wikidata.org/entity/Q47285,Joseph John Thomson,1856-12-18T00:00:00Z,1940-08-30T00:00:00Z,male,http://www.wikidata.org/entity/Q2015708,http://www.wikidata.org/entity/Q350
+http://www.wikidata.org/entity/Q71013,Theodor W. Hänsch,1941-10-30T00:00:00Z,,male,http://www.wikidata.org/entity/Q2966,
+http://www.wikidata.org/entity/Q71023,Alfred Kastler,1902-05-03T00:00:00Z,1984-01-07T00:00:00Z,male,http://www.wikidata.org/entity/Q209814,http://www.wikidata.org/entity/Q467338
+http://www.wikidata.org/entity/Q40262,David Gross,1941-02-19T00:00:00Z,,male,http://www.wikidata.org/entity/Q61,
+http://www.wikidata.org/entity/Q193655,John Hasbrouck Van Vleck,1899-03-13T00:00:00Z,1980-10-27T00:00:00Z,male,http://www.wikidata.org/entity/Q49192,http://www.wikidata.org/entity/Q49111
+http://www.wikidata.org/entity/Q189987,Nicolaas Bloembergen,1920-03-11T00:00:00Z,2017-09-05T00:00:00Z,male,http://www.wikidata.org/entity/Q26421,http://www.wikidata.org/entity/Q18575
+http://www.wikidata.org/entity/Q201506,Clifford Shull,1915-09-23T00:00:00Z,2001-03-31T00:00:00Z,male,http://www.wikidata.org/entity/Q1342,http://www.wikidata.org/entity/Q54145
+http://www.wikidata.org/entity/Q57100,Maria Göppert Mayer,1906-06-28T00:00:00Z,1972-02-20T00:00:00Z,female,http://www.wikidata.org/entity/Q588,http://www.wikidata.org/entity/Q16552
+http://www.wikidata.org/entity/Q57227,Wolfgang Paul,1913-08-10T00:00:00Z,1993-12-07T00:00:00Z,male,http://www.wikidata.org/entity/Q1527924,http://www.wikidata.org/entity/Q586
+http://www.wikidata.org/entity/Q57077,Karl Ferdinand Braun,1850-06-06T00:00:00Z,1918-04-20T00:00:00Z,male,http://www.wikidata.org/entity/Q3963,http://www.wikidata.org/entity/Q60
+http://www.wikidata.org/entity/Q710597,Arthur B. McDonald,1943-08-29T00:00:00Z,,male,http://www.wikidata.org/entity/Q932261,
+http://www.wikidata.org/entity/Q192708,Robert Coleman Richardson,1937-06-26T00:00:00Z,2013-02-19T00:00:00Z,male,http://www.wikidata.org/entity/Q61,http://www.wikidata.org/entity/Q217346
+http://www.wikidata.org/entity/Q57070,Gustav Ludwig Hertz,1887-07-22T00:00:00Z,1975-10-30T00:00:00Z,male,http://www.wikidata.org/entity/Q1055,http://www.wikidata.org/entity/Q56037
+http://www.wikidata.org/entity/Q60429,Chandrasekhara Venkata Raman,1888-11-07T00:00:00Z,1970-11-21T00:00:00Z,male,http://www.wikidata.org/entity/Q207754,http://www.wikidata.org/entity/Q1355
+http://www.wikidata.org/entity/Q206390,John L. Hall,1934-08-21T00:00:00Z,,male,http://www.wikidata.org/entity/Q16554,
+http://www.wikidata.org/entity/Q35149,Wilhelm Röntgen,1845-03-27T00:00:00Z,1923-02-10T00:00:00Z,male,http://www.wikidata.org/entity/Q486577,http://www.wikidata.org/entity/Q1726
+http://www.wikidata.org/entity/Q3675789,Syukuro Manabe,1931-09-21T00:00:00Z,,male,http://www.wikidata.org/entity/Q11503891,
+http://www.wikidata.org/entity/Q323320,Kip S. Thorne,1940-06-01T00:00:00Z,,male,http://www.wikidata.org/entity/Q482657,
+http://www.wikidata.org/entity/Q37463,Q37463,1859-05-15T00:00:00Z,1906-04-19T00:00:00Z,male,http://www.wikidata.org/entity/Q90,http://www.wikidata.org/entity/Q90
+http://www.wikidata.org/entity/Q190766,Martin Ryle,1918-09-27T00:00:00Z,1984-10-14T00:00:00Z,male,http://www.wikidata.org/entity/Q131491,http://www.wikidata.org/entity/Q350
+http://www.wikidata.org/entity/Q41688,Hendrik Lorentz,1853-07-18T00:00:00Z,1928-02-04T00:00:00Z,male,http://www.wikidata.org/entity/Q1310,http://www.wikidata.org/entity/Q9920
+http://www.wikidata.org/entity/Q54945,Hannes Alfvén,1908-05-30T00:00:00Z,1995-04-02T00:00:00Z,male,http://www.wikidata.org/entity/Q10602808,http://www.wikidata.org/entity/Q10466522
+http://www.wikidata.org/entity/Q192718,Anthony James Leggett,1938-03-26T00:00:00Z,2026-03-08T00:00:00Z,male,http://www.wikidata.org/entity/Q385060,http://www.wikidata.org/entity/Q462184
+http://www.wikidata.org/entity/Q41269,Antoine Henri Becquerel,1852-12-15T00:00:00Z,1908-08-25T00:00:00Z,male,http://www.wikidata.org/entity/Q90,http://www.wikidata.org/entity/Q17634713
+http://www.wikidata.org/entity/Q62897,John Cockcroft,1897-05-27T00:00:00Z,1967-09-18T00:00:00Z,male,http://www.wikidata.org/entity/Q1327770,http://www.wikidata.org/entity/Q714740
+http://www.wikidata.org/entity/Q57120,Peter Grünberg,1939-05-18T00:00:00Z,2018-04-07T00:00:00Z,male,http://www.wikidata.org/entity/Q43453,http://www.wikidata.org/entity/Q16045
+http://www.wikidata.org/entity/Q65807,Reinhard Genzel,1952-03-24T00:00:00Z,,male,http://www.wikidata.org/entity/Q4165,
+http://www.wikidata.org/entity/Q57066,James Franck,1882-08-26T00:00:00Z,1964-05-21T00:00:00Z,male,http://www.wikidata.org/entity/Q1055,http://www.wikidata.org/entity/Q3033
+http://www.wikidata.org/entity/Q44286,Rudolf Ludwig Mössbauer,1929-01-31T00:00:00Z,2011-09-14T00:00:00Z,male,http://www.wikidata.org/entity/Q1726,http://www.wikidata.org/entity/Q220090
+http://www.wikidata.org/entity/Q62891,Heike Kamerlingh Onnes,1853-09-21T00:00:00Z,1926-02-21T00:00:00Z,male,http://www.wikidata.org/entity/Q749,http://www.wikidata.org/entity/Q43631
+http://www.wikidata.org/entity/Q71016,Herbert Kroemer,1928-08-25T00:00:00Z,2024-03-08T00:00:00Z,male,http://www.wikidata.org/entity/Q3955,
+http://www.wikidata.org/entity/Q189741,Melvin Schwartz,1932-11-02T00:00:00Z,2006-08-28T00:00:00Z,male,http://www.wikidata.org/entity/Q60,http://www.wikidata.org/entity/Q548384
+http://www.wikidata.org/entity/Q202138,Daniel C. Tsui,1939-02-28T00:00:00Z,,male,http://www.wikidata.org/entity/Q807063,
+http://www.wikidata.org/entity/Q565544,Anne L'Huillier,1958-08-16T00:00:00Z,,female,http://www.wikidata.org/entity/Q90,
+http://www.wikidata.org/entity/Q70532,Hans Georg Dehmelt,1922-09-09T00:00:00Z,2017-03-07T00:00:00Z,male,http://www.wikidata.org/entity/Q4077,http://www.wikidata.org/entity/Q5083
+http://www.wikidata.org/entity/Q206499,Val Logsdon Fitch,1923-03-10T00:00:00Z,2015-02-05T00:00:00Z,male,http://www.wikidata.org/entity/Q2368653,http://www.wikidata.org/entity/Q138518
+http://www.wikidata.org/entity/Q205954,Eric Allin Cornell,1961-12-19T00:00:00Z,,male,http://www.wikidata.org/entity/Q47265,
+http://www.wikidata.org/entity/Q36488,Guglielmo Marconi,1874-04-25T00:00:00Z,1937-07-20T00:00:00Z,male,http://www.wikidata.org/entity/Q1891,http://www.wikidata.org/entity/Q220
+http://www.wikidata.org/entity/Q192703,Ilya Frank,1908-10-23T00:00:00Z,1990-06-22T00:00:00Z,male,http://www.wikidata.org/entity/Q656,http://www.wikidata.org/entity/Q649
+http://www.wikidata.org/entity/Q201452,Brian Schmidt,1967-02-24T00:00:00Z,,male,http://www.wikidata.org/entity/Q189602,
+http://www.wikidata.org/entity/Q192685,Joseph Hooton Taylor,1941-03-29T00:00:00Z,,male,http://www.wikidata.org/entity/Q1345,
+http://www.wikidata.org/entity/Q189485,Nevill Francis Mott,1905-09-30T00:00:00Z,1996-08-08T00:00:00Z,male,http://www.wikidata.org/entity/Q39121,http://www.wikidata.org/entity/Q204234
+http://www.wikidata.org/entity/Q190745,James Rainwater,1917-12-09T00:00:00Z,1986-05-30T00:00:00Z,male,http://www.wikidata.org/entity/Q1515281,http://www.wikidata.org/entity/Q60
+http://www.wikidata.org/entity/Q188128,Alexei Abrikosov,1928-06-25T00:00:00Z,2017-03-29T00:00:00Z,male,http://www.wikidata.org/entity/Q649,http://www.wikidata.org/entity/Q47265
+http://www.wikidata.org/entity/Q191922,Frederick Reines,1918-03-16T00:00:00Z,1998-08-26T00:00:00Z,male,http://www.wikidata.org/entity/Q138391,http://www.wikidata.org/entity/Q491350
+http://www.wikidata.org/entity/Q7186,Q7186,1867-11-07T00:00:00Z,1934-07-04T00:00:00Z,female,http://www.wikidata.org/entity/Q9365159,http://www.wikidata.org/entity/Q2364887
+http://www.wikidata.org/entity/Q192715,Samuel C. C. Ting,1936-01-27T00:00:00Z,,male,http://www.wikidata.org/entity/Q485172,
+http://www.wikidata.org/entity/Q193496,James Cronin,1931-09-29T00:00:00Z,2016-08-25T00:00:00Z,male,http://www.wikidata.org/entity/Q1297,http://www.wikidata.org/entity/Q28848
+http://www.wikidata.org/entity/Q206379,Carl Wieman,1951-03-26T00:00:00Z,,male,http://www.wikidata.org/entity/Q748474,
+http://www.wikidata.org/entity/Q190756,William Daniel Phillips,1948-11-05T00:00:00Z,,male,http://www.wikidata.org/entity/Q745594,
+http://www.wikidata.org/entity/Q190503,Arthur Leonard Schawlow,1921-05-05T00:00:00Z,1999-04-28T00:00:00Z,male,http://www.wikidata.org/entity/Q835831,http://www.wikidata.org/entity/Q47265
+http://www.wikidata.org/entity/Q58978,Max Born,1882-12-11T00:00:00Z,1970-01-05T00:00:00Z,male,http://www.wikidata.org/entity/Q1799,http://www.wikidata.org/entity/Q3033
+http://www.wikidata.org/entity/Q192695,Leon M. Lederman,1922-07-15T00:00:00Z,2018-10-03T00:00:00Z,male,http://www.wikidata.org/entity/Q60,http://www.wikidata.org/entity/Q818311
+http://www.wikidata.org/entity/Q57072,Otto Stern,1888-02-17T00:00:00Z,1969-08-17T00:00:00Z,male,http://www.wikidata.org/entity/Q393171,http://www.wikidata.org/entity/Q484678
+http://www.wikidata.org/entity/Q46120,William Alfred Fowler,1911-08-09T00:00:00Z,1995-03-14T00:00:00Z,male,http://www.wikidata.org/entity/Q1342,http://www.wikidata.org/entity/Q485176
+http://www.wikidata.org/entity/Q189997,Robert B. Laughlin,1950-11-01T00:00:00Z,,male,http://www.wikidata.org/entity/Q495373,
+http://www.wikidata.org/entity/Q202149,Martinus J. G. Veltman,1931-06-27T00:00:00Z,2021-01-04T00:00:00Z,male,http://www.wikidata.org/entity/Q745038,http://www.wikidata.org/entity/Q1075656
+http://www.wikidata.org/entity/Q202168,Toshihide Maskawa,1940-02-07T00:00:00Z,2021-07-23T00:00:00Z,male,http://www.wikidata.org/entity/Q11751,http://www.wikidata.org/entity/Q34600
+http://www.wikidata.org/entity/Q71015,Horst Ludwig Störmer,1949-04-06T00:00:00Z,,male,http://www.wikidata.org/entity/Q1794,
+http://www.wikidata.org/entity/Q493956,Andrea M. Ghez,1965-06-16T00:00:00Z,,female,http://www.wikidata.org/entity/Q60,
+http://www.wikidata.org/entity/Q7085,Niels Bohr,1885-10-07T00:00:00Z,1962-11-18T00:00:00Z,male,http://www.wikidata.org/entity/Q1748,http://www.wikidata.org/entity/Q1748
+http://www.wikidata.org/entity/Q28189,Abdus Salam,1926-01-29T00:00:00Z,1996-11-21T00:00:00Z,male,http://www.wikidata.org/entity/Q1026616,http://www.wikidata.org/entity/Q34217
+http://www.wikidata.org/entity/Q192112,Peter Higgs,1929-05-29T00:00:00Z,2024-04-08T00:00:00Z,male,http://www.wikidata.org/entity/Q1425428,http://www.wikidata.org/entity/Q23436
+http://www.wikidata.org/entity/Q61045,David J. Wineland,1944-02-24T00:00:00Z,,male,http://www.wikidata.org/entity/Q1006865,
+http://www.wikidata.org/entity/Q190770,Philip W. Anderson,1923-12-13T00:00:00Z,2020-03-29T00:00:00Z,male,http://www.wikidata.org/entity/Q6346,http://www.wikidata.org/entity/Q138518
+http://www.wikidata.org/entity/Q192712,Kai Siegbahn,1918-04-20T00:00:00Z,2007-07-20T00:00:00Z,male,http://www.wikidata.org/entity/Q2167,http://www.wikidata.org/entity/Q54755
+http://www.wikidata.org/entity/Q57092,Johannes Stark,1874-04-15T00:00:00Z,1957-06-21T00:00:00Z,male,http://www.wikidata.org/entity/Q515907,http://www.wikidata.org/entity/Q253119
+http://www.wikidata.org/entity/Q364997,Alain Aspect,1947-06-15T00:00:00Z,,male,http://www.wikidata.org/entity/Q6625,
+http://www.wikidata.org/entity/Q193503,Kenneth G. Wilson,1936-06-08T00:00:00Z,2013-06-15T00:00:00Z,male,http://www.wikidata.org/entity/Q49190,http://www.wikidata.org/entity/Q1001891
+http://www.wikidata.org/entity/Q71024,Klaus von Klitzing,1943-06-28T00:00:00Z,,male,http://www.wikidata.org/entity/Q52903,
+http://www.wikidata.org/entity/Q57063,Philipp Lenard,1862-06-07T00:00:00Z,1947-05-20T00:00:00Z,male,http://www.wikidata.org/entity/Q1780,http://www.wikidata.org/entity/Q1924088
+http://www.wikidata.org/entity/Q2128461,Rainer Weiss,1932-09-29T00:00:00Z,2025-08-25T00:00:00Z,male,http://www.wikidata.org/entity/Q64,http://www.wikidata.org/entity/Q49111
+http://www.wikidata.org/entity/Q206405,Douglas Osheroff,1945-08-01T00:00:00Z,,male,http://www.wikidata.org/entity/Q233808,
+http://www.wikidata.org/entity/Q556543,Gérard Mourou,1944-06-22T00:00:00Z,,male,http://www.wikidata.org/entity/Q159469,
+http://www.wikidata.org/entity/Q190697,Claude Cohen-Tannoudji,1933-04-01T00:00:00Z,,male,http://www.wikidata.org/entity/Q187346,
+http://www.wikidata.org/entity/Q190495,Henry Way Kendall,1926-12-09T00:00:00Z,1999-02-15T00:00:00Z,male,http://www.wikidata.org/entity/Q100,http://www.wikidata.org/entity/Q505417
+http://www.wikidata.org/entity/Q193803,Roger Penrose,1931-08-08T00:00:00Z,,male,http://www.wikidata.org/entity/Q184163,
+http://www.wikidata.org/entity/Q64188,Roy J. Glauber,1925-09-01T00:00:00Z,2018-12-26T00:00:00Z,male,http://www.wikidata.org/entity/Q60,http://www.wikidata.org/entity/Q49196
+http://www.wikidata.org/entity/Q726394,David J. Thouless,1934-09-21T00:00:00Z,2019-04-06T00:00:00Z,male,http://www.wikidata.org/entity/Q1908426,http://www.wikidata.org/entity/Q350
+http://www.wikidata.org/entity/Q202164,Makoto Kobayashi,1944-04-07T00:00:00Z,,male,http://www.wikidata.org/entity/Q11751,
+http://www.wikidata.org/entity/Q201853,David Lee,1931-01-20T00:00:00Z,,male,http://www.wikidata.org/entity/Q1379757,
+http://www.wikidata.org/entity/Q47480,Paul Dirac,1902-08-08T00:00:00Z,1984-10-20T00:00:00Z,male,http://www.wikidata.org/entity/Q23154,http://www.wikidata.org/entity/Q37043
+http://www.wikidata.org/entity/Q192106,Burton Richter,1931-03-22T00:00:00Z,2018-07-18T00:00:00Z,male,http://www.wikidata.org/entity/Q60,http://www.wikidata.org/entity/Q47265
+http://www.wikidata.org/entity/Q40904,Werner Heisenberg,1901-12-05T00:00:00Z,1976-02-01T00:00:00Z,male,http://www.wikidata.org/entity/Q2999,http://www.wikidata.org/entity/Q1726
+http://www.wikidata.org/entity/Q188293,Frits Zernike,1888-07-16T00:00:00Z,1966-03-10T00:00:00Z,male,http://www.wikidata.org/entity/Q727,http://www.wikidata.org/entity/Q33421377
+http://www.wikidata.org/entity/Q65989,Wolfgang Pauli,1900-04-25T00:00:00Z,1958-12-15T00:00:00Z,male,http://www.wikidata.org/entity/Q1741,http://www.wikidata.org/entity/Q72
+http://www.wikidata.org/entity/Q57067,Max von Laue,1879-10-09T00:00:00Z,1960-04-24T00:00:00Z,male,http://www.wikidata.org/entity/Q1751297,http://www.wikidata.org/entity/Q56036
+http://www.wikidata.org/entity/Q188120,Yoichiro Nambu,1921-01-18T00:00:00Z,2015-07-05T00:00:00Z,male,http://www.wikidata.org/entity/Q7473516,http://www.wikidata.org/entity/Q467479
+http://www.wikidata.org/entity/Q7186,Q7186,1867-11-07T00:00:00Z,1934-07-04T00:00:00Z,female,http://www.wikidata.org/entity/Q270,http://www.wikidata.org/entity/Q2364887
+http://www.wikidata.org/entity/Q189990,Antony Hewish,1924-05-11T00:00:00Z,2021-09-13T00:00:00Z,male,http://www.wikidata.org/entity/Q1025790,
+http://www.wikidata.org/entity/Q201470,Richard E. Taylor,1929-11-02T00:00:00Z,2018-02-22T00:00:00Z,male,http://www.wikidata.org/entity/Q368241,http://www.wikidata.org/entity/Q173813
+http://www.wikidata.org/entity/Q39246,Richard Feynman,1918-05-11T00:00:00Z,1988-02-15T00:00:00Z,male,http://www.wikidata.org/entity/Q62460,http://www.wikidata.org/entity/Q2169282
+http://www.wikidata.org/entity/Q192689,Bertram Brockhouse,1918-07-15T00:00:00Z,2003-10-13T00:00:00Z,male,http://www.wikidata.org/entity/Q270887,http://www.wikidata.org/entity/Q133116
+http://www.wikidata.org/entity/Q151746,Q151746,1932-11-06T00:00:00Z,2026-06-18T00:00:00Z,male,http://www.wikidata.org/entity/Q192859,http://www.wikidata.org/entity/Q203312
+http://www.wikidata.org/entity/Q130975,Robert Andrews Millikan,1868-03-22T00:00:00Z,1953-12-19T00:00:00Z,male,http://www.wikidata.org/entity/Q374745,http://www.wikidata.org/entity/Q850869
+http://www.wikidata.org/entity/Q181363,Brian David Josephson,1940-01-04T00:00:00Z,,male,http://www.wikidata.org/entity/Q10690,
+http://www.wikidata.org/entity/Q175519,Raymond Davis Jr.,1914-10-14T00:00:00Z,2006-05-31T00:00:00Z,male,http://www.wikidata.org/entity/Q61,http://www.wikidata.org/entity/Q60
+http://www.wikidata.org/entity/Q134085,Jean-Baptiste Perrin,1870-09-30T00:00:00Z,1942-04-17T00:00:00Z,male,http://www.wikidata.org/entity/Q648,http://www.wikidata.org/entity/Q60
+http://www.wikidata.org/entity/Q153219,Albert Fert,1938-03-07T00:00:00Z,,male,http://www.wikidata.org/entity/Q6582,
+http://www.wikidata.org/entity/Q122298,Karl Alexander Müller,1927-04-20T00:00:00Z,2023-01-09T00:00:00Z,male,http://www.wikidata.org/entity/Q78,http://www.wikidata.org/entity/Q72
+http://www.wikidata.org/entity/Q186481,Riccardo Giacconi,1931-10-06T00:00:00Z,2018-12-09T00:00:00Z,male,http://www.wikidata.org/entity/Q1449,http://www.wikidata.org/entity/Q16552
+http://www.wikidata.org/entity/Q172877,Arno Allan Penzias,1933-04-26T00:00:00Z,2024-01-22T00:00:00Z,male,http://www.wikidata.org/entity/Q1726,http://www.wikidata.org/entity/Q62
+http://www.wikidata.org/entity/Q183631,Ernest Walton,1903-10-06T00:00:00Z,1995-06-25T00:00:00Z,male,http://www.wikidata.org/entity/Q2090795,http://www.wikidata.org/entity/Q10686
+http://www.wikidata.org/entity/Q183655,Owen Chamberlain,1920-07-10T00:00:00Z,2006-02-28T00:00:00Z,male,http://www.wikidata.org/entity/Q62,http://www.wikidata.org/entity/Q484678
+http://www.wikidata.org/entity/Q169366,Carl David Anderson,1905-09-03T00:00:00Z,1991-01-11T00:00:00Z,male,http://www.wikidata.org/entity/Q60,http://www.wikidata.org/entity/Q850869
+http://www.wikidata.org/entity/Q107420,Sheldon Glashow,1932-12-05T00:00:00Z,,male,http://www.wikidata.org/entity/Q60,
+http://www.wikidata.org/entity/Q186497,Willis Lamb,1913-07-12T00:00:00Z,2008-05-15T00:00:00Z,male,http://www.wikidata.org/entity/Q65,http://www.wikidata.org/entity/Q18575
+http://www.wikidata.org/entity/Q172844,Pyotr Kapitsa,1894-07-08T00:00:00Z,1984-04-08T00:00:00Z,male,http://www.wikidata.org/entity/Q155863,http://www.wikidata.org/entity/Q649
+http://www.wikidata.org/entity/Q107416,Martin Lewis Perl,1927-06-24T00:00:00Z,2014-09-30T00:00:00Z,male,http://www.wikidata.org/entity/Q11299,http://www.wikidata.org/entity/Q47265
+http://www.wikidata.org/entity/Q1700920,J. Michael Kosterlitz,1943-06-22T00:00:00Z,,male,http://www.wikidata.org/entity/Q36405,
+http://www.wikidata.org/entity/Q106454,Adam Riess,1969-12-16T00:00:00Z,,male,http://www.wikidata.org/entity/Q61,
+http://www.wikidata.org/entity/Q179852,Leo Esaki,1925-03-12T00:00:00Z,,male,http://www.wikidata.org/entity/Q18700241,
+http://www.wikidata.org/entity/Q104651,John C. Mather,1946-08-07T00:00:00Z,,male,http://www.wikidata.org/entity/Q501796,
+http://www.wikidata.org/entity/Q186465,Julian Seymour Schwinger,1918-02-12T00:00:00Z,1994-07-16T00:00:00Z,male,http://www.wikidata.org/entity/Q60,http://www.wikidata.org/entity/Q65
+http://www.wikidata.org/entity/Q160518,Nils Gustaf Dalén,1869-11-30T00:00:00Z,1937-12-09T00:00:00Z,male,http://www.wikidata.org/entity/Q10679290,http://www.wikidata.org/entity/Q11057477
+http://www.wikidata.org/entity/Q127944,Arthur Holly Compton,1892-09-10T00:00:00Z,1962-03-15T00:00:00Z,male,http://www.wikidata.org/entity/Q989567,http://www.wikidata.org/entity/Q484678
+http://www.wikidata.org/entity/Q109588,Serge Haroche,1944-09-11T00:00:00Z,,male,http://www.wikidata.org/entity/Q7903,
+http://www.wikidata.org/entity/Q181369,Chen-ning Yang,1922-10-01T00:00:00Z,2025-10-18T00:00:00Z,male,http://www.wikidata.org/entity/Q185684,http://www.wikidata.org/entity/Q956
+http://www.wikidata.org/entity/Q183270,Edward Mills Purcell,1912-08-30T00:00:00Z,1997-03-07T00:00:00Z,male,http://www.wikidata.org/entity/Q578486,http://www.wikidata.org/entity/Q49111
+http://www.wikidata.org/entity/Q104668,Vitaly Ginzburg,1916-10-04T00:00:00Z,2009-11-08T00:00:00Z,male,http://www.wikidata.org/entity/Q649,http://www.wikidata.org/entity/Q649
+http://www.wikidata.org/entity/Q131721,Johannes Diderik van der Waals,1837-11-23T00:00:00Z,1923-03-08T00:00:00Z,male,http://www.wikidata.org/entity/Q43631,http://www.wikidata.org/entity/Q727
+http://www.wikidata.org/entity/Q1002250,Duncan Haldane,1951-09-14T00:00:00Z,,male,http://www.wikidata.org/entity/Q84,
+http://www.wikidata.org/entity/Q133846,George Paget Thomson,1892-05-03T00:00:00Z,1975-09-10T00:00:00Z,male,http://www.wikidata.org/entity/Q350,http://www.wikidata.org/entity/Q350
+http://www.wikidata.org/entity/Q183279,Zhores Alferov,1930-03-15T00:00:00Z,2019-03-01T00:00:00Z,male,http://www.wikidata.org/entity/Q102217,http://www.wikidata.org/entity/Q656
+http://www.wikidata.org/entity/Q155777,Q155777,1907-01-23T00:00:00Z,1981-09-08T00:00:00Z,male,http://www.wikidata.org/entity/Q793432,http://www.wikidata.org/entity/Q34600
+http://www.wikidata.org/entity/Q1365270,John Clauser,1942-12-01T00:00:00Z,,male,http://www.wikidata.org/entity/Q485176,
+http://www.wikidata.org/entity/Q170741,Manne Siegbahn,1886-12-03T00:00:00Z,1978-09-24T00:00:00Z,male,http://www.wikidata.org/entity/Q10727452,http://www.wikidata.org/entity/Q10484135
+http://www.wikidata.org/entity/Q184499,Patrick Blackett,1897-11-18T00:00:00Z,1974-07-13T00:00:00Z,male,http://www.wikidata.org/entity/Q84,http://www.wikidata.org/entity/Q84
+http://www.wikidata.org/entity/Q173028,Emilio G. Segrè,1905-02-01T00:00:00Z,1989-04-22T00:00:00Z,male,http://www.wikidata.org/entity/Q159605,http://www.wikidata.org/entity/Q284803
+http://www.wikidata.org/entity/Q155781,Louis Néel,1904-11-22T00:00:00Z,2000-11-17T00:00:00Z,male,http://www.wikidata.org/entity/Q3348,http://www.wikidata.org/entity/Q6393
+http://www.wikidata.org/entity/Q171034,Robert Wilson,1936-01-10T00:00:00Z,,male,http://www.wikidata.org/entity/Q16555,
+http://www.wikidata.org/entity/Q133267,Lev Landau,1908-01-22T00:00:00Z,1968-04-01T00:00:00Z,male,http://www.wikidata.org/entity/Q9248,http://www.wikidata.org/entity/Q649
+http://www.wikidata.org/entity/Q127234,Albert Abraham Michelson,1852-12-19T00:00:00Z,1931-05-09T00:00:00Z,male,http://www.wikidata.org/entity/Q1005414,http://www.wikidata.org/entity/Q485176
+http://www.wikidata.org/entity/Q153210,Jack Steinberger,1921-05-25T00:00:00Z,2020-12-12T00:00:00Z,male,http://www.wikidata.org/entity/Q488346,http://www.wikidata.org/entity/Q71
+http://www.wikidata.org/entity/Q130113,Robert Hofstadter,1915-02-05T00:00:00Z,1990-11-17T00:00:00Z,male,http://www.wikidata.org/entity/Q60,http://www.wikidata.org/entity/Q173813
+http://www.wikidata.org/entity/Q187224,Pierre-Gilles de Gennes,1932-10-24T00:00:00Z,2007-05-18T00:00:00Z,male,http://www.wikidata.org/entity/Q194420,http://www.wikidata.org/entity/Q372281
+http://www.wikidata.org/entity/Q153194,Edward Victor Appleton,1892-09-06T00:00:00Z,1965-04-21T00:00:00Z,male,http://www.wikidata.org/entity/Q22905,http://www.wikidata.org/entity/Q23436
+http://www.wikidata.org/entity/Q184577,Walter Houser Brattain,1902-02-10T00:00:00Z,1987-10-13T00:00:00Z,male,http://www.wikidata.org/entity/Q68744,http://www.wikidata.org/entity/Q5083
+http://www.wikidata.org/entity/Q123022,Felix Bloch,1905-10-23T00:00:00Z,1983-09-10T00:00:00Z,male,http://www.wikidata.org/entity/Q72,http://www.wikidata.org/entity/Q72
+http://www.wikidata.org/entity/Q178344,Luis Walter Alvarez,1911-06-13T00:00:00Z,1988-09-01T00:00:00Z,male,http://www.wikidata.org/entity/Q62,http://www.wikidata.org/entity/Q484678
+http://www.wikidata.org/entity/Q183679,Tsung-Dao Lee,1926-11-24T00:00:00Z,2024-08-04T00:00:00Z,male,http://www.wikidata.org/entity/Q8686,http://www.wikidata.org/entity/Q62
+http://www.wikidata.org/entity/Q187822,Jerome Isaac Friedman,1930-03-28T00:00:00Z,,male,http://www.wikidata.org/entity/Q1297,
+http://www.wikidata.org/entity/Q153178,Georges Charpak,1924-08-01T00:00:00Z,2010-09-29T00:00:00Z,male,http://www.wikidata.org/entity/Q205765,http://www.wikidata.org/entity/Q238723
+http://www.wikidata.org/entity/Q106949,Saul Perlmutter,1959-09-22T00:00:00Z,,male,http://www.wikidata.org/entity/Q577964,
+http://www.wikidata.org/entity/Q133747,William Henry Bragg,1862-07-02T00:00:00Z,1942-03-12T00:00:00Z,male,http://www.wikidata.org/entity/Q2227457,http://www.wikidata.org/entity/Q84
+http://www.wikidata.org/entity/Q1235614,Giorgio Parisi,1948-08-04T00:00:00Z,,male,http://www.wikidata.org/entity/Q220,
+http://www.wikidata.org/entity/Q184563,Shinichiro Tomonaga,1906-03-31T00:00:00Z,1979-07-08T00:00:00Z,male,http://www.wikidata.org/entity/Q1490,http://www.wikidata.org/entity/Q7473516
+http://www.wikidata.org/entity/Q169330,Owen Willans Richardson,1879-04-26T00:00:00Z,1959-02-15T00:00:00Z,male,http://www.wikidata.org/entity/Q525508,http://www.wikidata.org/entity/Q443840
+http://www.wikidata.org/entity/Q123975,Michel Mayor,1942-01-12T00:00:00Z,,male,http://www.wikidata.org/entity/Q807,
+http://www.wikidata.org/entity/Q11443689,Hiroshi Amano,1960-09-11T00:00:00Z,,male,http://www.wikidata.org/entity/Q185125,
+http://www.wikidata.org/entity/Q155759,Igor Tamm,1895-07-08T00:00:00Z,1971-04-12T00:00:00Z,male,http://www.wikidata.org/entity/Q959,http://www.wikidata.org/entity/Q649
+http://www.wikidata.org/entity/Q15900993,Barry C. Barish,1936-01-27T00:00:00Z,,male,http://www.wikidata.org/entity/Q43199,
+http://www.wikidata.org/entity/Q156286,Russell A. Hulse,1950-11-28T00:00:00Z,,male,http://www.wikidata.org/entity/Q60,
+http://www.wikidata.org/entity/Q109370,Q109370,1931-10-25T00:00:00Z,,male,http://www.wikidata.org/entity/Q1055,
+http://www.wikidata.org/entity/Q162900,Charles Thomson Rees Wilson,1869-02-14T00:00:00Z,1959-11-15T00:00:00Z,male,http://www.wikidata.org/entity/Q24197253,http://www.wikidata.org/entity/Q5041644
+http://www.wikidata.org/entity/Q103854,Aage Bohr,1922-06-19T00:00:00Z,2009-09-08T00:00:00Z,male,http://www.wikidata.org/entity/Q1748,http://www.wikidata.org/entity/Q1748
+http://www.wikidata.org/entity/Q172466,Steven Chu,1948-02-28T00:00:00Z,,male,http://www.wikidata.org/entity/Q38022,
+http://www.wikidata.org/entity/Q1673706,Isamu Akasaki,1929-01-30T00:00:00Z,2021-04-01T00:00:00Z,male,http://www.wikidata.org/entity/Q994450,http://www.wikidata.org/entity/Q11751
+http://www.wikidata.org/entity/Q179572,George F. Smoot,1945-02-20T00:00:00Z,2025-09-18T00:00:00Z,male,http://www.wikidata.org/entity/Q8060799,http://www.wikidata.org/entity/Q259463
+http://www.wikidata.org/entity/Q155790,Eugene Paul Wigner,1902-11-17T00:00:00Z,1995-01-01T00:00:00Z,male,http://www.wikidata.org/entity/Q1781,http://www.wikidata.org/entity/Q138518
+http://www.wikidata.org/entity/Q155786,Dennis Gabor,1900-06-05T00:00:00Z,1979-02-08T00:00:00Z,male,http://www.wikidata.org/entity/Q1781,http://www.wikidata.org/entity/Q84
+http://www.wikidata.org/entity/Q172840,Murray Gell-Mann,1929-09-15T00:00:00Z,2019-05-24T00:00:00Z,male,http://www.wikidata.org/entity/Q11253,http://www.wikidata.org/entity/Q38555
+http://www.wikidata.org/entity/Q187199,Carlo Rubbia,1934-03-31T00:00:00Z,,male,http://www.wikidata.org/entity/Q6596,
+http://www.wikidata.org/entity/Q104779,Simon van der Meer,1925-11-24T00:00:00Z,2011-03-04T00:00:00Z,male,http://www.wikidata.org/entity/Q36600,http://www.wikidata.org/entity/Q71
+http://www.wikidata.org/entity/Q148109,Subrahmanyan Chandrasekhar,1910-10-19T00:00:00Z,1995-08-21T00:00:00Z,male,http://www.wikidata.org/entity/Q11739,http://www.wikidata.org/entity/Q1297
+http://www.wikidata.org/entity/Q133222,Clinton Davisson,1881-10-22T00:00:00Z,1958-02-01T00:00:00Z,male,http://www.wikidata.org/entity/Q577802,http://www.wikidata.org/entity/Q123766
+http://www.wikidata.org/entity/Q124013,Didier Queloz,1966-02-23T00:00:00Z,,male,http://www.wikidata.org/entity/Q71,
+http://www.wikidata.org/entity/Q107419,Norman Foster Ramsey,1915-08-27T00:00:00Z,2011-11-04T00:00:00Z,male,http://www.wikidata.org/entity/Q61,http://www.wikidata.org/entity/Q2049231
+http://www.wikidata.org/entity/Q184592,Gerard 't Hooft,1946-07-05T00:00:00Z,,male,http://www.wikidata.org/entity/Q9911,
+http://www.wikidata.org/entity/Q184566,Charles Hard Townes,1915-07-28T00:00:00Z,2015-01-27T00:00:00Z,male,http://www.wikidata.org/entity/Q574192,http://www.wikidata.org/entity/Q17042
+http://www.wikidata.org/entity/Q16389,Charles K. Kao,1933-11-04T00:00:00Z,2018-09-23T00:00:00Z,male,http://www.wikidata.org/entity/Q8686,http://www.wikidata.org/entity/Q16923560
+http://www.wikidata.org/entity/Q165969,Isidor Isaac Rabi,1898-07-29T00:00:00Z,1988-01-11T00:00:00Z,male,http://www.wikidata.org/entity/Q2588425,http://www.wikidata.org/entity/Q11299
+http://www.wikidata.org/entity/Q107423,Ben Roy Mottelson,1926-07-09T00:00:00Z,2022-05-13T00:00:00Z,male,http://www.wikidata.org/entity/Q1297,http://www.wikidata.org/entity/Q1748
+http://www.wikidata.org/entity/Q123029,Heinrich Rohrer,1933-06-06T00:00:00Z,2013-05-16T00:00:00Z,male,http://www.wikidata.org/entity/Q68277,http://www.wikidata.org/entity/Q69647
+http://www.wikidata.org/entity/Q172118,Percy Williams Bridgman,1882-04-21T00:00:00Z,1961-08-20T00:00:00Z,male,http://www.wikidata.org/entity/Q49111,http://www.wikidata.org/entity/Q2418102
+http://www.wikidata.org/entity/Q155794,Hans Bethe,1906-07-02T00:00:00Z,2005-03-06T00:00:00Z,male,http://www.wikidata.org/entity/Q6602,http://www.wikidata.org/entity/Q217346
+http://www.wikidata.org/entity/Q163415,William Shockley,1910-02-13T00:00:00Z,1989-08-12T00:00:00Z,male,http://www.wikidata.org/entity/Q84,http://www.wikidata.org/entity/Q173813
+http://www.wikidata.org/entity/Q169577,Ernest Lawrence,1901-08-08T00:00:00Z,1958-08-27T00:00:00Z,male,http://www.wikidata.org/entity/Q1013549,http://www.wikidata.org/entity/Q47265
+http://www.wikidata.org/entity/Q160522,Charles Glover Barkla,1877-06-07T00:00:00Z,1944-10-23T00:00:00Z,male,http://www.wikidata.org/entity/Q1022741,http://www.wikidata.org/entity/Q23436
+http://www.wikidata.org/entity/Q133232,Gabriel Lippmann,1845-08-16T00:00:00Z,1921-07-13T00:00:00Z,male,http://www.wikidata.org/entity/Q892805,http://www.wikidata.org/entity/Q97
+http://www.wikidata.org/entity/Q179282,Steven Weinberg,1933-05-03T00:00:00Z,2021-07-23T00:00:00Z,male,http://www.wikidata.org/entity/Q60,http://www.wikidata.org/entity/Q16559
+http://www.wikidata.org/entity/Q178103,Cecil Frank Powell,1903-12-05T00:00:00Z,1969-08-09T00:00:00Z,male,http://www.wikidata.org/entity/Q936183,http://www.wikidata.org/entity/Q15523
+http://www.wikidata.org/entity/Q153201,John Robert Schrieffer,1931-05-31T00:00:00Z,2019-07-27T00:00:00Z,male,http://www.wikidata.org/entity/Q331397,http://www.wikidata.org/entity/Q37043
+http://www.wikidata.org/entity/Q131729,William Lawrence Bragg,1890-03-31T00:00:00Z,1971-07-01T00:00:00Z,male,http://www.wikidata.org/entity/Q5112,http://www.wikidata.org/entity/Q184775
+http://www.wikidata.org/entity/Q106494,Konstantin Novoselov,1974-08-23T00:00:00Z,,male,http://www.wikidata.org/entity/Q98967,
+http://www.wikidata.org/entity/Q104104,Andre Geim,1958-10-21T00:00:00Z,,male,http://www.wikidata.org/entity/Q39420,
+http://www.wikidata.org/entity/Q107407,Hugh David Politzer,1949-08-31T00:00:00Z,,male,http://www.wikidata.org/entity/Q60,
+http://www.wikidata.org/entity/Q155773,Masatoshi Koshiba,1926-09-19T00:00:00Z,2020-11-12T00:00:00Z,male,http://www.wikidata.org/entity/Q336431,http://www.wikidata.org/entity/Q7473516
+http://www.wikidata.org/entity/Q11538917,Takaaki Kajita,1959-03-09T00:00:00Z,,male,http://www.wikidata.org/entity/Q823907,
+http://www.wikidata.org/entity/Q182031,Jack Kilby,1923-11-08T00:00:00Z,2005-06-20T00:00:00Z,male,http://www.wikidata.org/entity/Q28180,http://www.wikidata.org/entity/Q16557
+http://www.wikidata.org/entity/Q184571,Polykarp Kusch,1911-01-26T00:00:00Z,1993-03-20T00:00:00Z,male,http://www.wikidata.org/entity/Q525960,http://www.wikidata.org/entity/Q16557
+http://www.wikidata.org/entity/Q107450,Frank Wilczek,1951-05-15T00:00:00Z,,male,http://www.wikidata.org/entity/Q2349502,
+http://www.wikidata.org/entity/Q123026,Charles Édouard Guillaume,1861-02-15T00:00:00Z,1938-06-13T00:00:00Z,male,http://www.wikidata.org/entity/Q628354,http://www.wikidata.org/entity/Q206493
+http://www.wikidata.org/entity/Q234145,Giulio Natta,1903-02-26T00:00:00Z,1979-05-02T00:00:00Z,male,http://www.wikidata.org/entity/Q2251258,http://www.wikidata.org/entity/Q628
+http://www.wikidata.org/entity/Q76595,Kurt Alder,1902-07-10T00:00:00Z,1958-06-20T00:00:00Z,male,http://www.wikidata.org/entity/Q104302,http://www.wikidata.org/entity/Q365
+http://www.wikidata.org/entity/Q48983,Linus Pauling,1901-02-28T00:00:00Z,1994-08-19T00:00:00Z,male,http://www.wikidata.org/entity/Q6106,http://www.wikidata.org/entity/Q859413
+http://www.wikidata.org/entity/Q48977,Archer John Porter Martin,1910-03-01T00:00:00Z,2002-07-28T00:00:00Z,male,http://www.wikidata.org/entity/Q84,http://www.wikidata.org/entity/Q3784243
+http://www.wikidata.org/entity/Q4273363,Frances Arnold,1956-07-25T00:00:00Z,,female,http://www.wikidata.org/entity/Q1342,
+http://www.wikidata.org/entity/Q202159,Richard R. Schrock,1945-01-04T00:00:00Z,,male,http://www.wikidata.org/entity/Q1779942,
+http://www.wikidata.org/entity/Q3814528,David Baker,1962-10-06T00:00:00Z,,male,http://www.wikidata.org/entity/Q5083,
+http://www.wikidata.org/entity/Q1678456,Richard Henderson,1945-07-19T00:00:00Z,,male,http://www.wikidata.org/entity/Q23436,
+http://www.wikidata.org/entity/Q3022141,Demis Hassabis,1976-07-27T00:00:00Z,,male,http://www.wikidata.org/entity/Q84,
+http://www.wikidata.org/entity/Q202140,Robert H. Grubbs,1942-02-27T00:00:00Z,2021-12-19T00:00:00Z,male,http://www.wikidata.org/entity/Q7233456,http://www.wikidata.org/entity/Q927189
+http://www.wikidata.org/entity/Q5327,Adolf Butenandt,1903-03-24T00:00:00Z,1995-01-18T00:00:00Z,male,http://www.wikidata.org/entity/Q1813037,http://www.wikidata.org/entity/Q1726
+http://www.wikidata.org/entity/Q4701206,Akira Yoshino,1948-01-30T00:00:00Z,,male,http://www.wikidata.org/entity/Q653510,
+http://www.wikidata.org/entity/Q157701,Jaroslav Heyrovský,1890-12-20T00:00:00Z,1967-03-27T00:00:00Z,male,http://www.wikidata.org/entity/Q1085,http://www.wikidata.org/entity/Q1085
+http://www.wikidata.org/entity/Q43917,Eduard Buchner,1860-05-20T00:00:00Z,1917-08-13T00:00:00Z,male,http://www.wikidata.org/entity/Q1726,http://www.wikidata.org/entity/Q192265
+http://www.wikidata.org/entity/Q73093,Paul Karrer,1889-04-21T00:00:00Z,1971-06-18T00:00:00Z,male,http://www.wikidata.org/entity/Q649,http://www.wikidata.org/entity/Q72
+http://www.wikidata.org/entity/Q176351,Paul Flory,1910-06-19T00:00:00Z,1985-09-08T00:00:00Z,male,http://www.wikidata.org/entity/Q578314,http://www.wikidata.org/entity/Q859413
+http://www.wikidata.org/entity/Q217486,Walter Gilbert,1932-03-21T00:00:00Z,,male,http://www.wikidata.org/entity/Q100,
+http://www.wikidata.org/entity/Q192603,George Andrew Olah,1927-05-22T00:00:00Z,2017-03-08T00:00:00Z,male,http://www.wikidata.org/entity/Q1781,http://www.wikidata.org/entity/Q127856
+http://www.wikidata.org/entity/Q233026,Arne Tiselius,1902-08-10T00:00:00Z,1971-10-29T00:00:00Z,male,http://www.wikidata.org/entity/Q1754,http://www.wikidata.org/entity/Q10519481
+http://www.wikidata.org/entity/Q57075,Fritz Haber,1868-12-09T00:00:00Z,1934-01-29T00:00:00Z,male,http://www.wikidata.org/entity/Q1799,http://www.wikidata.org/entity/Q78
+http://www.wikidata.org/entity/Q205345,Osamu Shimomura,1928-08-27T00:00:00Z,2018-10-19T00:00:00Z,male,http://www.wikidata.org/entity/Q3355306,http://www.wikidata.org/entity/Q38234
+http://www.wikidata.org/entity/Q1687170,Jens Christian Skou,1918-10-08T00:00:00Z,2018-05-28T00:00:00Z,male,http://www.wikidata.org/entity/Q502632,http://www.wikidata.org/entity/Q25319
+http://www.wikidata.org/entity/Q186391,Theodor Svedberg,1884-08-30T00:00:00Z,1971-02-26T00:00:00Z,male,http://www.wikidata.org/entity/Q10712147,http://www.wikidata.org/entity/Q25732
+http://www.wikidata.org/entity/Q232289,Michael Smith,1932-04-26T00:00:00Z,2000-10-04T00:00:00Z,male,http://www.wikidata.org/entity/Q170377,http://www.wikidata.org/entity/Q24639
+http://www.wikidata.org/entity/Q235834,Ronald George Wreyford Norrish,1897-11-09T00:00:00Z,1978-06-07T00:00:00Z,male,http://www.wikidata.org/entity/Q350,http://www.wikidata.org/entity/Q350
+http://www.wikidata.org/entity/Q194646,Louis E. Brus,1943-08-10T00:00:00Z,2026-01-11T00:00:00Z,male,http://www.wikidata.org/entity/Q37320,http://www.wikidata.org/entity/Q3248527
+http://www.wikidata.org/entity/Q57065,Otto Hahn,1879-03-08T00:00:00Z,1968-07-28T00:00:00Z,male,http://www.wikidata.org/entity/Q1794,http://www.wikidata.org/entity/Q3033
+http://www.wikidata.org/entity/Q274128,Geoffrey Wilkinson,1921-07-14T00:00:00Z,1996-09-26T00:00:00Z,male,http://www.wikidata.org/entity/Q1327770,http://www.wikidata.org/entity/Q84
+http://www.wikidata.org/entity/Q179777,Harold Urey,1893-04-29T00:00:00Z,1981-01-05T00:00:00Z,male,http://www.wikidata.org/entity/Q2496370,http://www.wikidata.org/entity/Q840668
+http://www.wikidata.org/entity/Q244998,Charles J. Pedersen,1904-10-03T00:00:00Z,1989-10-26T00:00:00Z,male,http://www.wikidata.org/entity/Q16520,http://www.wikidata.org/entity/Q1088317
+http://www.wikidata.org/entity/Q233973,John Pople,1925-10-31T00:00:00Z,2004-03-15T00:00:00Z,male,http://www.wikidata.org/entity/Q1247822,http://www.wikidata.org/entity/Q1297
+http://www.wikidata.org/entity/Q48956,Hermann Staudinger,1881-03-23T00:00:00Z,1965-09-08T00:00:00Z,male,http://www.wikidata.org/entity/Q3852,http://www.wikidata.org/entity/Q2833
+http://www.wikidata.org/entity/Q49347,Melvin Calvin,1911-04-08T00:00:00Z,1997-01-08T00:00:00Z,male,http://www.wikidata.org/entity/Q28848,http://www.wikidata.org/entity/Q484678
+http://www.wikidata.org/entity/Q202146,Yves Chauvin,1930-10-10T00:00:00Z,2015-01-27T00:00:00Z,male,http://www.wikidata.org/entity/Q213224,http://www.wikidata.org/entity/Q288
+http://www.wikidata.org/entity/Q48990,Nikolay Semyonov,1896-04-15T00:00:00Z,1986-09-25T00:00:00Z,male,http://www.wikidata.org/entity/Q5332,http://www.wikidata.org/entity/Q649
+http://www.wikidata.org/entity/Q7426,Ada Yonath,1939-06-22T00:00:00Z,2026-08-31T00:00:00Z,female,http://www.wikidata.org/entity/Q1218,
+http://www.wikidata.org/entity/Q76600,Manfred Eigen,1927-05-09T00:00:00Z,2019-02-06T00:00:00Z,male,http://www.wikidata.org/entity/Q2103,http://www.wikidata.org/entity/Q3033
+http://www.wikidata.org/entity/Q6832227,Michael Levitt,1947-05-09T00:00:00Z,,male,http://www.wikidata.org/entity/Q3926,
+http://www.wikidata.org/entity/Q217734,Kenichi Fukui,1918-10-04T00:00:00Z,1998-01-09T00:00:00Z,male,http://www.wikidata.org/entity/Q169134,http://www.wikidata.org/entity/Q34600
+http://www.wikidata.org/entity/Q1886068,Tomas Lindahl,1938-01-28T00:00:00Z,,male,http://www.wikidata.org/entity/Q1754,
+http://www.wikidata.org/entity/Q376243,Fraser Stoddart,1942-05-24T00:00:00Z,2024-12-30T00:00:00Z,male,http://www.wikidata.org/entity/Q23436,http://www.wikidata.org/entity/Q3141
+http://www.wikidata.org/entity/Q232316,Robert Burns Woodward,1917-04-10T00:00:00Z,1979-07-08T00:00:00Z,male,http://www.wikidata.org/entity/Q100,http://www.wikidata.org/entity/Q49111
+http://www.wikidata.org/entity/Q7442,Carolyn Bertozzi,1966-10-10T00:00:00Z,,female,http://www.wikidata.org/entity/Q100,
+http://www.wikidata.org/entity/Q6914509,Morten P. Meldal,1954-01-16T00:00:00Z,,male,http://www.wikidata.org/entity/Q1748,
+http://www.wikidata.org/entity/Q285062,M. Stanley Whittingham,1941-12-22T00:00:00Z,,male,http://www.wikidata.org/entity/Q41262,
+http://www.wikidata.org/entity/Q190486,Willard Libby,1908-12-17T00:00:00Z,1980-09-08T00:00:00Z,male,http://www.wikidata.org/entity/Q5595214,http://www.wikidata.org/entity/Q65
+http://www.wikidata.org/entity/Q5237001,David MacMillan,1968-03-16T00:00:00Z,,male,http://www.wikidata.org/entity/Q680984,
+http://www.wikidata.org/entity/Q76602,Gerhard Herzberg,1904-12-25T00:00:00Z,1999-03-03T00:00:00Z,male,http://www.wikidata.org/entity/Q1055,http://www.wikidata.org/entity/Q1930
+http://www.wikidata.org/entity/Q233985,Luis Federico Leloir,1906-09-06T00:00:00Z,1987-12-02T00:00:00Z,male,http://www.wikidata.org/entity/Q194420,http://www.wikidata.org/entity/Q1486
+http://www.wikidata.org/entity/Q233985,Luis Federico Leloir,1906-09-06T00:00:00Z,1987-12-02T00:00:00Z,male,http://www.wikidata.org/entity/Q194420,http://www.wikidata.org/entity/Q44756
+http://www.wikidata.org/entity/Q184286,Irving Langmuir,1881-01-31T00:00:00Z,1957-08-16T00:00:00Z,male,http://www.wikidata.org/entity/Q18419,http://www.wikidata.org/entity/Q747172
+http://www.wikidata.org/entity/Q233205,Aaron Ciechanover,1947-10-01T00:00:00Z,,male,http://www.wikidata.org/entity/Q41621,
+http://www.wikidata.org/entity/Q48979,Richard Laurence Millington Synge,1914-10-28T00:00:00Z,1994-08-18T00:00:00Z,male,http://www.wikidata.org/entity/Q24826,http://www.wikidata.org/entity/Q130191
+http://www.wikidata.org/entity/Q57127,Otto Wallach,1847-03-27T00:00:00Z,1931-02-26T00:00:00Z,male,http://www.wikidata.org/entity/Q4120832,http://www.wikidata.org/entity/Q3033
+http://www.wikidata.org/entity/Q235983,Henry Taube,1915-11-30T00:00:00Z,2005-11-16T00:00:00Z,male,http://www.wikidata.org/entity/Q2201244,http://www.wikidata.org/entity/Q47265
+http://www.wikidata.org/entity/Q235184,John E. Walker,1941-01-07T00:00:00Z,,male,http://www.wikidata.org/entity/Q826561,
+http://www.wikidata.org/entity/Q183509,Ilya Prigogine,1917-01-25T00:00:00Z,2003-05-28T00:00:00Z,male,http://www.wikidata.org/entity/Q649,http://www.wikidata.org/entity/Q9005
+http://www.wikidata.org/entity/Q243196,Dudley R. Herschbach,1932-06-18T00:00:00Z,,male,http://www.wikidata.org/entity/Q16553,
+http://www.wikidata.org/entity/Q207992,Peter D. Mitchell,1920-09-29T00:00:00Z,1992-04-10T00:00:00Z,male,http://www.wikidata.org/entity/Q23276,http://www.wikidata.org/entity/Q889888
+http://www.wikidata.org/entity/Q33128,Vincent du Vigneaud,1901-05-18T00:00:00Z,1978-12-11T00:00:00Z,male,http://www.wikidata.org/entity/Q1297,http://www.wikidata.org/entity/Q462177
+http://www.wikidata.org/entity/Q70554,Emil Fischer,1852-10-09T00:00:00Z,1919-07-15T00:00:00Z,male,http://www.wikidata.org/entity/Q4074,http://www.wikidata.org/entity/Q64
+http://www.wikidata.org/entity/Q204600,Norman Haworth,1883-03-19T00:00:00Z,1950-03-19T00:00:00Z,male,http://www.wikidata.org/entity/Q2078535,http://www.wikidata.org/entity/Q582689
+http://www.wikidata.org/entity/Q186391,Theodor Svedberg,1884-08-30T00:00:00Z,1971-02-25T00:00:00Z,male,http://www.wikidata.org/entity/Q10712147,http://www.wikidata.org/entity/Q25732
+http://www.wikidata.org/entity/Q237825,John Polanyi,1929-01-23T00:00:00Z,,male,http://www.wikidata.org/entity/Q64,
+http://www.wikidata.org/entity/Q44111,Dan Shechtman,1941-01-24T00:00:00Z,,male,http://www.wikidata.org/entity/Q33935,
+http://www.wikidata.org/entity/Q189803,Arthur Harden,1865-10-12T00:00:00Z,1940-06-17T00:00:00Z,male,http://www.wikidata.org/entity/Q18125,http://www.wikidata.org/entity/Q2059003
+http://www.wikidata.org/entity/Q7151888,Paul L. Modrich,1946-06-13T00:00:00Z,,male,http://www.wikidata.org/entity/Q990990,
+http://www.wikidata.org/entity/Q170676,Roger D. Kornberg,1947-04-24T00:00:00Z,,male,http://www.wikidata.org/entity/Q38022,
+http://www.wikidata.org/entity/Q200470,Roger Y. Tsien,1952-02-01T00:00:00Z,2016-08-24T00:00:00Z,male,http://www.wikidata.org/entity/Q60,http://www.wikidata.org/entity/Q171224
+http://www.wikidata.org/entity/Q230652,Irwin Rose,1926-07-16T00:00:00Z,2015-06-02T00:00:00Z,male,http://www.wikidata.org/entity/Q18419,http://www.wikidata.org/entity/Q375905
+http://www.wikidata.org/entity/Q57125,Walther Hermann Nernst,1864-06-25T00:00:00Z,1941-11-18T00:00:00Z,male,http://www.wikidata.org/entity/Q324912,http://www.wikidata.org/entity/Q165131
+http://www.wikidata.org/entity/Q189465,Theodore William Richards,1868-01-31T00:00:00Z,1928-04-02T00:00:00Z,male,http://www.wikidata.org/entity/Q279890,http://www.wikidata.org/entity/Q49111
+http://www.wikidata.org/entity/Q48986,Cyril Norman Hinshelwood,1897-06-19T00:00:00Z,1967-10-09T00:00:00Z,male,http://www.wikidata.org/entity/Q84,http://www.wikidata.org/entity/Q84
+http://www.wikidata.org/entity/Q239067,Rudolph A. Marcus,1923-07-21T00:00:00Z,2026-07-16T00:00:00Z,male,http://www.wikidata.org/entity/Q340,http://www.wikidata.org/entity/Q485176
+http://www.wikidata.org/entity/Q4790366,Arieh Warshel,1940-11-20T00:00:00Z,,male,http://www.wikidata.org/entity/Q2916809,
+http://www.wikidata.org/entity/Q57078,Adolf von Baeyer,1835-10-31T00:00:00Z,1917-08-20T00:00:00Z,male,http://www.wikidata.org/entity/Q64,http://www.wikidata.org/entity/Q1726
+http://www.wikidata.org/entity/Q57078,Adolf von Baeyer,1835-10-31T00:00:00Z,1917-08-20T00:00:00Z,male,http://www.wikidata.org/entity/Q64,http://www.wikidata.org/entity/Q61936
+http://www.wikidata.org/entity/Q233355,Robert S. Mulliken,1896-06-07T00:00:00Z,1986-10-31T00:00:00Z,male,http://www.wikidata.org/entity/Q54134,http://www.wikidata.org/entity/Q107126
+http://www.wikidata.org/entity/Q232302,Avram Hershko,1937-12-31T00:00:00Z,,male,http://www.wikidata.org/entity/Q756273,
+http://www.wikidata.org/entity/Q44594,Ernst Otto Fischer,1918-11-10T00:00:00Z,2007-07-23T00:00:00Z,male,http://www.wikidata.org/entity/Q2299008,http://www.wikidata.org/entity/Q1726
+http://www.wikidata.org/entity/Q157250,Harry Kroto,1939-10-07T00:00:00Z,2016-04-30T00:00:00Z,male,http://www.wikidata.org/entity/Q1012031,http://www.wikidata.org/entity/Q246884
+http://www.wikidata.org/entity/Q48973,Glenn Theodore Seaborg,1912-04-19T00:00:00Z,1999-02-25T00:00:00Z,male,http://www.wikidata.org/entity/Q2432500,http://www.wikidata.org/entity/Q284803
+http://www.wikidata.org/entity/Q49351,Robert Robinson,1886-09-13T00:00:00Z,1975-02-08T00:00:00Z,male,http://www.wikidata.org/entity/Q15273742,http://www.wikidata.org/entity/Q1817504
+http://www.wikidata.org/entity/Q3169751,Jean-Pierre Sauvage,1944-10-21T00:00:00Z,,male,http://www.wikidata.org/entity/Q90,
+http://www.wikidata.org/entity/Q56068,Jennifer Doudna,1964-02-19T00:00:00Z,,female,http://www.wikidata.org/entity/Q61,
+http://www.wikidata.org/entity/Q60066,Gerhard Ertl,1936-10-10T00:00:00Z,,male,http://www.wikidata.org/entity/Q1022,
+http://www.wikidata.org/entity/Q19045,Mario Molina,1943-03-19T00:00:00Z,2020-10-07T00:00:00Z,male,http://www.wikidata.org/entity/Q1489,http://www.wikidata.org/entity/Q1489
+http://www.wikidata.org/entity/Q273279,Roald Hoffmann,1937-07-18T00:00:00Z,,male,http://www.wikidata.org/entity/Q623594,
+http://www.wikidata.org/entity/Q19009,Edwin McMillan,1907-09-18T00:00:00Z,1991-09-07T00:00:00Z,male,http://www.wikidata.org/entity/Q840678,http://www.wikidata.org/entity/Q996569
+http://www.wikidata.org/entity/Q7487,Dorothy Hodgkin,1910-05-12T00:00:00Z,1994-07-29T00:00:00Z,female,http://www.wikidata.org/entity/Q85,http://www.wikidata.org/entity/Q2043291
+http://www.wikidata.org/entity/Q7504,Irène Joliot-Curie,1897-09-12T00:00:00Z,1956-03-17T00:00:00Z,female,http://www.wikidata.org/entity/Q175129,http://www.wikidata.org/entity/Q90
+http://www.wikidata.org/entity/Q232295,John Kendrew,1917-03-24T00:00:00Z,1997-08-23T00:00:00Z,male,http://www.wikidata.org/entity/Q34217,http://www.wikidata.org/entity/Q350
+http://www.wikidata.org/entity/Q243190,Yuan T. Lee,1936-11-19T00:00:00Z,,male,http://www.wikidata.org/entity/Q11083992,
+http://www.wikidata.org/entity/Q190626,Aaron Klug,1926-08-11T00:00:00Z,2018-11-20T00:00:00Z,male,http://www.wikidata.org/entity/Q691679,http://www.wikidata.org/entity/Q350
+http://www.wikidata.org/entity/Q224153,Robert Bruce Merrifield,1921-07-15T00:00:00Z,2006-05-14T00:00:00Z,male,http://www.wikidata.org/entity/Q16558,http://www.wikidata.org/entity/Q1088520
+http://www.wikidata.org/entity/Q60061,Venkatraman Ramakrishnan,1952-04-04T00:00:00Z,,male,http://www.wikidata.org/entity/Q155332,
+http://www.wikidata.org/entity/Q3259614,Ben Feringa,1951-05-18T00:00:00Z,,male,http://www.wikidata.org/entity/Q2247076,
+http://www.wikidata.org/entity/Q211482,Roderick MacKinnon,1956-02-19T00:00:00Z,,male,http://www.wikidata.org/entity/Q995255,
+http://www.wikidata.org/entity/Q237499,Edward Lawrie Tatum,1909-12-14T00:00:00Z,1975-11-05T00:00:00Z,male,http://www.wikidata.org/entity/Q192517,http://www.wikidata.org/entity/Q60
+http://www.wikidata.org/entity/Q271532,John Sulston,1942-03-27T00:00:00Z,2018-03-06T00:00:00Z,male,http://www.wikidata.org/entity/Q2216430,http://www.wikidata.org/entity/Q2216430
+http://www.wikidata.org/entity/Q230612,Edward Adelbert Doisy,1893-11-13T00:00:00Z,1986-10-23T00:00:00Z,male,http://www.wikidata.org/entity/Q2671259,http://www.wikidata.org/entity/Q38022
+http://www.wikidata.org/entity/Q192651,Allvar Gullstrand,1862-06-05T00:00:00Z,1930-07-28T00:00:00Z,male,http://www.wikidata.org/entity/Q10553938,http://www.wikidata.org/entity/Q10612973
+http://www.wikidata.org/entity/Q232299,Stanley Cohen,1922-11-17T00:00:00Z,2020-02-05T00:00:00Z,male,http://www.wikidata.org/entity/Q18419,http://www.wikidata.org/entity/Q23197
+http://www.wikidata.org/entity/Q232308,Selman Abraham Waksman,1888-07-22T00:00:00Z,1973-08-16T00:00:00Z,male,http://www.wikidata.org/entity/Q192558,http://www.wikidata.org/entity/Q747172
+http://www.wikidata.org/entity/Q271757,André Frédéric Cournand,1895-09-24T00:00:00Z,1988-02-19T00:00:00Z,male,http://www.wikidata.org/entity/Q161741,http://www.wikidata.org/entity/Q1144518
+http://www.wikidata.org/entity/Q237142,Ulf von Euler,1905-02-07T00:00:00Z,1983-03-09T00:00:00Z,male,http://www.wikidata.org/entity/Q1754,http://www.wikidata.org/entity/Q1754
+http://www.wikidata.org/entity/Q309814,Peter C. Doherty,1940-10-15T00:00:00Z,,male,http://www.wikidata.org/entity/Q34932,
+http://www.wikidata.org/entity/Q233976,Frederick Hopkins,1861-06-20T00:00:00Z,1947-05-16T00:00:00Z,male,http://www.wikidata.org/entity/Q208262,http://www.wikidata.org/entity/Q350
+http://www.wikidata.org/entity/Q232305,Roger Sperry,1913-08-20T00:00:00Z,1994-04-18T00:00:00Z,male,http://www.wikidata.org/entity/Q33486,http://www.wikidata.org/entity/Q485176
+http://www.wikidata.org/entity/Q309876,Niels Kaj Jerne,1911-12-23T00:00:00Z,1994-10-07T00:00:00Z,male,http://www.wikidata.org/entity/Q84,http://www.wikidata.org/entity/Q322714
+http://www.wikidata.org/entity/Q223542,Allan McLeod Cormack,1924-02-23T00:00:00Z,1998-05-07T00:00:00Z,male,http://www.wikidata.org/entity/Q34647,http://www.wikidata.org/entity/Q874300
+http://www.wikidata.org/entity/Q204733,Gerty Cori,1896-08-15T00:00:00Z,1957-10-26T00:00:00Z,female,http://www.wikidata.org/entity/Q1085,http://www.wikidata.org/entity/Q38022
+http://www.wikidata.org/entity/Q215574,Mario Capecchi,1937-10-06T00:00:00Z,,male,http://www.wikidata.org/entity/Q2028,
+http://www.wikidata.org/entity/Q295678,Arthur Kornberg,1918-03-03T00:00:00Z,2007-10-26T00:00:00Z,male,http://www.wikidata.org/entity/Q18419,http://www.wikidata.org/entity/Q173813
+http://www.wikidata.org/entity/Q199654,Barbara McBurger,1902-06-16T00:00:00Z,1992-09-02T00:00:00Z,female,http://www.wikidata.org/entity/Q33486,http://www.wikidata.org/entity/Q999123
+http://www.wikidata.org/entity/Q223309,André Lwoff,1902-05-08T00:00:00Z,1994-09-30T00:00:00Z,male,http://www.wikidata.org/entity/Q841802,http://www.wikidata.org/entity/Q90
+http://www.wikidata.org/entity/Q295768,Bengt I. Samuelsson,1934-05-21T00:00:00Z,2024-07-05T00:00:00Z,male,http://www.wikidata.org/entity/Q26521,http://www.wikidata.org/entity/Q1599139
+http://www.wikidata.org/entity/Q295706,Daniel Nathans,1928-10-30T00:00:00Z,1999-11-16T00:00:00Z,male,http://www.wikidata.org/entity/Q174224,http://www.wikidata.org/entity/Q5092
+http://www.wikidata.org/entity/Q295999,Ferid Murad,1936-09-14T00:00:00Z,2023-09-04T00:00:00Z,male,http://www.wikidata.org/entity/Q2000875,http://www.wikidata.org/entity/Q74195
+http://www.wikidata.org/entity/Q216318,Oliver Smithies,1925-06-23T00:00:00Z,2017-01-10T00:00:00Z,male,http://www.wikidata.org/entity/Q826561,http://www.wikidata.org/entity/Q671812
+http://www.wikidata.org/entity/Q243601,Peter Mansfield,1933-10-09T00:00:00Z,2017-02-08T00:00:00Z,male,http://www.wikidata.org/entity/Q148349,http://www.wikidata.org/entity/Q41262
+http://www.wikidata.org/entity/Q214851,Charles Richet,1850-08-26T00:00:00Z,1935-12-04T00:00:00Z,male,http://www.wikidata.org/entity/Q90,http://www.wikidata.org/entity/Q90
+http://www.wikidata.org/entity/Q211940,Richard Axel,1946-07-02T00:00:00Z,,male,http://www.wikidata.org/entity/Q18419,
+http://www.wikidata.org/entity/Q202136,Barry Marshall,1951-09-30T00:00:00Z,,male,http://www.wikidata.org/entity/Q329503,
+http://www.wikidata.org/entity/Q208670,Robin Warren,1937-06-11T00:00:00Z,2024-07-23T00:00:00Z,male,http://www.wikidata.org/entity/Q5112,http://www.wikidata.org/entity/Q3183
+http://www.wikidata.org/entity/Q298045,Arvid Carlsson,1923-01-25T00:00:00Z,2018-06-29T00:00:00Z,male,http://www.wikidata.org/entity/Q25286,http://www.wikidata.org/entity/Q25287
+http://www.wikidata.org/entity/Q234949,David Baltimore,1938-03-07T00:00:00Z,2025-09-06T00:00:00Z,male,http://www.wikidata.org/entity/Q11299,http://www.wikidata.org/entity/Q747172
+http://www.wikidata.org/entity/Q26321,Elizabeth Blackburn,1948-11-26T00:00:00Z,,female,http://www.wikidata.org/entity/Q40191,
+http://www.wikidata.org/entity/Q218311,François Jacob,1920-06-17T00:00:00Z,2013-04-20T00:00:00Z,male,http://www.wikidata.org/entity/Q40898,http://www.wikidata.org/entity/Q187153
+http://www.wikidata.org/entity/Q235651,Philip Showalter Hench,1896-02-28T00:00:00Z,1965-03-30T00:00:00Z,male,http://www.wikidata.org/entity/Q1342,http://www.wikidata.org/entity/Q602783
+http://www.wikidata.org/entity/Q295869,Lee Hartwell,1939-10-30T00:00:00Z,,male,http://www.wikidata.org/entity/Q65,
+http://www.wikidata.org/entity/Q216324,Johannes Fibiger,1867-04-23T00:00:00Z,1928-01-30T00:00:00Z,male,http://www.wikidata.org/entity/Q21180,http://www.wikidata.org/entity/Q1748
+http://www.wikidata.org/entity/Q309879,Haldan Keffer Hartline,1903-12-22T00:00:00Z,1983-03-17T00:00:00Z,male,http://www.wikidata.org/entity/Q1133544,http://www.wikidata.org/entity/Q753603
+http://www.wikidata.org/entity/Q231402,Jacques Monod,1910-02-09T00:00:00Z,1976-05-31T00:00:00Z,male,http://www.wikidata.org/entity/Q197297,http://www.wikidata.org/entity/Q39984
+http://www.wikidata.org/entity/Q295724,George Wald,1906-11-18T00:00:00Z,1997-04-12T00:00:00Z,male,http://www.wikidata.org/entity/Q60,http://www.wikidata.org/entity/Q49111
+http://www.wikidata.org/entity/Q237160,Bernardo Houssay,1887-04-10T00:00:00Z,1971-09-21T00:00:00Z,male,http://www.wikidata.org/entity/Q1486,http://www.wikidata.org/entity/Q1486
+http://www.wikidata.org/entity/Q2075967,Peter J. Ratcliffe,1954-05-14T00:00:00Z,,male,http://www.wikidata.org/entity/Q985279,
+http://www.wikidata.org/entity/Q271421,Torsten Nils Wiesel,1924-06-03T00:00:00Z,,male,http://www.wikidata.org/entity/Q25286,
+http://www.wikidata.org/entity/Q273238,George Whipple,1878-08-28T00:00:00Z,1976-02-01T00:00:00Z,male,http://www.wikidata.org/entity/Q2310716,http://www.wikidata.org/entity/Q49218
+http://www.wikidata.org/entity/Q205667,Salvador Luria,1912-08-13T00:00:00Z,1991-02-06T00:00:00Z,male,http://www.wikidata.org/entity/Q495,http://www.wikidata.org/entity/Q929667
+http://www.wikidata.org/entity/Q309885,Frederick Chapman Robbins,1916-08-25T00:00:00Z,2003-08-04T00:00:00Z,male,http://www.wikidata.org/entity/Q79728,http://www.wikidata.org/entity/Q37320
+http://www.wikidata.org/entity/Q274123,Edward B. Lewis,1918-05-20T00:00:00Z,2004-07-21T00:00:00Z,male,http://www.wikidata.org/entity/Q745594,http://www.wikidata.org/entity/Q485176
+http://www.wikidata.org/entity/Q214209,Peter Medawar,1915-02-28T00:00:00Z,1987-10-02T00:00:00Z,male,http://www.wikidata.org/entity/Q189043,http://www.wikidata.org/entity/Q84
+http://www.wikidata.org/entity/Q295696,Sune Bergström,1916-01-10T00:00:00Z,2004-08-15T00:00:00Z,male,http://www.wikidata.org/entity/Q10550317,http://www.wikidata.org/entity/Q1754
+http://www.wikidata.org/entity/Q1927895,Michael Houghton,1949-01-01T00:00:00Z,,male,http://www.wikidata.org/entity/Q84,
+http://www.wikidata.org/entity/Q218823,Joshua Lederberg,1925-05-23T00:00:00Z,2008-02-02T00:00:00Z,male,http://www.wikidata.org/entity/Q678437,http://www.wikidata.org/entity/Q60
+http://www.wikidata.org/entity/Q271766,Gerald Edelman,1929-07-01T00:00:00Z,2014-05-17T00:00:00Z,male,http://www.wikidata.org/entity/Q18424,http://www.wikidata.org/entity/Q840668
+http://www.wikidata.org/entity/Q232305,Roger Sperry,1913-08-20T00:00:00Z,1994-04-17T00:00:00Z,male,http://www.wikidata.org/entity/Q33486,http://www.wikidata.org/entity/Q485176
+http://www.wikidata.org/entity/Q309816,Richard Roberts,1943-09-06T00:00:00Z,,male,http://www.wikidata.org/entity/Q43475,
+http://www.wikidata.org/entity/Q231292,Edgar Douglas Adrian,1889-11-30T00:00:00Z,1977-08-04T00:00:00Z,male,http://www.wikidata.org/entity/Q25610,http://www.wikidata.org/entity/Q350
+http://www.wikidata.org/entity/Q309977,Tim Hunt,1943-02-19T00:00:00Z,,male,http://www.wikidata.org/entity/Q925760,
+http://www.wikidata.org/entity/Q233943,Albert Claude,1898-08-24T00:00:00Z,1983-05-22T00:00:00Z,male,http://www.wikidata.org/entity/Q650135,http://www.wikidata.org/entity/Q9005
+http://www.wikidata.org/entity/Q271532,John Sulston,1942-03-27T00:00:00Z,2018-03-06T00:00:00Z,male,http://www.wikidata.org/entity/Q350,http://www.wikidata.org/entity/Q2216430
+http://www.wikidata.org/entity/Q295691,Harold E. Varmus,1939-12-18T00:00:00Z,,male,http://www.wikidata.org/entity/Q3452069,
+http://www.wikidata.org/entity/Q207719,Martin Evans,1941-01-01T00:00:00Z,,male,http://www.wikidata.org/entity/Q281749,
+http://www.wikidata.org/entity/Q234590,Christian de Duve,1917-10-02T00:00:00Z,2013-05-04T00:00:00Z,male,http://www.wikidata.org/entity/Q954764,http://www.wikidata.org/entity/Q2678982
+http://www.wikidata.org/entity/Q202152,Andrew Fire,1959-04-27T00:00:00Z,,male,http://www.wikidata.org/entity/Q47265,
+http://www.wikidata.org/entity/Q1929672,Michael W. Young,1949-03-28T00:00:00Z,,male,http://www.wikidata.org/entity/Q8652,
+http://www.wikidata.org/entity/Q232024,John James Rickard Macleod,1876-09-06T00:00:00Z,1935-03-16T00:00:00Z,male,http://www.wikidata.org/entity/Q3776576,http://www.wikidata.org/entity/Q36405
+http://www.wikidata.org/entity/Q271424,Joseph L. Goldstein,1940-04-18T00:00:00Z,,male,http://www.wikidata.org/entity/Q2437186,
+http://www.wikidata.org/entity/Q301438,Eric F. Wieschaus,1947-06-08T00:00:00Z,,male,http://www.wikidata.org/entity/Q486877,
+http://www.wikidata.org/entity/Q309971,John Vane,1927-03-29T00:00:00Z,2004-11-19T00:00:00Z,male,http://www.wikidata.org/entity/Q931120,http://www.wikidata.org/entity/Q7244808
+http://www.wikidata.org/entity/Q204733,Gerty Cori,1896-08-15T00:00:00Z,1957-10-26T00:00:00Z,female,http://www.wikidata.org/entity/Q1085,http://www.wikidata.org/entity/Q966965
+http://www.wikidata.org/entity/Q243536,Howard Temin,1934-12-10T00:00:00Z,1994-02-09T00:00:00Z,male,http://www.wikidata.org/entity/Q1345,http://www.wikidata.org/entity/Q43788
+http://www.wikidata.org/entity/Q298707,Francis Peyton Rous,1879-10-05T00:00:00Z,1970-02-16T00:00:00Z,male,http://www.wikidata.org/entity/Q5092,http://www.wikidata.org/entity/Q60
+http://www.wikidata.org/entity/Q200136,Linda B. Buck,1947-01-29T00:00:00Z,,female,http://www.wikidata.org/entity/Q5083,
+http://www.wikidata.org/entity/Q26322,Carol Greider,1961-04-15T00:00:00Z,,female,http://www.wikidata.org/entity/Q16552,
+http://www.wikidata.org/entity/Q309971,John Vane,1927-03-29T00:00:00Z,2004-11-19T00:00:00Z,male,http://www.wikidata.org/entity/Q7685713,http://www.wikidata.org/entity/Q7244808
+http://www.wikidata.org/entity/Q309820,Louis Ignarro,1941-05-31T00:00:00Z,,male,http://www.wikidata.org/entity/Q18419,
+http://www.wikidata.org/entity/Q295666,George Davis Snell,1903-12-19T00:00:00Z,1996-06-06T00:00:00Z,male,http://www.wikidata.org/entity/Q4954548,http://www.wikidata.org/entity/Q1672375
+http://www.wikidata.org/entity/Q219718,George Emil Palade,1912-11-19T00:00:00Z,2008-10-07T00:00:00Z,male,http://www.wikidata.org/entity/Q46852,http://www.wikidata.org/entity/Q674469
+http://www.wikidata.org/entity/Q273201,Herbert Spencer Gasser,1888-07-05T00:00:00Z,1963-05-11T00:00:00Z,male,http://www.wikidata.org/entity/Q1023529,http://www.wikidata.org/entity/Q60
+http://www.wikidata.org/entity/Q295700,Rodney Robert Porter,1917-10-08T00:00:00Z,1985-09-06T00:00:00Z,male,http://www.wikidata.org/entity/Q750000,http://www.wikidata.org/entity/Q172157
+http://www.wikidata.org/entity/Q233957,Severo Ochoa,1905-09-24T00:00:00Z,1993-11-01T00:00:00Z,male,http://www.wikidata.org/entity/Q56849753,http://www.wikidata.org/entity/Q2807
+http://www.wikidata.org/entity/Q219716,Paul Nurse,1949-01-25T00:00:00Z,,male,http://www.wikidata.org/entity/Q130191,
+http://www.wikidata.org/entity/Q295684,Michael Stuart Brown,1941-04-13T00:00:00Z,,male,http://www.wikidata.org/entity/Q18419,
+http://www.wikidata.org/entity/Q296423,Alfred G. Gilman,1941-07-01T00:00:00Z,2015-12-23T00:00:00Z,male,http://www.wikidata.org/entity/Q49145,http://www.wikidata.org/entity/Q16557
+http://www.wikidata.org/entity/Q273769,Godfrey Hounsfield,1919-08-28T00:00:00Z,2004-08-12T00:00:00Z,male,http://www.wikidata.org/entity/Q601196,http://www.wikidata.org/entity/Q2321706
+http://www.wikidata.org/entity/Q273219,António Egas Moniz,1874-11-29T00:00:00Z,1955-12-13T00:00:00Z,male,http://www.wikidata.org/entity/Q790121,http://www.wikidata.org/entity/Q597
+http://www.wikidata.org/entity/Q242169,Roger Guillemin,1924-01-11T00:00:00Z,2024-02-21T00:00:00Z,male,http://www.wikidata.org/entity/Q7003,http://www.wikidata.org/entity/Q16552
+http://www.wikidata.org/entity/Q271703,Alfred Hershey,1908-12-04T00:00:00Z,1997-05-22T00:00:00Z,male,http://www.wikidata.org/entity/Q2307592,http://www.wikidata.org/entity/Q3056724
+http://www.wikidata.org/entity/Q233965,Charles Nicolle,1866-09-21T00:00:00Z,1936-02-28T00:00:00Z,male,http://www.wikidata.org/entity/Q30974,http://www.wikidata.org/entity/Q3572
+http://www.wikidata.org/entity/Q206455,Craig Mello,1960-10-18T00:00:00Z,,male,http://www.wikidata.org/entity/Q49145,
+http://www.wikidata.org/entity/Q193650,Alan Lloyd Hodgkin,1914-02-05T00:00:00Z,1998-12-20T00:00:00Z,male,http://www.wikidata.org/entity/Q806160,http://www.wikidata.org/entity/Q350
+http://www.wikidata.org/entity/Q245000,George Minot,1885-12-02T00:00:00Z,1950-02-25T00:00:00Z,male,http://www.wikidata.org/entity/Q100,http://www.wikidata.org/entity/Q100
+http://www.wikidata.org/entity/Q273223,John Carew Eccles,1903-01-27T00:00:00Z,1997-05-02T00:00:00Z,male,http://www.wikidata.org/entity/Q3141,http://www.wikidata.org/entity/Q67745
+http://www.wikidata.org/entity/Q238716,Georg von Békésy,1899-06-03T00:00:00Z,1972-06-13T00:00:00Z,male,http://www.wikidata.org/entity/Q1781,http://www.wikidata.org/entity/Q18094
+http://www.wikidata.org/entity/Q295659,H. Robert Horvitz,1947-05-08T00:00:00Z,,male,http://www.wikidata.org/entity/Q1297,
+http://www.wikidata.org/entity/Q243532,Joseph Erlanger,1874-01-05T00:00:00Z,1965-12-05T00:00:00Z,male,http://www.wikidata.org/entity/Q62,http://www.wikidata.org/entity/Q38022
+http://www.wikidata.org/entity/Q193550,Frank Macfarlane Burnet,1899-09-03T00:00:00Z,1985-08-31T00:00:00Z,male,http://www.wikidata.org/entity/Q249022,http://www.wikidata.org/entity/Q3141
+http://www.wikidata.org/entity/Q192282,Joseph Murray,1919-04-01T00:00:00Z,2012-11-26T00:00:00Z,male,http://www.wikidata.org/entity/Q3857885,http://www.wikidata.org/entity/Q100
+http://www.wikidata.org/entity/Q234463,Sydney Brenner,1927-01-13T00:00:00Z,2019-04-05T00:00:00Z,male,http://www.wikidata.org/entity/Q993721,http://www.wikidata.org/entity/Q334
+http://www.wikidata.org/entity/Q211787,Jules Bordet,1870-06-13T00:00:00Z,1961-04-06T00:00:00Z,male,http://www.wikidata.org/entity/Q462985,http://www.wikidata.org/entity/Q239
+http://www.wikidata.org/entity/Q217722,Ragnar Granit,1900-10-30T00:00:00Z,1991-03-12T00:00:00Z,male,http://www.wikidata.org/entity/Q429864,http://www.wikidata.org/entity/Q1754
+http://www.wikidata.org/entity/Q238739,George Wells Beadle,1903-10-22T00:00:00Z,1989-06-09T00:00:00Z,male,http://www.wikidata.org/entity/Q660140,http://www.wikidata.org/entity/Q486868
+http://www.wikidata.org/entity/Q213504,Charles Scott Sherrington,1857-11-27T00:00:00Z,1952-03-04T00:00:00Z,male,http://www.wikidata.org/entity/Q84,http://www.wikidata.org/entity/Q208262
+http://www.wikidata.org/entity/Q295644,David H. Hubel,1926-02-27T00:00:00Z,2013-09-22T00:00:00Z,male,http://www.wikidata.org/entity/Q182625,http://www.wikidata.org/entity/Q663035
+http://www.wikidata.org/entity/Q234701,Baruj Benacerraf,1920-10-29T00:00:00Z,2011-08-02T00:00:00Z,male,http://www.wikidata.org/entity/Q1533,http://www.wikidata.org/entity/Q100
+http://www.wikidata.org/entity/Q26703310,Michel Devoret,1953-03-05T00:00:00Z,,male,http://www.wikidata.org/entity/Q90,
+http://www.wikidata.org/entity/Q56868017,George Smith,1941-03-10T00:00:00Z,,male,http://www.wikidata.org/entity/Q54217,
+http://www.wikidata.org/entity/Q22669757,Charles M. Rice,1952-08-25T00:00:00Z,,male,http://www.wikidata.org/entity/Q18013,
+http://www.wikidata.org/entity/Q28833112,Joachim Frank,1940-09-12T00:00:00Z,,male,http://www.wikidata.org/entity/Q831279,
+http://www.wikidata.org/entity/Q41585344,Jacques Dubochet,1942-06-08T00:00:00Z,,male,http://www.wikidata.org/entity/Q43195,
+http://www.wikidata.org/entity/Q20942818,Francis Halzen,1944-03-23T00:00:00Z,,male,http://www.wikidata.org/entity/Q456550,
+http://www.wikidata.org/entity/Q15433043,Moungi Bawendi,1961-03-15T00:00:00Z,,male,http://www.wikidata.org/entity/Q90,
+http://www.wikidata.org/entity/Q21061212,William C. Campbell,1930-06-28T00:00:00Z,,male,http://www.wikidata.org/entity/Q2078143,
+http://www.wikidata.org/entity/Q28976188,John M. Martinis,1958-07-13T00:00:00Z,,male,http://www.wikidata.org/entity/Q65,
+http://www.wikidata.org/entity/Q2395341,Tasuku Honjo,1942-01-27T00:00:00Z,,male,http://www.wikidata.org/entity/Q34600,
+http://www.wikidata.org/entity/Q17280087,Emmanuelle Charpentier,1968-12-11T00:00:00Z,,female,http://www.wikidata.org/entity/Q752255,
+http://www.wikidata.org/entity/Q57020342,Pierre Agostini,1941-07-23T00:00:00Z,,male,http://www.wikidata.org/entity/Q3572,
+http://www.wikidata.org/entity/Q21061207,Satoshi Ōmura,1935-07-12T00:00:00Z,,male,http://www.wikidata.org/entity/Q11589539,
+http://www.wikidata.org/entity/Q56855591,Donna Strickland,1959-05-27T00:00:00Z,,female,http://www.wikidata.org/entity/Q504114,
+http://www.wikidata.org/entity/Q89620738,John Michael Jumper,1985-01-01T00:00:00Z,,male,http://www.wikidata.org/entity/Q33405,
+http://www.wikidata.org/entity/Q80323,William P. Murphy,1892-02-06T00:00:00Z,1987-10-09T00:00:00Z,male,http://www.wikidata.org/entity/Q1570402,http://www.wikidata.org/entity/Q49142
+http://www.wikidata.org/entity/Q4517,Bernard Katz,1911-03-26T00:00:00Z,2003-04-20T00:00:00Z,male,http://www.wikidata.org/entity/Q2079,http://www.wikidata.org/entity/Q84
+http://www.wikidata.org/entity/Q37064,Alexander Fleming,1881-08-06T00:00:00Z,1955-03-11T00:00:00Z,male,http://www.wikidata.org/entity/Q56619307,http://www.wikidata.org/entity/Q84
+http://www.wikidata.org/entity/Q2075526,Q2075526,1954-12-11T00:00:00Z,,male,http://www.wikidata.org/entity/Q2742,
+http://www.wikidata.org/entity/Q77160,Georges J. F. Köhler,1946-04-17T00:00:00Z,1995-03-01T00:00:00Z,male,http://www.wikidata.org/entity/Q1726,http://www.wikidata.org/entity/Q2833
+http://www.wikidata.org/entity/Q77126,Erwin Neher,1944-03-20T00:00:00Z,,male,http://www.wikidata.org/entity/Q494299,
+http://www.wikidata.org/entity/Q81218,John Gurdon,1933-10-02T00:00:00Z,2025-10-07T00:00:00Z,male,http://www.wikidata.org/entity/Q5280058,
+http://www.wikidata.org/entity/Q17502433,Shimon Sakaguchi,1951-01-19T00:00:00Z,,male,http://www.wikidata.org/entity/Q844130,
+http://www.wikidata.org/entity/Q60060,Karl von Frisch,1886-11-20T00:00:00Z,1982-06-12T00:00:00Z,male,http://www.wikidata.org/entity/Q1741,http://www.wikidata.org/entity/Q1726
+http://www.wikidata.org/entity/Q77173,Otto Loewi,1873-06-03T00:00:00Z,1961-12-25T00:00:00Z,male,http://www.wikidata.org/entity/Q1794,http://www.wikidata.org/entity/Q60
+http://www.wikidata.org/entity/Q88608402,Drew Weissman,1959-09-07T00:00:00Z,,male,http://www.wikidata.org/entity/Q929667,
+http://www.wikidata.org/entity/Q46928,Max Theiler,1899-01-30T00:00:00Z,1972-08-11T00:00:00Z,male,http://www.wikidata.org/entity/Q3926,http://www.wikidata.org/entity/Q49145
+http://www.wikidata.org/entity/Q57132,Otto Fritz Meyerhof,1884-04-12T00:00:00Z,1951-10-06T00:00:00Z,male,http://www.wikidata.org/entity/Q1715,http://www.wikidata.org/entity/Q1345
+http://www.wikidata.org/entity/Q77152,Werner Forssmann,1904-08-29T00:00:00Z,1979-06-01T00:00:00Z,male,http://www.wikidata.org/entity/Q64,http://www.wikidata.org/entity/Q61734
+http://www.wikidata.org/entity/Q77104,Fritz Albert Lipmann,1899-06-12T00:00:00Z,1986-07-24T00:00:00Z,male,http://www.wikidata.org/entity/Q4120832,http://www.wikidata.org/entity/Q178093
+http://www.wikidata.org/entity/Q84405,Karl Landsteiner,1868-06-14T00:00:00Z,1943-06-26T00:00:00Z,male,http://www.wikidata.org/entity/Q486450,http://www.wikidata.org/entity/Q60
+http://www.wikidata.org/entity/Q35703,Gertrude B. Elion,1918-01-23T00:00:00Z,1999-02-21T00:00:00Z,female,http://www.wikidata.org/entity/Q60,http://www.wikidata.org/entity/Q671812
+http://www.wikidata.org/entity/Q76425,Emil von Behring,1854-03-15T00:00:00Z,1917-03-31T00:00:00Z,male,http://www.wikidata.org/entity/Q2800779,http://www.wikidata.org/entity/Q3869
+http://www.wikidata.org/entity/Q58054,Ernst Chain,1906-06-19T00:00:00Z,1979-08-12T00:00:00Z,male,http://www.wikidata.org/entity/Q64,http://www.wikidata.org/entity/Q749196
+http://www.wikidata.org/entity/Q57191,Hans Krebs,1900-08-25T00:00:00Z,1981-11-22T00:00:00Z,male,http://www.wikidata.org/entity/Q3185,http://www.wikidata.org/entity/Q34217
+http://www.wikidata.org/entity/Q60031,Martin Rodbell,1925-12-01T00:00:00Z,1998-12-07T00:00:00Z,male,http://www.wikidata.org/entity/Q5092,http://www.wikidata.org/entity/Q671812
+http://www.wikidata.org/entity/Q5677307,Harvey J. Alter,1935-09-12T00:00:00Z,,male,http://www.wikidata.org/entity/Q60,
+http://www.wikidata.org/entity/Q68118,"Earl Wilbur Sutherland, Jr.",1915-11-19T00:00:00Z,1974-03-09T00:00:00Z,male,http://www.wikidata.org/entity/Q2673341,http://www.wikidata.org/entity/Q8652
+http://www.wikidata.org/entity/Q6140731,James P. Allison,1948-08-07T00:00:00Z,,male,http://www.wikidata.org/entity/Q981528,
+http://www.wikidata.org/entity/Q6796222,May-Britt Moser,1963-01-04T00:00:00Z,,female,http://www.wikidata.org/entity/Q1439388,
+http://www.wikidata.org/entity/Q8056214,Yoshinori Ohsumi,1945-02-09T00:00:00Z,,male,http://www.wikidata.org/entity/Q26600,
+http://www.wikidata.org/entity/Q114564137,Mary E. Brunkow,1961-04-23T00:00:00Z,,female,http://www.wikidata.org/entity/Q6106,
+http://www.wikidata.org/entity/Q5341373,Edvard Moser,1962-04-27T00:00:00Z,,male,http://www.wikidata.org/entity/Q62266,
+http://www.wikidata.org/entity/Q310487,George H. Hitchings,1905-04-18T00:00:00Z,1998-02-27T00:00:00Z,male,http://www.wikidata.org/entity/Q990621,http://www.wikidata.org/entity/Q671812
+http://www.wikidata.org/entity/Q311358,J. Michael Bishop,1936-02-22T00:00:00Z,2026-03-20T00:00:00Z,male,http://www.wikidata.org/entity/Q821105,http://www.wikidata.org/entity/Q62
+http://www.wikidata.org/entity/Q57568,Hans Spemann,1869-06-27T00:00:00Z,1941-09-12T00:00:00Z,male,http://www.wikidata.org/entity/Q1022,http://www.wikidata.org/entity/Q2833
+http://www.wikidata.org/entity/Q37193,Robert Koch,1843-12-11T00:00:00Z,1910-05-27T00:00:00Z,male,http://www.wikidata.org/entity/Q15377091,http://www.wikidata.org/entity/Q4100
+http://www.wikidata.org/entity/Q60108,Günter Blobel,1936-05-21T00:00:00Z,2018-02-18T00:00:00Z,male,http://www.wikidata.org/entity/Q2369169,http://www.wikidata.org/entity/Q60
+http://www.wikidata.org/entity/Q77174,Christiane Nüsslein-Volhard,1942-10-20T00:00:00Z,,female,http://www.wikidata.org/entity/Q1733,
+http://www.wikidata.org/entity/Q78478,Robert Bárány,1876-04-22T00:00:00Z,1936-04-08T00:00:00Z,male,http://www.wikidata.org/entity/Q1741,http://www.wikidata.org/entity/Q10710237
+http://www.wikidata.org/entity/Q76807,Max Delbrück,1906-09-04T00:00:00Z,1981-03-09T00:00:00Z,male,http://www.wikidata.org/entity/Q162049,http://www.wikidata.org/entity/Q485176
+http://www.wikidata.org/entity/Q56509417,Q56509417,,,,,
+http://www.wikidata.org/entity/Q88608397,Katalin Karikó,1955-01-17T00:00:00Z,,female,http://www.wikidata.org/entity/Q181276,
+http://www.wikidata.org/entity/Q83333,James Watson,1928-04-06T00:00:00Z,2025-11-06T00:00:00Z,male,http://www.wikidata.org/entity/Q1297,http://www.wikidata.org/entity/Q3459309
+http://www.wikidata.org/entity/Q504021,Gary Ruvkun,1952-03-26T00:00:00Z,,male,http://www.wikidata.org/entity/Q484678,
+http://www.wikidata.org/entity/Q57128,Albrecht Kossel,1853-09-16T00:00:00Z,1927-07-05T00:00:00Z,male,http://www.wikidata.org/entity/Q2861,http://www.wikidata.org/entity/Q2966
+http://www.wikidata.org/entity/Q57089,Paul Ehrlich,1854-03-14T00:00:00Z,1915-08-20T00:00:00Z,male,http://www.wikidata.org/entity/Q719954,http://www.wikidata.org/entity/Q4165
+http://www.wikidata.org/entity/Q60322501,Ardem Patapoutian,1967-10-02T00:00:00Z,,male,http://www.wikidata.org/entity/Q3820,
+http://www.wikidata.org/entity/Q740638,Randy Schekman,1948-12-30T00:00:00Z,,male,http://www.wikidata.org/entity/Q28848,
+http://www.wikidata.org/entity/Q35698,Konrad Emil Bloch,1912-01-21T00:00:00Z,2000-10-15T00:00:00Z,male,http://www.wikidata.org/entity/Q815721,http://www.wikidata.org/entity/Q929667
+http://www.wikidata.org/entity/Q309979,Paul Greengard,1925-12-11T00:00:00Z,2019-04-13T00:00:00Z,male,http://www.wikidata.org/entity/Q60,http://www.wikidata.org/entity/Q11299
+http://www.wikidata.org/entity/Q312963,Dickinson W. Richards,1895-10-30T00:00:00Z,1973-02-23T00:00:00Z,male,http://www.wikidata.org/entity/Q1087121,http://www.wikidata.org/entity/Q3086417
+http://www.wikidata.org/entity/Q462843,Tu Youyou,1930-12-30T00:00:00Z,,female,http://www.wikidata.org/entity/Q42780,
+http://www.wikidata.org/entity/Q1247068,Q1247068,1953-08-24T00:00:00Z,,male,http://www.wikidata.org/entity/Q572427,
+http://www.wikidata.org/entity/Q310485,E. Donnall Thomas,1920-03-15T00:00:00Z,2012-10-20T00:00:00Z,male,http://www.wikidata.org/entity/Q969811,http://www.wikidata.org/entity/Q5083
+http://www.wikidata.org/entity/Q983858,Victor Ambros,1953-12-01T00:00:00Z,,male,http://www.wikidata.org/entity/Q131908,
+http://www.wikidata.org/entity/Q28212107,Fred Ramsdell,1960-12-04T00:00:00Z,,male,http://www.wikidata.org/entity/Q579542,
+http://www.wikidata.org/entity/Q77081,Bert Sakmann,1942-06-12T00:00:00Z,,male,http://www.wikidata.org/entity/Q1022,
+http://www.wikidata.org/entity/Q57192,Gerhard Domagk,1895-10-30T00:00:00Z,1964-04-24T00:00:00Z,male,http://www.wikidata.org/entity/Q345189,http://www.wikidata.org/entity/Q81421
+http://www.wikidata.org/entity/Q72194,Henry Hallett Dale,1875-06-09T00:00:00Z,1968-07-23T00:00:00Z,male,http://www.wikidata.org/entity/Q125163,http://www.wikidata.org/entity/Q350
+http://www.wikidata.org/entity/Q444270,James Rothman,1950-11-03T00:00:00Z,,male,http://www.wikidata.org/entity/Q54132,
+http://www.wikidata.org/entity/Q75847,Harald zur Hausen,1936-03-11T00:00:00Z,2023-05-29T00:00:00Z,male,http://www.wikidata.org/entity/Q2765,http://www.wikidata.org/entity/Q2966
+http://www.wikidata.org/entity/Q78501,Carl Ferdinand Cori,1896-12-05T00:00:00Z,1984-10-20T00:00:00Z,male,http://www.wikidata.org/entity/Q1085,http://www.wikidata.org/entity/Q49111
+http://www.wikidata.org/entity/Q310131,Thomas Huckle Weller,1915-06-15T00:00:00Z,2008-08-23T00:00:00Z,male,http://www.wikidata.org/entity/Q485172,http://www.wikidata.org/entity/Q1664345
+http://www.wikidata.org/entity/Q76464,Otto Heinrich Warburg,1883-10-08T00:00:00Z,1970-08-01T00:00:00Z,male,http://www.wikidata.org/entity/Q2833,http://www.wikidata.org/entity/Q56036
+http://www.wikidata.org/entity/Q312977,Phillip Sharp,1944-06-06T00:00:00Z,,male,http://www.wikidata.org/entity/Q2627136,
+http://www.wikidata.org/entity/Q83598,Hermann Joseph Muller,1890-12-21T00:00:00Z,1967-04-05T00:00:00Z,male,http://www.wikidata.org/entity/Q11299,http://www.wikidata.org/entity/Q6346
+http://www.wikidata.org/entity/Q78479,Julius Wagner-Jauregg,1857-03-07T00:00:00Z,1940-09-27T00:00:00Z,male,http://www.wikidata.org/entity/Q178582,http://www.wikidata.org/entity/Q1741
+http://www.wikidata.org/entity/Q80917,Shinya Yamanaka,1962-09-04T00:00:00Z,,male,http://www.wikidata.org/entity/Q11533394,
+http://www.wikidata.org/entity/Q42985,Ivan Pavlov,1849-09-26T00:00:00Z,1936-02-27T00:00:00Z,male,http://www.wikidata.org/entity/Q2746,http://www.wikidata.org/entity/Q656
+http://www.wikidata.org/entity/Q44597,Feodor Lynen,1911-04-06T00:00:00Z,1979-08-06T00:00:00Z,male,http://www.wikidata.org/entity/Q1726,http://www.wikidata.org/entity/Q1726
+http://www.wikidata.org/entity/Q97270,Thomas C. Südhof,1955-12-22T00:00:00Z,,male,http://www.wikidata.org/entity/Q3033,
+http://www.wikidata.org/entity/Q935993,Q935993,1971-11-18T00:00:00Z,,male,http://www.wikidata.org/entity/Q100,
+http://www.wikidata.org/entity/Q78496,Konrad Lorenz,1903-11-07T00:00:00Z,1989-02-27T00:00:00Z,male,http://www.wikidata.org/entity/Q1741,http://www.wikidata.org/entity/Q1741
+http://www.wikidata.org/entity/Q312961,John Franklin Enders,1897-02-10T00:00:00Z,1985-09-08T00:00:00Z,male,http://www.wikidata.org/entity/Q49140,http://www.wikidata.org/entity/Q1898623

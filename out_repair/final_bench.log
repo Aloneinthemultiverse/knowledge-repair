@@ -1,0 +1,31 @@
+7 0.961 -> 0.9933 1.000/0.981/0.990 2/7096 1.05s
+11 0.962 -> 0.9952 1.000/0.978/0.989 1/7084 0.86s
+23 0.9616 -> 0.9931 1.000/0.981/0.990 4/7123 0.81s
+42 0.9649 -> 0.9939 1.000/0.978/0.989 2/7048 1.22s
+99 0.9634 -> 0.9936 1.000/0.981/0.990 5/7107 1.01s
+TAB hospital
+{'errors': 509, 'repairs': 491, 'correct_repairs': 451, 'precision': 0.919, 'recall': 0.886, 'f1': 0.902, 'key/source': 'None/None', 'fds': 119, 'seconds': 9.0, 'rows': 1000}
+TAB flights
+{'errors': 4920, 'repairs': 4529, 'correct_repairs': 3200, 'precision': 0.707, 'recall': 0.65, 'f1': 0.677, 'key/source': 'flight/src', 'fds': 16, 'seconds': 3.75, 'rows': 2376}
+TAB beers
+{'errors': 4362, 'repairs': 4182, 'correct_repairs': 4014, 'precision': 0.96, 'recall': 0.92, 'f1': 0.94, 'key/source': 'None/None', 'fds': 7, 'seconds': 6.66, 'rows': 2410}
+TAB rayyan
+{'errors': 948, 'repairs': 18, 'correct_repairs': 0, 'precision': 0.0, 'recall': 0.0, 'f1': 0.0, 'key/source': 'None/None', 'fds': 3, 'seconds': 1.79, 'rows': 1000}
+TAB movies_1
+{'errors': 7675, 'repairs': 6267, 'correct_repairs': 6174, 'precision': 0.985, 'recall': 0.804, 'f1': 0.886, 'key/source': 'None/None', 'fds': 1, 'seconds': 26.23, 'rows': 7390}
+TAB tax
+{'errors': 121219, 'repairs': 89302, 'correct_repairs': 89075, 'precision': 0.997, 'recall': 0.735, 'f1': 0.846, 'key/source': 'None/None', 'fds': 4, 'seconds': 279.73, 'rows': 200000}
+FEBRL
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    import sys,json; d=json.loads(sys.stdin.read()); [print(k, v['ours_P_R_F1'], v['ours_s'], 'ECM', v['ecm_P_R_F1']) for k,v in d.items()]
+                       ~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\json\__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Python314\Lib\json\decoder.py", line 345, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\json\decoder.py", line 363, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 3 (char 2)

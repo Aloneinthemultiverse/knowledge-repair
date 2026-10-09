@@ -1,0 +1,195 @@
+<title>Knowledge Repair Benchmarks</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,600&display=swap">
+<style>
+/* Layout: single reading column (~72ch) with wide data tables in their own scroll boxes */
+:root{
+  --bg:#f6f7f9; --surface:#ffffff; --fg:#17202b; --muted:#5b6675; --line:#dde2e8;
+  --accent:#1f5fae; --good:#1e7a46; --warn:#9a6a00; --bad:#b3261e; --tint:#eef3fa;
+  --display:"Fraunces",Georgia,serif; --body:"IBM Plex Sans",system-ui,sans-serif; --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#11161d; --surface:#18202a; --fg:#e6ebf1; --muted:#9aa6b4; --line:#2b3642;
+  --accent:#7fb0f0; --good:#5cc68a; --warn:#e2b44f; --bad:#f08a80; --tint:#1c2836; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#11161d; --surface:#18202a; --fg:#e6ebf1; --muted:#9aa6b4; --line:#2b3642;
+  --accent:#7fb0f0; --good:#5cc68a; --warn:#e2b44f; --bad:#f08a80; --tint:#1c2836; color-scheme:dark}
+body{background:var(--bg);color:var(--fg);font:15px/1.6 var(--body)}
+main{max-width:980px;margin:0 auto;padding-inline:16px;padding-block:32px 72px;display:grid;gap:40px}
+section{display:grid;gap:14px;min-width:0}
+h1{font:600 clamp(28px,4.5vw,40px)/1.15 var(--display);margin:0;text-wrap:balance}
+h2{font:600 22px/1.25 var(--display);margin:0;text-wrap:balance}
+h3{font:600 15px/1.3 var(--body);margin:8px 0 0}
+p{margin:0;max-width:72ch}
+.lede{color:var(--muted);font-size:17px}
+.eyebrow{font:500 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:14px 16px;display:grid;gap:4px}
+.kpi .v{font:500 24px/1.2 var(--mono);font-variant-numeric:tabular-nums}
+.kpi .k{color:var(--muted);font-size:13px}
+.wrap{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:8px}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{padding:9px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top;white-space:nowrap}
+td.wrapcell{white-space:normal;min-width:220px}
+th{font:500 12px/1.3 var(--mono);letter-spacing:.04em;text-transform:uppercase;color:var(--muted);background:var(--tint)}
+tr:last-child td{border-bottom:0}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.ours{font-weight:600}
+.pill{display:inline-block;font:500 12px/1 var(--mono);padding:4px 8px;border-radius:99px;border:1px solid currentColor}
+.win{color:var(--good)} .tie{color:var(--accent)} .loss{color:var(--bad)} .note{color:var(--warn)}
+.bar{display:grid;grid-template-columns:minmax(150px,220px) 1fr 70px;gap:10px;align-items:center;font-size:14px}
+.track{height:10px;background:var(--tint);border-radius:5px;overflow:hidden}
+.fill{height:100%;background:var(--accent)}
+.bars{display:grid;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:16px}
+ul{margin:0;padding-left:20px;display:grid;gap:6px;max-width:72ch}
+a{color:var(--accent)}
+.src{font-size:13px;color:var(--muted)}
+@media (max-width:520px){.bar{grid-template-columns:1fr 60px}.bar .track{grid-column:1/-1;grid-row:2}}
+</style>
+
+<main>
+<header style="display:grid;gap:10px">
+  <span class="eyebrow">Problem 7 · The AI That Forgot Everything</span>
+  <h1>Knowledge Repair Benchmarks</h1>
+  <p class="lede">A repair tool for a corrupted knowledge base of people, places, events and relationships, tested on real Wikidata records with injected errors and on the standard data-cleaning benchmarks from VLDB papers. No labelled data and no AI model are used: every fix comes from evidence inside the data and is logged with its reason.</p>
+</header>
+
+<section>
+  <span class="eyebrow">Main result</span>
+  <h2>Real knowledge base: Nobel laureates from Wikidata</h2>
+  <p>654 people, 670 places, 351 award events and 676 relationships (award received, spouse, parent, child). We injected about 570 errors per run across all four tables (duplicates, typos, missing values, contradictions, broken references), then repaired and scored against the real data. Averages over 5 random seeds.</p>
+  <div class="kpis">
+    <div class="kpi"><span class="v">0.990</span><span class="k">Relationship F1 after repair (0.929 before)</span></div>
+    <div class="kpi"><span class="v">0.995</span><span class="k">People duplicate F1 (precision 1.00)</span></div>
+    <div class="kpi"><span class="v">0.04%</span><span class="k">Correct cells broken by repair (14 of 35,458)</span></div>
+    <div class="kpi"><span class="v">~1 s</span><span class="k">Full repair of all four tables, CPU</span></div>
+  </div>
+  <div class="wrap"><table>
+    <tr><th>Table</th><th>Cell accuracy before → after</th><th>Duplicate P / R / F1</th></tr>
+    <tr><td>People</td><td class="num">0.941 → 0.974</td><td class="num">1.000 / 0.990 / 0.995</td></tr>
+    <tr><td>Places</td><td class="num">0.866 → 0.934</td><td class="num">0.902 / 0.851 / 0.875</td></tr>
+    <tr><td>Events</td><td class="num">0.930 → 0.999</td><td class="num">1.000 / 0.961 / 0.980</td></tr>
+    <tr><td>Relationships</td><td class="num">F1 0.929 → 0.990</td><td class="num">—</td></tr>
+  </table></div>
+</section>
+
+<section>
+  <span class="eyebrow">Recoverable vs unrecoverable</span>
+  <h2>Errors fixed where the data holds evidence</h2>
+  <p>Some injected errors leave no trace: a typo in a unique name, or a wrong country on a place with no other copy. The tool flags what it detects there instead of guessing. Where the true value exists somewhere in the knowledge base (a duplicate copy, an award event, a family link), this is how often it was restored.</p>
+  <div class="bars" role="list">
+    <div class="bar" role="listitem"><span>Event year / place conflicts</span><div class="track"><div class="fill" style="width:100%"></div></div><span class="num">100%</span></div>
+    <div class="bar" role="listitem"><span>Person name typos</span><div class="track"><div class="fill" style="width:100%"></div></div><span class="num">100%</span></div>
+    <div class="bar" role="listitem"><span>Person missing values</span><div class="track"><div class="fill" style="width:97%"></div></div><span class="num">97%</span></div>
+    <div class="bar" role="listitem"><span>Person birth-date conflicts</span><div class="track"><div class="fill" style="width:96%"></div></div><span class="num">96%</span></div>
+    <div class="bar" role="listitem"><span>Award-year conflicts in links</span><div class="track"><div class="fill" style="width:98%"></div></div><span class="num">98%</span></div>
+    <div class="bar" role="listitem"><span>Place name typos</span><div class="track"><div class="fill" style="width:88%"></div></div><span class="num">88%</span></div>
+    <div class="bar" role="listitem"><span>Place missing country</span><div class="track"><div class="fill" style="width:82%"></div></div><span class="num">82%</span></div>
+    <div class="bar" role="listitem"><span>Missing family links</span><div class="track"><div class="fill" style="width:80%"></div></div><span class="num">80%</span></div>
+    <div class="bar" role="listitem"><span>Broken references flagged</span><div class="track"><div class="fill" style="width:100%"></div></div><span class="num">100%</span></div>
+  </div>
+  <p class="src">Detection without a fix: every missing value and every broken reference is reported; 79% of birth-date contradictions are caught through age at award and lifespan checks even when the true year is unknown.</p>
+</section>
+
+<section>
+  <span class="eyebrow">Quality without a clean copy</span>
+  <h2>What a real user sees</h2>
+  <p>A real user has no clean copy to compare against. The tool scores completeness, validity, uniqueness, cross-record consistency and reference integrity with the same checks on the input and on the repaired output.</p>
+  <div class="wrap"><table>
+    <tr><th>Run (seed)</th><th>Quality before</th><th>Quality after</th><th>Rule violations before → after</th></tr>
+    <tr><td>7</td><td class="num">0.961</td><td class="num">0.993</td><td class="num">139 → 18</td></tr>
+    <tr><td>11</td><td class="num">0.962</td><td class="num">0.995</td><td class="num">138 → 13</td></tr>
+    <tr><td>23</td><td class="num">0.962</td><td class="num">0.993</td><td class="num">142 → 17</td></tr>
+    <tr><td>42</td><td class="num">0.965</td><td class="num">0.994</td><td class="num">132 → 16</td></tr>
+    <tr><td>99</td><td class="num">0.963</td><td class="num">0.994</td><td class="num">123 → 25</td></tr>
+  </table></div>
+  <p class="src">The 18 remaining violations are impossible birth years the tool flags but cannot correct, because no other record holds the true year.</p>
+</section>
+
+<section>
+  <span class="eyebrow">The AI that forgot</span>
+  <h2>An assistant answering from the corrupted vs the repaired knowledge base</h2>
+  <p>286 questions about facts the corruption damaged, such as "When was Alan J. Heeger born?". The assistant retrieves the best-matching record (turbovec + keyword search) and reads the answer from it. Only the knowledge base changes between the two runs.</p>
+  <div class="wrap"><table>
+    <tr><th>Questions hitting</th><th>Corrupted KB</th><th>Repaired KB</th></tr>
+    <tr><td>Typos</td><td class="num">18%</td><td class="num ours">100%</td></tr>
+    <tr><td>Duplicated people</td><td class="num">85%</td><td class="num ours">94%</td></tr>
+    <tr><td>Contradictions</td><td class="num">21%</td><td class="num ours">59%</td></tr>
+    <tr><td>Missing values</td><td class="num">7%</td><td class="num ours">18%</td></tr>
+    <tr><td><b>All 286 questions</b></td><td class="num">35.0%</td><td class="num ours">62.6%</td></tr>
+  </table></div>
+  <div class="wrap"><table>
+    <tr><th>Question</th><th>Corrupted KB said</th><th>Repaired KB says</th></tr>
+    <tr><td>When was Alan J. Heeger born?</td><td class="num">1896</td><td class="num ours">1936</td></tr>
+    <tr><td>When was Katalin Karikó born?</td><td class="num">1925</td><td class="num ours">1955</td></tr>
+    <tr><td>When was Robert Andrews Millikan born?</td><td class="num">1828</td><td class="num ours">1868</td></tr>
+    <tr><td>Where was Giulio Natta born?</td><td>no answer</td><td class="ours">Porto Maurizio</td></tr>
+  </table></div>
+  <p class="src">Most of the remaining misses hit missing values and broken references with no evidence anywhere in the data, which no repair can restore.</p>
+</section>
+
+<section>
+  <span class="eyebrow">Cross-record checks</span>
+  <h2>Contradictions found between related records</h2>
+  <ul>
+    <li>An award event's year disagrees with its own label or with the award links that point to it: resolved by vote.</li>
+    <li>A laureate's age at the award is outside 17–100, or their lifespan is outside 15–110 years: flagged.</li>
+    <li>Death date before birth date: swapped back when the award dates confirm the order.</li>
+    <li>Two copies of a person share a birthday but not a birth year: merged, and the year with a plausible age at the award is kept.</li>
+    <li>A parent link without its inverse child link: restored, because 80%+ of family links in the data have one.</li>
+    <li>A family link implies a gender (father, mother) that conflicts with the record: flagged.</li>
+  </ul>
+</section>
+
+<section>
+  <span class="eyebrow">Against published systems</span>
+  <h2>Standard data-repair benchmarks (VLDB)</h2>
+  <p>The same repair techniques on the single-table datasets every data-cleaning paper reports on. Scores are repair F1. Baran and HoloClean figures are from Table 3 of the Baran paper (PVLDB 2020). Baran asks a person to label about 20 rows per dataset; our tool uses none.</p>
+  <div class="wrap"><table>
+    <tr><th>Dataset</th><th>Ours</th><th>Baran</th><th>Baran + pretraining</th><th>HoloClean</th><th>Result</th></tr>
+    <tr><td>Tax (200K person records)</td><td class="num ours">0.846</td><td class="num">0.81</td><td class="num">0.83</td><td class="num">0.11</td><td><span class="pill win">best</span></td></tr>
+    <tr><td>Beers</td><td class="num ours">0.940</td><td class="num">0.90</td><td class="num">0.90</td><td class="num">0.01</td><td><span class="pill win">best</span></td></tr>
+    <tr><td>Hospital</td><td class="num ours">0.902</td><td class="num">0.87</td><td class="num">0.91</td><td class="num">0.83</td><td><span class="pill tie">near best</span></td></tr>
+    <tr><td>Movies</td><td class="num ours">0.886</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td><span class="pill note">no published row</span></td></tr>
+    <tr><td>Flights</td><td class="num ours">0.677</td><td class="num">1.00</td><td class="num">1.00</td><td class="num">0.76</td><td><span class="pill loss">behind</span></td></tr>
+    <tr><td>Rayyan</td><td class="num ours">0.000</td><td class="num">0.52</td><td class="num">0.57</td><td class="num">0.00</td><td><span class="pill loss">behind</span></td></tr>
+  </table></div>
+  <div class="wrap"><table>
+    <tr><th>Runtime (seconds)</th><th>Hospital</th><th>Flights</th><th>Beers</th><th>Tax</th></tr>
+    <tr><td class="ours">Ours</td><td class="num">9.0</td><td class="num">3.8</td><td class="num">6.7</td><td class="num">280</td></tr>
+    <tr><td>Baran</td><td class="num">23</td><td class="num">22</td><td class="num">114</td><td class="num">11,936</td></tr>
+    <tr><td>HoloClean</td><td class="num">148</td><td class="num">39</td><td class="num">96</td><td class="num">25,778</td></tr>
+  </table></div>
+  <h3>Duplicate person records (FEBRL, ANU)</h3>
+  <div class="wrap"><table>
+    <tr><th>Dataset</th><th>Ours P / R / F1</th><th>ECM (Fellegi–Sunter, unsupervised)</th><th>Result</th></tr>
+    <tr><td>FEBRL2 (5,000 records)</td><td class="num ours">1.000 / 0.993 / 0.996</td><td class="num">1.000 / 0.993 / 0.996</td><td><span class="pill tie">tie</span></td></tr>
+    <tr><td>FEBRL3 (5,000 records)</td><td class="num ours">1.000 / 0.992 / 0.996</td><td class="num">1.000 / 0.995 / 0.997</td><td><span class="pill tie">tie</span></td></tr>
+  </table></div>
+  <p class="src">Match threshold calibrated on FEBRL1 only, then applied unchanged to FEBRL2 and FEBRL3.</p>
+</section>
+
+<section>
+  <span class="eyebrow">Limits</span>
+  <h2>Where it falls short</h2>
+  <ul>
+    <li><b>Flights:</b> 38 websites report times for the same flights and some are wrong more often than right. Without labels, majority voting cannot tell which sources to trust.</li>
+    <li><b>Rayyan:</b> most errors are dates with their parts reordered. No rule in the data reveals the reordering.</li>
+    <li><b>Same name, same country:</b> Tokyo the city and Tokyo the prefecture, or two Winchesters in the UK, cannot be told apart from the record alone, so a few places merge wrongly.</li>
+    <li><b>Wrong country on a duplicated place:</b> a country mismatch blocks the merge on purpose, because it also keeps Cambridge (UK) and Cambridge (US) apart.</li>
+    <li><b>Errors with no evidence:</b> a typo in a unique name or a missing birth date with no second copy is reported but left as it is.</li>
+  </ul>
+</section>
+
+<section>
+  <span class="eyebrow">Method</span>
+  <h2>How the repair works</h2>
+  <ul>
+    <li>Repairs run in dependency order: places, then events, then people, then relationships, each using the cleaned tables before it as evidence.</li>
+    <li>Duplicates are matched with name normalisation (nicknames, "Last, First", initials), fuzzy similarity and shared birthdays, with country and sibling guards against wrong merges.</li>
+    <li>Typos are fixed only when a rare spelling is one typing error away from a common one.</li>
+    <li>Each change is applied at confidence ≥ 0.90, applied and marked for review at 0.60–0.90, and only flagged below 0.60.</li>
+    <li>Original records are never overwritten. Every repaired entity lists the source record IDs it came from, and every action records its rule and reason.</li>
+  </ul>
+  <p class="src">Sources: <a href="http://www.vldb.org/pvldb/vol13/p1948-mahdavi.pdf">Baran, PVLDB 13 (2020)</a> · <a href="https://www.vldb.org/pvldb/vol18/p4117-wang.pdf">UniClean, PVLDB 18</a> · <a href="https://arxiv.org/pdf/1702.00820">HoloClean, PVLDB 10</a> · <a href="https://github.com/BigDaMa/raha/tree/master/datasets">Raha/Baran datasets</a> · <a href="https://www.researchgate.net/publication/220272032_Febrl_-_An_open_source_data_cleaning_deduplication_and_record_linkage_system_with_a_graphical_user_interface">FEBRL (Christen, KDD 2008)</a> · <a href="https://query.wikidata.org/">Wikidata</a></p>
+</section>
+</main>

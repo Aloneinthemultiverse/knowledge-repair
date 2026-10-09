@@ -1,0 +1,27 @@
+{
+  "A_dirty_turbovec": {
+    "hit@1": 0.979,
+    "recall@5": 0.986,
+    "precision@5": 0.235,
+    "answer_accuracy": 0.938,
+    "engine": "turbovec-4bit",
+    "chunks": 356
+  },
+  "B_repaired_turbovec": {
+    "hit@1": 0.958,
+    "recall@5": 0.993,
+    "precision@5": 0.2,
+    "answer_accuracy": 0.931,
+    "engine": "turbovec-4bit",
+    "chunks": 303
+  },
+  "C_repaired_graph": {
+    "hit@1": 0.951,
+    "recall@5": 0.986,
+    "precision@5": 0.199,
+    "answer_accuracy": 0.931,
+    "nodes": 303,
+    "edges": 144
+  },
+  "questions": 144
+}

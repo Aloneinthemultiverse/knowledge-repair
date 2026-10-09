@@ -18,3 +18,12 @@ corpus/layout-parser-paper-fast.pdf
 _p*.json
 _p*.log
 _page*.png
+
+# knowledge-repair (Problem 7): large or regenerable data
+bench/stark_prime/
+bench/tax/
+bench/movies_1/
+bench/*/repair_log.csv
+out_kb_bench/
+graphify-out/
+.pytest_cache/

@@ -1,0 +1,55 @@
+{
+  "injected": {
+    "DUPLICATE": 56,
+    "CONTRADICTION": 19,
+    "TYPO": 17,
+    "MISSING": 16,
+    "FD_VIOLATION": 8,
+    "BROKEN_REF": 6
+  },
+  "detected": {
+    "MISSING": 76,
+    "DUPLICATE": 54,
+    "TYPO": 32,
+    "CONTRADICTION": 29,
+    "BROKEN_REF": 6
+  },
+  "truth_metrics": {
+    "cell_accuracy_before": 0.918,
+    "cell_accuracy_after": 0.9927,
+    "cells_fixed": 133,
+    "cells_broken (harm)": 0,
+    "cells_total": 1780,
+    "harm_rate": 0.0,
+    "dup_precision": 1.0,
+    "dup_recall": 0.9643,
+    "dup_f1": 0.9818,
+    "true_entities": 300,
+    "entities_after": 302,
+    "records_before": 356
+  },
+  "dq_before": {
+    "completeness": 0.9736,
+    "consistency(city->country)": 0.9841,
+    "uniqueness(email)": 0.9224,
+    "ref_integrity": 0.96,
+    "DQ": 0.96
+  },
+  "dq_after": {
+    "completeness": 0.994,
+    "consistency(city->country)": 1.0,
+    "uniqueness(email)": 1.0,
+    "ref_integrity": 1.0,
+    "DQ": 0.9985
+  },
+  "action_counts": {
+    "CORRECT/applied": 8,
+    "CORRECT/needs_review": 48,
+    "FILL/applied": 6,
+    "FILL/needs_review": 23,
+    "FLAG/flagged_only": 6,
+    "MERGE/applied": 54,
+    "NORMALIZE/applied": 47,
+    "RESOLVE/flagged_only": 5
+  }
+}

@@ -1,0 +1,56 @@
+{
+ "febrl1": {
+  "records": 1000,
+  "true_pairs": 500,
+  "candidate_pairs": 5757,
+  "blocking_recall": 1.0,
+  "ours_P_R_F1": [
+   1.0,
+   0.998,
+   0.999
+  ],
+  "ours_s": 0.05,
+  "ecm_P_R_F1": [
+   1.0,
+   0.998,
+   0.999
+  ],
+  "ecm_s": 0.13
+ },
+ "febrl2": {
+  "records": 5000,
+  "true_pairs": 1934,
+  "candidate_pairs": 75467,
+  "blocking_recall": 0.9959,
+  "ours_P_R_F1": [
+   1.0,
+   0.9928,
+   0.9964
+  ],
+  "ours_s": 0.62,
+  "ecm_P_R_F1": [
+   0.9995,
+   0.9933,
+   0.9964
+  ],
+  "ecm_s": 0.72
+ },
+ "febrl3": {
+  "records": 5000,
+  "true_pairs": 6538,
+  "candidate_pairs": 83489,
+  "blocking_recall": 0.9988,
+  "ours_P_R_F1": [
+   1.0,
+   0.9916,
+   0.9958
+  ],
+  "ours_s": 0.67,
+  "ecm_P_R_F1": [
+   1.0,
+   0.9948,
+   0.9974
+  ],
+  "ecm_s": 0.76
+ }
+}

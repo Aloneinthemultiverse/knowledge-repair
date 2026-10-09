@@ -1,0 +1,198 @@
+issue_id,kind,col,records,detail
+I00000,MISSING,email,R00007,email empty/placeholder (None)
+I00001,MISSING,email,R00010,email empty/placeholder (None)
+I00002,MISSING,email,R00021,email empty/placeholder (None)
+I00003,MISSING,email,R00026,email empty/placeholder (None)
+I00004,MISSING,email,R00044,email empty/placeholder (None)
+I00005,MISSING,email,R00068,email empty/placeholder ('')
+I00006,MISSING,city,R00076,city empty/placeholder (None)
+I00007,MISSING,email,R00084,email empty/placeholder (None)
+I00008,MISSING,email,R00085,email empty/placeholder (None)
+I00009,MISSING,email,R00087,email empty/placeholder (None)
+I00010,MISSING,email,R00098,email empty/placeholder (None)
+I00011,MISSING,email,R00099,email empty/placeholder (None)
+I00012,MISSING,email,R00142,email empty/placeholder (None)
+I00013,MISSING,email,R00189,email empty/placeholder (None)
+I00014,MISSING,email,R00195,email empty/placeholder (None)
+I00015,MISSING,email,R00197,email empty/placeholder (None)
+I00016,MISSING,city,R00198,city empty/placeholder (None)
+I00017,MISSING,email,R00205,email empty/placeholder (None)
+I00018,MISSING,birth_year,R00209,birth_year empty/placeholder ('N/A')
+I00019,MISSING,email,R00214,email empty/placeholder (None)
+I00020,MISSING,email,R00219,email empty/placeholder (None)
+I00021,MISSING,city,R00224,city empty/placeholder ('')
+I00022,MISSING,email,R00227,email empty/placeholder (None)
+I00023,MISSING,city,R00228,city empty/placeholder ('N/A')
+I00024,MISSING,email,R00229,email empty/placeholder (None)
+I00025,MISSING,email,R00235,email empty/placeholder (None)
+I00026,MISSING,email,R00249,email empty/placeholder (None)
+I00027,MISSING,email,R00255,email empty/placeholder ('')
+I00028,MISSING,email,R00263,email empty/placeholder (None)
+I00029,MISSING,country,R00267,country empty/placeholder (None)
+I00030,MISSING,country,R00269,country empty/placeholder ('N/A')
+I00031,MISSING,email,R00272,email empty/placeholder (None)
+I00032,MISSING,email,R00274,email empty/placeholder (None)
+I00033,MISSING,country,R00278,country empty/placeholder ('N/A')
+I00034,MISSING,city,R00284,city empty/placeholder ('N/A')
+I00035,MISSING,email,R00287,email empty/placeholder (None)
+I00036,MISSING,email,R00298,email empty/placeholder (None)
+I00037,MISSING,email,R00301,email empty/placeholder (None)
+I00038,MISSING,email,R00310,email empty/placeholder (None)
+I00039,MISSING,email,R00314,email empty/placeholder (None)
+I00040,MISSING,email,R00316,email empty/placeholder (None)
+I00041,MISSING,email,R00324,email empty/placeholder (None)
+I00042,MISSING,birth_year,R00325,birth_year empty/placeholder ('unknown')
+I00043,MISSING,email,R00325,email empty/placeholder (None)
+I00044,MISSING,birth_year,R00331,birth_year empty/placeholder ('')
+I00045,MISSING,city,R00345,city empty/placeholder ('N/A')
+I00046,MISSING,country,R00354,country empty/placeholder ('N/A')
+I00047,TYPO,name,R00024,name 'Priya Marainez'
+I00048,TYPO,name,R00028,name 'Richard Garia'
+I00049,TYPO,name,R00037,name 'Rbert Williams'
+I00050,TYPO,name,R00050,name 'Roberrt Jones'
+I00051,TYPO,name,R00052,name 'Srah Johnson'
+I00052,TYPO,name,R00054,name 'Richhard Moore'
+I00053,TYPO,name,R00060,name 'Pryia Taylor'
+I00054,TYPO,name,R00084,name 'Lnda Rodriguez'
+I00055,TYPO,name,R00096,name 'Elizabeht Martinez'
+I00056,TYPO,name,R00112,name 'Aethony Anderson'
+I00057,TYPO,name,R00129,name 'Thmoas Miller'
+I00058,TYPO,name,R00214,name 'Sraah Davis'
+I00059,TYPO,name,R00219,name 'Richord Taylor'
+I00060,TYPO,name,R00235,name 'Rchard Rodriguez'
+I00061,TYPO,name,R00249,name 'Micheal Martinez'
+I00062,TYPO,name,R00262,name 'Jennnifer Wilson'
+I00063,TYPO,name,R00263,"name 'Miller, Joesph'"
+I00064,TYPO,name,R00269,name 'Elizabeeth Taylor'
+I00065,TYPO,name,R00275,name 'John Smtih'
+I00066,TYPO,name,R00287,name 'Priyya Martinez'
+I00067,TYPO,name,R00289,name 'Davod Williams'
+I00068,TYPO,name,R00294,name 'Davd Kumar'
+I00069,TYPO,name,R00298,name 'Dniel Thomas'
+I00070,TYPO,name,R00318,name 'Jessia Johnson'
+I00071,TYPO,city,R00000,city='Cicago' ~ 'Chicago'
+I00072,TYPO,city,R00049,city='Tooronto' ~ 'Toronto'
+I00073,TYPO,city,R00092,city='Mumbi' ~ 'Mumbai'
+I00074,TYPO,city,R00094,city='Lyyon' ~ 'Lyon'
+I00075,TYPO,city,R00104,city='Cheanai' ~ 'Chennai'
+I00076,TYPO,city,R00138,city='Chcago' ~ 'Chicago'
+I00077,TYPO,city,R00181,city='Chenani' ~ 'Chennai'
+I00078,TYPO,city,R00240,city='Tronto' ~ 'Toronto'
+I00079,MISSING,country,R00354,"country null, derivable from city=Berlin"
+I00080,CONTRADICTION,country,R00071,city=Boston but country=India (majority USA)
+I00081,MISSING,country,R00278,"country null, derivable from city=Boston"
+I00082,CONTRADICTION,country,R00105,city=Chennai but country=Spain (majority India)
+I00083,MISSING,country,R00267,"country null, derivable from city=Lyon"
+I00084,CONTRADICTION,country,R00259,city=Madrid but country=USA (majority Spain)
+I00085,MISSING,country,R00269,"country null, derivable from city=Madrid"
+I00086,CONTRADICTION,country,R00022,city=Mumbai but country=Germany (majority India)
+I00087,CONTRADICTION,country,R00295,city=Mumbai but country=USA (majority India)
+I00088,CONTRADICTION,country,R00310,city=Mumbai but country=Germany (majority India)
+I00089,CONTRADICTION,country,R00253,city=Toronto but country=USA (majority Canada)
+I00090,CONTRADICTION,birth_year,R00002,birth_year 1977 vs email richard.taylor76@mail.com
+I00091,MISSING,email,R00007,"email null, derivable from name+year template"
+I00092,MISSING,email,R00010,"email null, derivable from name+year template"
+I00093,MISSING,email,R00021,"email null, derivable from name+year template"
+I00094,CONTRADICTION,birth_year,R00045,birth_year 1952 vs email david.williams50@mail.com
+I00095,CONTRADICTION,birth_year,R00057,birth_year 1942 vs email michael.moore43@mail.com
+I00096,MISSING,email,R00068,"email null, derivable from name+year template"
+I00097,CONTRADICTION,birth_year,R00077,birth_year 1959 vs email richard.moore54@mail.com
+I00098,MISSING,email,R00084,"email null, derivable from name+year template"
+I00099,MISSING,email,R00098,"email null, derivable from name+year template"
+I00100,CONTRADICTION,birth_year,R00116,birth_year 1966 vs email joseph.miller61@mail.com
+I00101,MISSING,email,R00142,"email null, derivable from name+year template"
+I00102,CONTRADICTION,birth_year,R00143,birth_year 1950 vs email arjun.davis48@mail.com
+I00103,CONTRADICTION,birth_year,R00172,birth_year 1971 vs email joseph.garcia69@mail.com
+I00104,CONTRADICTION,birth_year,R00192,birth_year 1970 vs email joseph.johnson73@mail.com
+I00105,MISSING,email,R00197,"email null, derivable from name+year template"
+I00106,MISSING,email,R00205,"email null, derivable from name+year template"
+I00107,CONTRADICTION,birth_year,R00206,birth_year 1996 vs email jennifer.garcia97@mail.com
+I00108,MISSING,birth_year,R00209,"birth_year null, derivable from email"
+I00109,MISSING,email,R00214,"email null, derivable from name+year template"
+I00110,MISSING,email,R00219,"email null, derivable from name+year template"
+I00111,MISSING,email,R00227,"email null, derivable from name+year template"
+I00112,MISSING,email,R00229,"email null, derivable from name+year template"
+I00113,CONTRADICTION,birth_year,R00233,birth_year 1985 vs email joseph.miller84@mail.com
+I00114,CONTRADICTION,birth_year,R00234,birth_year 1973 vs email william.garcia76@mail.com
+I00115,MISSING,email,R00235,"email null, derivable from name+year template"
+I00116,CONTRADICTION,birth_year,R00236,birth_year 1940 vs email jessica.miller41@mail.com
+I00117,MISSING,email,R00249,"email null, derivable from name+year template"
+I00118,CONTRADICTION,birth_year,R00254,birth_year 2003 vs email susan.anderson98@mail.com
+I00119,MISSING,email,R00255,"email null, derivable from name+year template"
+I00120,MISSING,email,R00263,"email null, derivable from name+year template"
+I00121,CONTRADICTION,birth_year,R00269,birth_year 1988 vs email elizabeth.taylor83@mail.com
+I00122,MISSING,email,R00274,"email null, derivable from name+year template"
+I00123,CONTRADICTION,birth_year,R00280,birth_year 1981 vs email linda.miller82@mail.com
+I00124,MISSING,email,R00287,"email null, derivable from name+year template"
+I00125,MISSING,email,R00298,"email null, derivable from name+year template"
+I00126,MISSING,email,R00301,"email null, derivable from name+year template"
+I00127,CONTRADICTION,birth_year,R00306,birth_year 1972 vs email thomas.garcia70@mail.com
+I00128,MISSING,email,R00314,"email null, derivable from name+year template"
+I00129,MISSING,email,R00324,"email null, derivable from name+year template"
+I00130,MISSING,birth_year,R00331,"birth_year null, derivable from email"
+I00131,CONTRADICTION,birth_year,R00354,birth_year 1985 vs email jessica.williams88@mail.com
+I00132,DUPLICATE,,"R00004,R00021",2 records are one entity
+I00133,DUPLICATE,,"R00006,R00235",2 records are one entity
+I00134,DUPLICATE,,"R00007,R00222",2 records are one entity
+I00135,DUPLICATE,,"R00009,R00010",2 records are one entity
+I00136,DUPLICATE,,"R00011,R00071",2 records are one entity
+I00137,DUPLICATE,,"R00013,R00205",2 records are one entity
+I00138,DUPLICATE,,"R00016,R00099",2 records are one entity
+I00139,DUPLICATE,,"R00017,R00084",2 records are one entity
+I00140,DUPLICATE,,"R00018,R00108",2 records are one entity
+I00141,DUPLICATE,,"R00019,R00142",2 records are one entity
+I00142,CONTRADICTION,email,"R00019,R00142","email: {'john.smith51@mail.com': 1, 'joon.smith51@mail.com': 1}"
+I00143,DUPLICATE,,"R00020,R00112",2 records are one entity
+I00144,DUPLICATE,,"R00024,R00287",2 records are one entity
+I00145,DUPLICATE,,"R00026,R00090",2 records are one entity
+I00146,DUPLICATE,,"R00029,R00310",2 records are one entity
+I00147,DUPLICATE,,"R00031,R00161",2 records are one entity
+I00148,DUPLICATE,,"R00035,R00227",2 records are one entity
+I00149,CONTRADICTION,birth_year,"R00035,R00227","birth_year: {'1977': 1, '1976': 1}"
+I00150,CONTRADICTION,email,"R00035,R00227","email: {'jennifer.anderson77@mail.com': 1, 'jennifer.anderson76@mail.com': 1}"
+I00151,DUPLICATE,,"R00037,R00351",2 records are one entity
+I00152,DUPLICATE,,"R00042,R00052",2 records are one entity
+I00153,DUPLICATE,,"R00044,R00283",2 records are one entity
+I00154,DUPLICATE,,"R00045,R00289",2 records are one entity
+I00155,DUPLICATE,,"R00050,R00331",2 records are one entity
+I00156,DUPLICATE,,"R00054,R00077",2 records are one entity
+I00157,DUPLICATE,,"R00055,R00083",2 records are one entity
+I00158,DUPLICATE,,"R00058,R00085",2 records are one entity
+I00159,DUPLICATE,,"R00060,R00131",2 records are one entity
+I00160,DUPLICATE,,"R00064,R00229",2 records are one entity
+I00161,DUPLICATE,,"R00066,R00298",2 records are one entity
+I00162,DUPLICATE,,"R00069,R00144",2 records are one entity
+I00163,DUPLICATE,,"R00070,R00197",2 records are one entity
+I00164,DUPLICATE,,"R00081,R00098",2 records are one entity
+I00165,DUPLICATE,,"R00082,R00171",2 records are one entity
+I00166,DUPLICATE,,"R00087,R00101",2 records are one entity
+I00167,DUPLICATE,,"R00103,R00231",2 records are one entity
+I00168,DUPLICATE,,"R00104,R00109",2 records are one entity
+I00169,DUPLICATE,,"R00116,R00263",2 records are one entity
+I00170,DUPLICATE,,"R00118,R00353",2 records are one entity
+I00171,DUPLICATE,,"R00129,R00322",2 records are one entity
+I00172,DUPLICATE,,"R00170,R00317",2 records are one entity
+I00173,CONTRADICTION,birth_year,"R00170,R00317","birth_year: {'1991': 1, '1994': 1}"
+I00174,DUPLICATE,,"R00188,R00207",2 records are one entity
+I00175,DUPLICATE,,"R00191,R00335",2 records are one entity
+I00176,DUPLICATE,,"R00195,R00275",2 records are one entity
+I00177,DUPLICATE,,"R00201,R00301",2 records are one entity
+I00178,CONTRADICTION,email,"R00201,R00301","email: {'lisa.moore89@mail.com': 1, 'liaa.moore89@mail.com': 1}"
+I00179,DUPLICATE,,"R00204,R00214",2 records are one entity
+I00180,DUPLICATE,,"R00219,R00267",2 records are one entity
+I00181,DUPLICATE,,"R00221,R00352",2 records are one entity
+I00182,DUPLICATE,,"R00237,R00318",2 records are one entity
+I00183,DUPLICATE,,"R00240,R00314",2 records are one entity
+I00184,DUPLICATE,,"R00241,R00316",2 records are one entity
+I00185,DUPLICATE,,"R00248,R00286",2 records are one entity
+I00186,DUPLICATE,,"R00249,R00264",2 records are one entity
+I00187,DUPLICATE,,"R00268,R00270",2 records are one entity
+I00188,DUPLICATE,,"R00269,R00350",2 records are one entity
+I00189,DUPLICATE,,"R00272,R00313",2 records are one entity
+I00190,DUPLICATE,,"R00274,R00339",2 records are one entity
+I00191,BROKEN_REF,,"R00093,R98578",friend_of points to unknown record
+I00192,BROKEN_REF,,"R00118,R95691",friend_of points to unknown record
+I00193,BROKEN_REF,,"R00273,R98291",friend_of points to unknown record
+I00194,BROKEN_REF,,"R00280,R98972",friend_of points to unknown record
+I00195,BROKEN_REF,,"R00032,R98954",friend_of points to unknown record
+I00196,BROKEN_REF,,"R00273,R92490",friend_of points to unknown record
