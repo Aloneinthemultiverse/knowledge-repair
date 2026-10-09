@@ -1,5 +1,6 @@
 import { useEffect, useState, type FormEvent } from 'react'
 import { api, type AskResult, type Side, type Summary } from '../api'
+import { AiSentence } from './AiSentence'
 import { Retrieval } from './Retrieval'
 import { ErrorNote, Panel, Section } from './ui'
 
@@ -12,8 +13,8 @@ const SAMPLE_QUESTIONS = [
   'In which year did Richard Feynman receive the Nobel Prize in Physics?',
 ]
 
-function Answer({ side, title, tone, onTrace }: {
-  side: Side; title: string; tone: 'before' | 'after'; onTrace: (id: string) => void
+function Answer({ side, title, tone, onTrace, run, question }: {
+  side: Side; title: string; tone: 'before' | 'after'; onTrace: (id: string) => void; run: string; question: string
 }) {
   const border = tone === 'after' ? 'border-accent/50' : 'border-rule'
   return (
@@ -40,6 +41,7 @@ function Answer({ side, title, tone, onTrace }: {
           )}
         </>
       )}
+      {!side.not_found && <AiSentence run={run} question={question} side={tone} />}
       {side.retrieval && <Retrieval r={side.retrieval} chosen={side.record_id} />}
     </Panel>
   )
@@ -90,7 +92,7 @@ export function Ask({ s, onTrace }: { s: Summary; onTrace: (id: string) => void 
 
   return (
     <Section title="Ask the knowledge base"
-      hint="The same turbovec retriever (4-bit quantized vectors fused with BM25 keywords) answers from the corrupted and from the repaired knowledge base. Answers are read from the retrieved record, never generated, so any difference comes from the repair.">
+      hint="The same turbovec retriever (4-bit quantized vectors fused with BM25 keywords) answers from the corrupted and from the repaired knowledge base. The value is read from the retrieved record; a free LLM then phrases it, and its sentence is kept only if it states that same value. Any difference between the two sides comes from the repair.">
       <form onSubmit={submit} className="flex flex-wrap gap-2">
         <label htmlFor="q" className="sr-only">Question</label>
         <input id="q" value={question} onChange={e => setQuestion(e.target.value)}
@@ -114,8 +116,8 @@ export function Ask({ s, onTrace }: { s: Summary; onTrace: (id: string) => void 
           <p className="text-sm text-mute">Asked for: <span className="text-ink">{result.asked_for}</span>
             {fixed && <span className="ml-2 font-medium text-ok">The repair changed this answer.</span>}</p>
           <div className="grid gap-3 md:grid-cols-2">
-            <Answer side={result.before} title="Corrupted knowledge base" tone="before" onTrace={onTrace} />
-            <Answer side={result.after} title="Repaired knowledge base" tone="after" onTrace={onTrace} />
+            <Answer side={result.before} title="Corrupted knowledge base" tone="before" onTrace={onTrace} run={s.id} question={result.question} />
+            <Answer side={result.after} title="Repaired knowledge base" tone="after" onTrace={onTrace} run={s.id} question={result.question} />
           </div>
         </div>
       )}

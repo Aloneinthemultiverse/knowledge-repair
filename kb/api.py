@@ -28,6 +28,7 @@ from pydantic import BaseModel
 from .__main__ import TABLES
 from .ask_demo import ask as retrieve, person_docs
 from .dq import dq
+from .llm import available as llm_available, grounded_sentence
 from .repair import KBRepairer
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -250,7 +251,31 @@ def ask(rid: str, body: Ask):
         out[side] = {"answer": ans, "record_id": top[0], "record": by[top[0]]["text"],
                      "name": f["name"], "conflicting": conflict, "not_found": False, "retrieval": retrieval,
                      "alternatives": [{"id": c, "name": by[c]["fields"]["name"]} for c in top[1:]]}
+    r.setdefault("asked", {})[q] = out
     return out
+
+
+class Explain(BaseModel):
+    question: str
+    side: str
+
+
+@app.post("/api/runs/{rid}/explain")
+def explain(rid: str, body: Explain):
+    """One grounded sentence for one side of the last /ask, from an OpenRouter free model."""
+    r = _run(rid)
+    res = r.get("asked", {}).get(body.question)
+    if not res or body.side not in ("before", "after"):
+        raise HTTPException(400, "Ask the question first.")
+    side = res[body.side]
+    if side.get("not_found"):
+        return {"sentence": None, "model": None, "status": "rejected", "note": "No matching person to describe."}
+    return grounded_sentence(body.question, side.get("record"), side.get("answer"))
+
+
+@app.get("/api/llm")
+def llm_status():
+    return {"available": llm_available()}
 
 
 @app.get("/api/runs/{rid}/download/{name}")

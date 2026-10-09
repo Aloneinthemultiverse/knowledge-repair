@@ -24,6 +24,7 @@ export type Retrieval = {
   engine: string; vectors: number; index_kb: number; float32_kb: number; query_ms: number
   hits: { id: string; name: string; rank: number; vector_score: number | null }[]
 }
+export type Explanation = { sentence: string | null; model: string | null; status: 'ok' | 'rejected' | 'unavailable' | 'error'; note: string | null }
 export type AskResult = { question: string; asked_for: string; before: Side; after: Side }
 export type Trace = {
   table: string; entity_id: string; columns: string[]
@@ -58,6 +59,10 @@ export const api = {
   ask: (id: string, question: string) => call<AskResult>(`/api/runs/${id}/ask`, {
     method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ question }),
   }),
+  explain: (id: string, question: string, side: 'before' | 'after') => call<Explanation>(`/api/runs/${id}/explain`, {
+    method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ question, side }),
+  }),
+  llm: () => call<{ available: boolean }>('/api/llm'),
   downloadUrl: (id: string, name: string) => `/api/runs/${id}/download/${name}`,
 }
 
