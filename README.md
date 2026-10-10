@@ -28,7 +28,7 @@ Full details and sources: [benchmark report](out_repair/benchmark_report.html).
 ```bash
 pip install -r requirements.txt
 python -m kb bench --seeds 7            # real KB -> inject errors -> repair -> score (writes out_kb_bench/)
-python -m kb run out_kb_bench/seed7 --out out_kb   # or point it at your own 4 CSVs
+python -m kb run sample_input --out out_kb   # or point it at your own 4 CSVs
 python -m kb.api                        # web app at http://127.0.0.1:8766 (build once: cd kb-ui && npm install && npm run build)
 python -m pytest tests/test_kb.py       # 9 tests
 ```

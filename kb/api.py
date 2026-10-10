@@ -32,7 +32,7 @@ from .llm import available as llm_available, grounded_sentence
 from .repair import KBRepairer
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SAMPLE = os.path.join(ROOT, "out_kb_bench", "seed7")
+SAMPLE = os.path.join(ROOT, "sample_input")
 REQUIRED = {"people": ["person_id", "name", "birth_date", "death_date", "gender", "birth_place_id", "death_place_id"],
             "places": ["place_id", "name", "country"], "events": ["event_id", "name", "prize", "year", "place_id"],
             "relationships": ["src", "rel", "dst", "year"]}
@@ -77,7 +77,7 @@ def _run(rid):
 
 @app.post("/api/runs/sample")
 def run_sample():
-    kb = {t: _frame(open(os.path.join(SAMPLE, f"dirty_{t}.csv"), "rb").read()) for t in TABLES}
+    kb = {t: _frame(open(os.path.join(SAMPLE, f"{t}.csv"), "rb").read()) for t in TABLES}
     return summary(_start(kb, "Sample: corrupted Nobel laureate KB (Wikidata)"))
 
 

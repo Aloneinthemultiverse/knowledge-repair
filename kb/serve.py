@@ -18,7 +18,7 @@ REQUIRED = {"people": ["person_id", "name", "birth_date", "death_date", "gender"
             "places": ["place_id", "name", "country"], "events": ["event_id", "name", "prize", "year", "place_id"],
             "relationships": ["src", "rel", "dst", "year"]}
 RUNS = os.path.join(tempfile.gettempdir(), "kb_runs")
-SAMPLE = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "out_kb_bench", "seed7")
+SAMPLE = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "sample_input")
 
 PAGE = """<!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1"><title>Knowledge Repair</title>
@@ -96,7 +96,7 @@ async def repair(people: UploadFile = File(...), places: UploadFile = File(...),
 
 @app.post("/repair-sample")
 def repair_sample():
-    kb = {t: _frame(open(os.path.join(SAMPLE, f"dirty_{t}.csv"), "rb").read()) for t in TABLES}
+    kb = {t: _frame(open(os.path.join(SAMPLE, f"{t}.csv"), "rb").read()) for t in TABLES}
     return _finish(kb)
 
 

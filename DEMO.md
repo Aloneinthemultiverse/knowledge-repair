@@ -9,7 +9,6 @@
 
 ```bash
 pip install -r requirements.txt fastapi uvicorn python-multipart rapidfuzz jellyfish recordlinkage
-python -m kb bench --seeds 7          # creates the sample corrupted KB in out_kb_bench/seed7
 python -m kb.serve                    # http://127.0.0.1:8765
 ```
 
