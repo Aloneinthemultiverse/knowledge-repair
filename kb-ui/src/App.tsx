@@ -3,11 +3,13 @@ import type { Summary } from './api'
 import { Ask } from './components/Ask'
 import { Changes } from './components/Changes'
 import { KineticGrid } from './components/magicui/kinetic-grid'
+import { LiveEdit } from './components/LiveEdit'
+import { Simulation } from './components/Simulation'
 import { Overview } from './components/Overview'
 import { Start } from './components/Start'
 import { Trace } from './components/Trace'
 
-const TABS = [['overview', 'Overview'], ['ask', 'Ask the AI'], ['changes', 'Changes'], ['trace', 'Trace']] as const
+const TABS = [['overview', 'Overview'], ['simulate', 'Simulation'], ['live', 'Live edit'], ['ask', 'Ask the AI'], ['changes', 'Changes'], ['trace', 'Trace']] as const
 type Tab = typeof TABS[number][0]
 
 function Logo() {
@@ -65,6 +67,8 @@ export default function App() {
             {tab === 'ask' && <Ask s={run} onTrace={trace} />}
             {tab === 'changes' && <Changes s={run} onTrace={trace} />}
             {tab === 'trace' && <Trace s={run} target={target} />}
+            {tab === 'simulate' && <Simulation s={run} />}
+            {tab === 'live' && <LiveEdit s={run} onSummary={setRun} onTrace={trace} />}
           </main>
         )}
       </div>

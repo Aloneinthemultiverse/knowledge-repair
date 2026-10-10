@@ -63,7 +63,8 @@ def _frame(raw):
 def _start(kb, label):
     rep = KBRepairer(kb).run()
     rid = uuid.uuid4().hex[:8]
-    RUNS[rid] = {"kb": kb, "rep": rep, "fixed": rep.output(), "label": label, "stores": {}}
+    RUNS[rid] = {"kb": kb, "rep": rep, "fixed": rep.output(), "label": label, "stores": {},
+                 "orig": {t: df.copy() for t, df in kb.items()}, "sample": label.startswith("Sample")}
     threading.Thread(target=_stores, args=(RUNS[rid],), daemon=True).start()   # warm /ask in the background
     return rid
 
@@ -186,22 +187,48 @@ def intent(q):
     return "summary", "record"
 
 
+def _build_stores(kb, fixed):
+    tmp = tempfile.mkdtemp(prefix="kbask_")
+    from .ask_demo import store
+    out = {}
+    for side, data in (("before", kb), ("after", fixed)):
+        docs = person_docs(data)
+        d = os.path.join(tmp, side)
+        st = store(docs, d)
+        size = lambda f: os.path.getsize(os.path.join(d, f)) if os.path.exists(os.path.join(d, f)) else 0
+        meta = json.load(open(os.path.join(d, "index_meta.json")))
+        out[side] = (st, {x["id"]: x for x in docs},
+                     {"engine": meta["engine"], "vectors": meta["count"],
+                      "index_kb": round(size("turbovec.idx") / 1024, 1),
+                      "float32_kb": round(size("vectors.npy") / 1024, 1)})
+    return out
+
+
 def _stores(r):
     with LOCK:
         if not r["stores"]:
-            tmp = tempfile.mkdtemp(prefix="kbask_")
-            from .ask_demo import store
-            for side, kb in (("before", r["kb"]), ("after", r["fixed"])):
-                docs = person_docs(kb)
-                d = os.path.join(tmp, side)
-                st = store(docs, d)
-                size = lambda f: os.path.getsize(os.path.join(d, f)) if os.path.exists(os.path.join(d, f)) else 0
-                meta = json.load(open(os.path.join(d, "index_meta.json")))
-                r["stores"][side] = (st, {x["id"]: x for x in docs},
-                                     {"engine": meta["engine"], "vectors": meta["count"],
-                                      "index_kb": round(size("turbovec.idx") / 1024, 1),
-                                      "float32_kb": round(size("vectors.npy") / 1024, 1)})
+            r["stores"].update(_build_stores(r["kb"], r["fixed"]))
     return r["stores"]
+
+
+def _refresh_after_edit(r):
+    """Edits show up at once: each indexed record's fields are swapped for the edited ones.
+    The vectors are rebuilt in the background (new or renamed records become searchable)."""
+    if r["stores"]:
+        for side, data in (("before", r["kb"]), ("after", r["fixed"])):
+            st, by, info = r["stores"][side]
+            by.clear()
+            by.update({x["id"]: x for x in person_docs(data)})
+    r["index_version"] = r.get("index_version", 0) + 1
+    version = r["index_version"]
+
+    def rebuild():
+        fresh = _build_stores(r["kb"], r["fixed"])
+        if r.get("index_version") == version:          # a newer edit supersedes this rebuild
+            r["stores"].update(fresh)
+            r["index_stale"] = False
+    r["index_stale"] = True
+    threading.Thread(target=rebuild, daemon=True).start()
 
 
 @app.post("/api/runs/{rid}/ask")
@@ -214,7 +241,7 @@ def ask(rid: str, body: Ask):
     out = {"question": q, "asked_for": label}
     for side, (st, by, info) in _stores(r).items():
         t0 = time.perf_counter()
-        cand = retrieve(st, q, k=25)
+        cand = [c for c in retrieve(st, q, k=25) if c in by]
         ms = round((time.perf_counter() - t0) * 1000, 1)
         vec = dict(st.vector_search(q, 25))
         qt = set(re.findall(r"[\w'-]+", q.lower()))
@@ -276,6 +303,118 @@ def explain(rid: str, body: Explain):
 @app.get("/api/llm")
 def llm_status():
     return {"available": llm_available()}
+
+
+# ----------------------------------------------------------------- live editing
+class Edit(BaseModel):
+    changes: dict
+
+
+def _rerun(r):
+    r["rep"] = KBRepairer(r["kb"]).run()
+    r["fixed"] = r["rep"].output()
+    r.pop("dq", None)
+    r.pop("asked", None)
+    _refresh_after_edit(r)
+
+
+def _focus(rid, r, table, record_id, prev_actions):
+    """What the repair now says about the edited record."""
+    rep = r["rep"]
+    cid = rep.canon.get(table, {}).get(record_id, record_id)
+    srcs = set((r["fixed"][table].set_index(IDC[table]).loc[cid].get("source_records") or cid).split(","))
+    mine = [a for a in rep.actions if srcs & set(a["records"].split(",")) or cid in a["records"].split(",")]
+    key = lambda a: (a["kind"], a["records"], str(a["col"]), str(a["before"]), str(a["after"]))
+    old = {key(a) for a in prev_actions}
+    return {"summary": summary(rid), "trace": trace(rid, record_id),
+            "actions": [{**a, "before": str(a["before"]) if isinstance(a["before"], dict) else a["before"],
+                         "new": key(a) not in old} for a in mine]}
+
+
+@app.get("/api/runs/{rid}/records")
+def records(rid: str, q: str = "", limit: int = 30):
+    r = _run(rid)
+    P = r["kb"]["people"]
+    ql = q.lower().strip()
+    rows = P[P.name.fillna("").str.lower().str.contains(re.escape(ql))] if ql else P
+    places = dict(zip(r["kb"]["places"].place_id, r["kb"]["places"].name))
+    return {"total": len(rows),
+            "places": [{"id": k, "name": v} for k, v in sorted(places.items(), key=lambda x: str(x[1]))],
+            "rows": _rows(rows.head(limit))}
+
+
+@app.patch("/api/runs/{rid}/records/{table}/{record_id}")
+def edit(rid: str, table: str, record_id: str, body: Edit):
+    from .live import edit_record
+    r = _run(rid)
+    prev = list(r["rep"].actions)
+    try:
+        before = edit_record(r["kb"], table, record_id, body.changes)
+    except (KeyError, ValueError) as e:
+        raise HTTPException(400, str(e).strip("'"))
+    t0 = time.perf_counter()
+    _rerun(r)
+    out = _focus(rid, r, table, record_id, prev)
+    out.update({"edited": {"table": table, "record_id": record_id, "before": before, "after": body.changes},
+                "repair_ms": round((time.perf_counter() - t0) * 1000)})
+    return out
+
+
+@app.post("/api/runs/{rid}/records/people/{record_id}/duplicate")
+def duplicate(rid: str, record_id: str):
+    from .live import add_duplicate
+    r = _run(rid)
+    prev = list(r["rep"].actions)
+    try:
+        new_id, name = add_duplicate(r["kb"], record_id, seed=len(r["kb"]["people"]))
+    except KeyError as e:
+        raise HTTPException(400, str(e).strip("'"))
+    t0 = time.perf_counter()
+    _rerun(r)
+    out = _focus(rid, r, "people", new_id, prev)
+    out.update({"edited": {"table": "people", "record_id": new_id, "before": {}, "after": {"name": name},
+                           "duplicate_of": record_id}, "repair_ms": round((time.perf_counter() - t0) * 1000)})
+    return out
+
+
+@app.post("/api/runs/{rid}/reset")
+def reset(rid: str):
+    r = _run(rid)
+    r["kb"] = {t: df.copy() for t, df in r["orig"].items()}
+    _rerun(r)
+    return summary(rid)
+
+
+@app.get("/api/runs/{rid}/index")
+def index_status(rid: str):
+    r = _run(rid)
+    return {"ready": len(r["stores"]) == 2, "stale": bool(r.get("index_stale"))}
+
+
+# ----------------------------------------------------------------- playback
+@app.get("/api/runs/{rid}/timeline")
+def timeline(rid: str):
+    from .live import stage_timeline
+    r = _run(rid)
+    if "timeline" not in r or r.get("timeline_version") != r.get("index_version"):
+        r["timeline"] = stage_timeline(r["kb"])
+        r["timeline_version"] = r.get("index_version")
+    corruption = None
+    log_path = os.path.join(SAMPLE, "injected_errors.csv")
+    if r["sample"] and os.path.exists(log_path):
+        from .load import load
+        log = pd.read_csv(log_path, dtype=str, keep_default_na=False)
+        names = dict(zip(r["orig"]["people"].person_id, r["orig"]["people"].name))
+        names.update(zip(r["orig"]["places"].place_id, r["orig"]["places"].name))
+        names.update(zip(r["orig"]["events"].event_id, r["orig"]["events"].name))
+        table = {"XP": "people", "XL": "places", "XE": "events", "XR": "relationships"}
+        if "clean_quality" not in RUNS:
+            RUNS["clean_quality"] = dq(load())["DQ"]
+        corruption = {"clean_quality": RUNS["clean_quality"],
+                      "errors": [{"table": table.get(e["table"], e["table"]), "kind": e["kind"], "id": e["id"],
+                                  "name": names.get(e["id"], e["id"]), "col": e["col"] or None,
+                                  "old": e["old"] or None, "new": e["new"] or None} for e in log.to_dict("records")]}
+    return {"corruption": corruption, "repair": r["timeline"]}
 
 
 @app.get("/api/runs/{rid}/download/{name}")

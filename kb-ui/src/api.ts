@@ -25,6 +25,16 @@ export type Retrieval = {
   hits: { id: string; name: string; rank: number; vector_score: number | null }[]
 }
 export type Explanation = { sentence: string | null; model: string | null; status: 'ok' | 'rejected' | 'unavailable' | 'error'; note: string | null }
+export type Person = { person_id: string; name: string | null; birth_date: string | null; death_date: string | null; gender: string | null; birth_place_id: string | null; death_place_id: string | null }
+export type EditResult = {
+  summary: Summary; trace: Trace; actions: (Action & { new: boolean })[]; repair_ms: number
+  edited: { table: string; record_id: string; before: Record<string, unknown>; after: Record<string, unknown>; duplicate_of?: string }
+}
+export type Stage = { stage: string; label: string; what?: string; quality: number; actions: Action[] }
+export type Timeline = {
+  corruption: null | { clean_quality: number; errors: { table: string; kind: string; id: string; name: string; col: string | null; old: string | null; new: string | null }[] }
+  repair: Stage[]
+}
 export type AskResult = { question: string; asked_for: string; before: Side; after: Side }
 export type Trace = {
   table: string; entity_id: string; columns: string[]
@@ -63,6 +73,14 @@ export const api = {
     method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ question, side }),
   }),
   llm: () => call<{ available: boolean }>('/api/llm'),
+  records: (id: string, q: string) => call<{ total: number; rows: Person[]; places: { id: string; name: string }[] }>(`/api/runs/${id}/records?q=${encodeURIComponent(q)}`),
+  edit: (id: string, table: string, rid: string, changes: Record<string, string | null>) => call<EditResult>(`/api/runs/${id}/records/${table}/${encodeURIComponent(rid)}`, {
+    method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ changes }),
+  }),
+  duplicate: (id: string, rid: string) => call<EditResult>(`/api/runs/${id}/records/people/${encodeURIComponent(rid)}/duplicate`, { method: 'POST' }),
+  reset: (id: string) => call<Summary>(`/api/runs/${id}/reset`, { method: 'POST' }),
+  index: (id: string) => call<{ ready: boolean; stale: boolean }>(`/api/runs/${id}/index`),
+  timeline: (id: string) => call<Timeline>(`/api/runs/${id}/timeline`),
   downloadUrl: (id: string, name: string) => `/api/runs/${id}/download/${name}`,
 }
 
